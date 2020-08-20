@@ -1,8 +1,8 @@
 import baretest from "baretest";
 import * as assert from "assert";
 import { Cli } from "../cli";
-import { Suite } from "../suite";
-import { NullLogger } from "../logger";
+import { Suite } from "../lib/suite";
+import { NullLogger } from "../lib/logger";
 import { promisify } from "util";
 import os from "os";
 import path from "path";

@@ -1,6 +1,6 @@
 import { Logger } from "./logger";
 import { ResultSet } from "./result-set";
-import { SrcDetector } from "./src-detector";
+import { SrcDetector } from "../rules/src-detector";
 import ts from "typescript";
 import fs from "fs";
 import path from "path";

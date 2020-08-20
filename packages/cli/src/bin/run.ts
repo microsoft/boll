@@ -1,6 +1,6 @@
 import { Cli } from "../cli";
-import { Suite } from "../suite";
-import { DefaultLogger } from "../logger";
+import { Suite } from "../lib/suite";
+import { DefaultLogger } from "../lib/logger";
 
 const suite = new Suite();
 const cli = new Cli(DefaultLogger, suite);

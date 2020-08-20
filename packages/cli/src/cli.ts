@@ -1,6 +1,6 @@
 import { ArgumentParser } from "argparse";
-import { Suite } from "./suite";
-import { Logger } from "./logger";
+import { Suite } from "./lib/suite";
+import { Logger } from "./lib/logger";
 import { ConfigGenerator } from "./config-generator";
 
 const parser = new ArgumentParser({ description: "@boll/cli" });

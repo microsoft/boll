@@ -1,4 +1,4 @@
-import { Result } from "./result-set";
+import { Result } from "../lib/result-set";
 import { SourceFile, SyntaxKind, isImportDeclaration } from "typescript";
 
 /**

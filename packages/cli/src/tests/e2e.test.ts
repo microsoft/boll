@@ -1,7 +1,7 @@
 import baretest from "baretest";
 import * as assert from "assert";
-import { Suite } from "../suite";
-import { NullLogger } from "../logger";
+import { Suite } from "../lib/suite";
+import { NullLogger } from "../lib/logger";
 import { inFixtureDir } from "./test-helper";
 export const test = baretest("e2e");
 
