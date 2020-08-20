@@ -1,9 +1,18 @@
 import baretest from "baretest";
 import * as assert from "assert";
-const test = baretest("Source detector");
+import { SrcDetector, ResultStatus } from "./src-detector";
+export const test = baretest("Source detector");
 
-test("Should pass if no `src` detected in source files", async () => {
-  assert.equal(1, 2);
+test("Should pass if no `src` detected in imports", async () => {
+  const importPaths = ["a", "b/c/d/e/f"];
+  const sut = new SrcDetector();
+  const result = sut.check(importPaths);
+  assert.equal(ResultStatus.success, result.status);
 });
 
-test.run();
+test("Should fail if `src` detected in imports", async () => {
+  const importPaths = ["a/src/b", "b/c/d/e/f"];
+  const sut = new SrcDetector();
+  const result = sut.check(importPaths);
+  assert.equal(ResultStatus.failure, result.status);
+});

@@ -27,6 +27,7 @@
     "url": "https://github.com/jdhuntington/boll/issues"
   },
   "devDependencies": {
+    "@types/argparse": "^1.0.38",
     "@types/baretest": "^2.0.0",
     "baretest": "^2.0.0",
     "prettier": "^2.0.5",
@@ -34,6 +35,6 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "argparse": "^2.0.0"
+    "argparse": "^1.0.10"
   }
 }
