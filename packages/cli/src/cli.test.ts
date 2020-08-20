@@ -2,28 +2,34 @@ import baretest from "baretest";
 import * as assert from "assert";
 import { Cli } from "./cli";
 import { Suite } from "./suite";
+import { NullLogger } from "./logger";
+import { promisify } from "util";
+import os from "os";
+import path from "path";
+import { exists } from "fs";
+import { inTmpDir } from "./test-helper";
+const existsAsync = promisify(exists);
+
 export const test = baretest("CLI");
 
-const logger = (msg: string) => {};
 const suite = new Suite();
 
-/* handled by argparse, difficult to test as well.
-test("should display help message when invoked with --help", () => {
-  let printed = "nothing printed";
-  const helpLogger = (msg: string) => {
-    printed = msg;
-  };
-  const sut = new Cli(helpLogger, suite);
-  sut.run(["--help"]);
-  assert.notEqual(printed, "nothing printed");
-});
-*/
-
-test("should run lint suite when invoked with `run`", () => {
+test("should run lint suite when invoked with `run`", async () => {
   const lintSuite = new Suite();
-  const sut = new Cli(logger, lintSuite);
-  sut.run(["run"]);
+  const sut = new Cli(NullLogger, lintSuite);
+  await sut.run(["run"]);
   assert.equal(true, lintSuite.hasRun);
 });
 
-test("should create example config file when invoked with `init`", () => {});
+test("should create example config file when invoked with `init`", async () => {
+  await inTmpDir(async () => {
+    const configExistsPrecondition = await existsAsync("boll.config.js");
+    assert.equal(false, configExistsPrecondition);
+
+    const sut = new Cli(NullLogger, suite);
+    await sut.run(["init"]);
+
+    const configExistsExpected = await existsAsync(".boll.config.js");
+    assert.equal(true, configExistsExpected);
+  });
+});

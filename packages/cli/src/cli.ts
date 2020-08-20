@@ -1,5 +1,7 @@
 import { ArgumentParser } from "argparse";
 import { Suite } from "./suite";
+import { Logger } from "./logger";
+import { ConfigGenerator } from "./config-generator";
 
 const parser = new ArgumentParser({ description: "@boll/cli" });
 const subParser = parser.addSubparsers({
@@ -7,18 +9,21 @@ const subParser = parser.addSubparsers({
   dest: "command",
 });
 const runParser = subParser.addParser("run");
+const initParser = subParser.addParser("init");
 
-type Logger = (msg: string) => void;
 type ParsedCommand = {
-  command: "run";
+  command: "run" | "init";
 };
 export class Cli {
   constructor(private logger: Logger, private suite: Suite) {}
 
-  run(args: string[]): void {
+  async run(args: string[]): Promise<void> {
     const parsedCommand: ParsedCommand = parser.parseArgs(args);
     if (parsedCommand.command === "run") {
-      this.suite.run(this.logger);
+      await this.suite.run(this.logger);
+    }
+    if (parsedCommand.command === "init") {
+      await ConfigGenerator.run();
     }
   }
 }
