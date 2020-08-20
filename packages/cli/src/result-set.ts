@@ -1,8 +1,10 @@
 export class Result {
-  constructor(public status: ResultStatus) {}
+  filename: string = "";
 
-  static fail(): Result {
-    const result = new Result(ResultStatus.failure);
+  constructor(public status: ResultStatus, public text: string = "") {}
+
+  static fail(text: string = ""): Result {
+    const result = new Result(ResultStatus.failure, text);
     return result;
   }
 
@@ -17,5 +19,10 @@ export enum ResultStatus {
 }
 
 export class ResultSet {
-  errors: Result[] = [Result.fail()];
+  add(results: Result) {
+    if (results.status === ResultStatus.failure) {
+      this.errors.push(results);
+    }
+  }
+  errors: Result[] = [];
 }

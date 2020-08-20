@@ -1,4 +1,5 @@
 import { Result } from "./result-set";
+import { SourceFile, SyntaxKind, isImportDeclaration } from "typescript";
 
 /**
  * SrcDetector will detect usages of `src` in
@@ -10,10 +11,24 @@ import { Result } from "./result-set";
  * sources.
  */
 export class SrcDetector {
-  check(importPaths: string[]): Result {
+  check(sourceFile: SourceFile): Result {
+    return this.checkImportPaths(this.getImportPaths(sourceFile));
+  }
+
+  checkImportPaths(importPaths: string[]) {
     if (importPaths.some((i) => i.toLowerCase().includes("/src/"))) {
-      return Result.fail();
+      return Result.fail(importPaths.join(", "));
     }
     return Result.succeed();
+  }
+
+  getImportPaths(sourceFile: SourceFile): string[] {
+    const importPaths: string[] = [];
+    sourceFile.forEachChild((n) => {
+      if (isImportDeclaration(n)) {
+        importPaths.push(n.moduleSpecifier.getText());
+      }
+    });
+    return importPaths;
   }
 }
