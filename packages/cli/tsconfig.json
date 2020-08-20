@@ -5,9 +5,10 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
+
     "skipLibCheck": true,
     "strict": true,
     "target": "es5"
-  }
+  },
+  "include": ["./src/**/*"]
 }

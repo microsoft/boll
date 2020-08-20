@@ -1,6 +1,6 @@
 import baretest from "baretest";
 import * as assert from "assert";
-import { SrcDetector, ResultStatus } from "./src-detector";
+import { SrcDetector, ResultStatus } from "../src-detector";
 export const test = baretest("Source detector");
 
 test("Should pass if no `src` detected in imports", async () => {
