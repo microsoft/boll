@@ -1,3 +1,5 @@
+import { Result } from "./result-set";
+
 /**
  * SrcDetector will detect usages of `src` in
  * import statements of typescript source files.
@@ -14,22 +16,4 @@ export class SrcDetector {
     }
     return Result.succeed();
   }
-}
-
-class Result {
-  constructor(public status: ResultStatus) {}
-
-  static fail(): Result {
-    const result = new Result(ResultStatus.failure);
-    return result;
-  }
-
-  static succeed(): Result {
-    const result = new Result(ResultStatus.success);
-    return result;
-  }
-}
-export enum ResultStatus {
-  success,
-  failure,
 }
