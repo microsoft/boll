@@ -19,10 +19,13 @@ export enum ResultStatus {
 }
 
 export class ResultSet {
-  add(results: Result) {
-    if (results.status === ResultStatus.failure) {
-      this.errors.push(results);
-    }
-  }
   errors: Result[] = [];
+
+  add(results: Result[]) {
+    results.forEach((result) => {
+      if (result.status === ResultStatus.failure) {
+        this.errors.push(result);
+      }
+    });
+  }
 }

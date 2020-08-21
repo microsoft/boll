@@ -1,12 +1,15 @@
 type MessagePrinter = (msg: string) => void;
 export class Logger {
   constructor(
-    private info: MessagePrinter,
-    private warn: MessagePrinter,
-    private error: MessagePrinter
+    private logPrinter: MessagePrinter,
+    private warnPrinter: MessagePrinter,
+    private errorPrinter: MessagePrinter
   ) {}
   log(msg: string) {
-    this.info(msg);
+    this.logPrinter(msg);
+  }
+  error(msg: string) {
+    this.errorPrinter(msg);
   }
 }
 

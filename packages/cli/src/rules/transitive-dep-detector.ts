@@ -1,5 +1,10 @@
 import { Result } from "../lib/result-set";
-import { SourceFile, SyntaxKind, isImportDeclaration } from "typescript";
+import {
+  SourceFile,
+  isImportDeclaration,
+  ImportDeclaration,
+  isStringLiteral,
+} from "typescript";
 import { FileContext } from "../lib/file-context";
 import { DependencyMap } from "../lib/package";
 
@@ -22,12 +27,16 @@ export class TransitiveDependencyDetector {
       .filter((i) => !this.isValidImport(file.packageDependencies, i))
       .map((i) =>
         Result.fail(
-          `"${i} is a module import, but not correctly listed as a dependency."`
+          `"${i}" is a module import, but not correctly listed as a dependency.`
         )
       );
   }
   isValidImport(packageDependencies: DependencyMap, importPath: string): any {
-    throw new Error("Method not implemented.");
+    const validImports = Object.keys(packageDependencies);
+    return validImports.some(
+      (moduleName) =>
+        importPath === moduleName || importPath.startsWith(`${moduleName}/`)
+    );
   }
 
   checkImportPaths(importPaths: string[]) {
@@ -41,12 +50,20 @@ export class TransitiveDependencyDetector {
     const importPaths: string[] = [];
     sourceFile.forEachChild((n) => {
       if (isImportDeclaration(n)) {
-        const path = n.moduleSpecifier.getText();
+        const path = this.getPathFromNode(n);
         if (!path.startsWith(".")) {
           importPaths.push(path);
         }
       }
     });
     return importPaths;
+  }
+
+  private getPathFromNode(n: ImportDeclaration) {
+    if (isStringLiteral(n.moduleSpecifier)) {
+      const moduleSpecifier = n.moduleSpecifier.getText();
+      return moduleSpecifier.slice(1, moduleSpecifier.length - 1);
+    }
+    throw new Error(`Don't know how to parse import statement ${n.getText()}`);
   }
 }
