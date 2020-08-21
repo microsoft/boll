@@ -21,6 +21,10 @@ export enum ResultStatus {
 export class ResultSet {
   errors: Result[] = [];
 
+  get hasErrors(): boolean {
+    return this.errors.length > 0;
+  }
+
   add(results: Result[]) {
     results.forEach((result) => {
       if (result.status === ResultStatus.failure) {

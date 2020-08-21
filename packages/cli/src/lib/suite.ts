@@ -40,7 +40,7 @@ export class Suite {
     const resultSet = new ResultSet();
     const rules = [new SrcDetector(), new TransitiveDependencyDetector()];
     const packageContext = await this.loadPackage(logger);
-    const sourceFilePaths = await globAsync("./**/*.ts");
+    const sourceFilePaths = await globAsync("./{,!(node_modules)/**}/*.ts");
     const sourceFiles = await Promise.all(
       sourceFilePaths.map((filename) => getSourceFile(filename, packageContext))
     );

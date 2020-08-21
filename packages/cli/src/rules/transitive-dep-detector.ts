@@ -27,7 +27,7 @@ export class TransitiveDependencyDetector {
       .filter((i) => !this.isValidImport(file.packageDependencies, i))
       .map((i) =>
         Result.fail(
-          `"${i}" is a module import, but not correctly listed as a dependency.`
+          `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
         )
       );
   }
