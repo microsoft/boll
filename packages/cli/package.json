@@ -1,31 +1,16 @@
 {
-  "name": "@boll/cli",
-  "version": "0.0.1",
-  "description": "> TODO: description",
   "author": "JD Huntington <jdh@microsoft.com>",
-  "homepage": "https://github.com/jdhuntington/boll#readme",
-  "license": "ISC",
-  "main": "lib/cli.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jdhuntington/boll.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+  "bin": {
+    "boll": "./bin/boll.js"
   },
   "bugs": {
     "url": "https://github.com/jdhuntington/boll/issues"
   },
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "glob": "^7.1.6"
+  },
+  "description": "> TODO: description",
   "devDependencies": {
     "@types/argparse": "^1.0.38",
     "@types/baretest": "^2.0.0",
@@ -35,8 +20,21 @@
     "ts-node-dev": "^1.0.0-pre.58",
     "typescript": "^3.9.7"
   },
-  "dependencies": {
-    "argparse": "^1.0.10",
-    "glob": "^7.1.6"
-  }
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
+  "homepage": "https://github.com/jdhuntington/boll#readme",
+  "license": "unlicensed",
+  "main": "dist/cli.js",
+  "name": "@boll/cli",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdhuntington/boll.git"
+  },
+  "version": "0.0.1"
 }
