@@ -14,6 +14,13 @@ test("should catch an error in project-a", async () => {
   });
 });
 
+test("should catch an error in project-b", async () => {
+  await inFixtureDir("project-b", async () => {
+    const result = await suite.run(NullLogger);
+    assert.equal(1, result.errors.length);
+  });
+});
+
 test("should find no issues with clean-project", async () => {
   await inFixtureDir("clean", async () => {
     const result = await suite.run(NullLogger);
