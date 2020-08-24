@@ -1,7 +1,7 @@
-import { promisify } from "util";
 import os from "os";
 import path from "path";
 import { mkdtemp } from "fs";
+import { promisify } from "util";
 const mkdtempAsync = promisify(mkdtemp);
 
 export const inTmpDir = async (cb: () => Promise<void>) => {

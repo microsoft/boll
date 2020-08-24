@@ -1,13 +1,11 @@
-import baretest from "baretest";
 import * as assert from "assert";
-import { Cli } from "../cli";
-import { Suite } from "../lib/suite";
-import { NullLogger } from "../lib/logger";
-import { promisify } from "util";
-import os from "os";
-import path from "path";
-import { exists } from "fs";
+import baretest from "baretest";
 import { inTmpDir } from "./test-helper";
+import { Cli } from "../cli";
+import { NullLogger } from "../lib/logger";
+import { Suite } from "../lib/suite";
+import { exists } from "fs";
+import { promisify } from "util";
 const existsAsync = promisify(exists);
 
 export const test = baretest("CLI");

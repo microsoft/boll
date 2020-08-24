@@ -1,3 +1,6 @@
+import { DependencyMap } from "../lib/package";
+import { FileContext } from "../lib/file-context";
+import { PackageRule } from "../lib/package-rule";
 import { Result } from "../lib/result-set";
 import {
   SourceFile,
@@ -5,8 +8,6 @@ import {
   ImportDeclaration,
   isStringLiteral,
 } from "typescript";
-import { FileContext } from "../lib/file-context";
-import { DependencyMap } from "../lib/package";
 
 /**
  * TransitiveDependencyDetector will detect usages of non direct dependencies
@@ -20,7 +21,7 @@ import { DependencyMap } from "../lib/package";
  * This rule catches instances of this chain in typescript source
  * files.
  */
-export class TransitiveDependencyDetector {
+export class TransitiveDependencyDetector implements PackageRule {
   check(file: FileContext): Result[] {
     const imports = this.getModuleImports(file.source);
     return imports

@@ -1,6 +1,7 @@
-import { Result } from "../lib/result-set";
-import { SourceFile, SyntaxKind, isImportDeclaration } from "typescript";
 import { FileContext } from "../lib/file-context";
+import { PackageRule } from "../lib/package-rule";
+import { Result } from "../lib/result-set";
+import { isImportDeclaration, SourceFile } from "typescript";
 
 /**
  * SrcDetector will detect usages of `src` in
@@ -11,7 +12,7 @@ import { FileContext } from "../lib/file-context";
  * in a project rather than being consumed from compiled
  * sources.
  */
-export class SrcDetector {
+export class SrcDetector implements PackageRule {
   check(fileContext: FileContext): Result[] {
     return [this.checkImportPaths(this.getImportPaths(fileContext.source))];
   }

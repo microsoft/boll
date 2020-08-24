@@ -1,8 +1,8 @@
-import baretest from "baretest";
 import * as assert from "assert";
-import { Suite } from "../lib/suite";
-import { NullLogger } from "../lib/logger";
+import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
+import { NullLogger } from "../lib/logger";
+import { Suite } from "../lib/suite";
 export const test = baretest("e2e");
 
 const suite = new Suite();
@@ -16,6 +16,13 @@ test("should catch an error in project-a", async () => {
 
 test("should catch an error in project-b", async () => {
   await inFixtureDir("project-b", async () => {
+    const result = await suite.run(NullLogger);
+    assert.equal(1, result.errors.length);
+  });
+});
+
+test("should catch an error in project-c", async () => {
+  await inFixtureDir("project-c", async () => {
     const result = await suite.run(NullLogger);
     assert.equal(1, result.errors.length);
   });
