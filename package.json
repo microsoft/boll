@@ -9,7 +9,8 @@
   "private": true,
   "repository": "https://github.com/jdhuntington/boll.git",
   "scripts": {
-    "build": "lerna run build --stream"
+    "build": "lerna run build --stream",
+    "test": "lerna run test --stream"
   },
   "version": "1.0.0",
   "workspaces": {
