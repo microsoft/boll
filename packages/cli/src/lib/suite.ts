@@ -40,6 +40,8 @@ async function getSourceFile(
 export class Suite {
   private _hasRun = false;
 
+  public checks: PackageRule[] = [];
+
   get hasRun(): boolean {
     return this._hasRun;
   }
