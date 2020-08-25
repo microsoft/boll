@@ -2,11 +2,9 @@ import { Suite } from "./suite";
 
 export class Config {
   buildSuite(): Suite {
-    throw new Error("Method not implemented.");
+    return new Suite();
   }
-  load(def: ConfigDefinition) {
-    throw new Error("Method not implemented.");
-  }
+  load(def: ConfigDefinition) {}
 }
 
 export interface CheckConfiguration {

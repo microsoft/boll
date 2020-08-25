@@ -40,7 +40,11 @@ async function getSourceFile(
 export class Suite {
   private _hasRun = false;
 
-  public checks: PackageRule[] = [];
+  public checks: PackageRule[] = [
+    new SrcDetector(),
+    new TransitiveDependencyDetector(),
+    new CrossPackageDependencyDetector(),
+  ];
 
   get hasRun(): boolean {
     return this._hasRun;
@@ -50,11 +54,6 @@ export class Suite {
     this._hasRun = true;
 
     const resultSet = new ResultSet();
-    const rules: PackageRule[] = [
-      new SrcDetector(),
-      new TransitiveDependencyDetector(),
-      new CrossPackageDependencyDetector(),
-    ];
     const packageContext = await this.loadPackage(logger);
     const sourceFilePaths = await globAsync("./{,!(node_modules)/**}/*.ts");
     const projectRoot = asBollDirectory(process.cwd());
@@ -64,7 +63,7 @@ export class Suite {
       )
     );
 
-    rules.forEach((r) => {
+    this.checks.forEach((r) => {
       sourceFiles.forEach((s) => {
         const results = r.check(s);
         resultSet.add(results);
