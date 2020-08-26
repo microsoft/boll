@@ -2,13 +2,13 @@
   "name": "@boll/cli",
   "version": "0.0.7",
   "description": "> TODO: description",
-  "homepage": "https://github.com/jdhuntington/boll#readme",
+  "homepage": "https://github.com/microsoft/boll#readme",
   "bugs": {
-    "url": "https://github.com/jdhuntington/boll/issues"
+    "url": "https://github.com/microsoft/boll/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jdhuntington/boll.git"
+    "url": "git+https://github.com/microsoft/boll.git"
   },
   "license": "unlicensed",
   "author": "JD Huntington <jdh@microsoft.com>",
