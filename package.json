@@ -12,9 +12,9 @@
   "scripts": {
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
-    "change": "beachball change",
-    "checkchange": "beachball check",
-    "release": "beachball publish"
+    "change": "beachball change -b origin/main",
+    "checkchange": "beachball check -b origin/main",
+    "release": "beachball publish -b origin/main"
   },
   "version": "1.0.0",
   "workspaces": {
