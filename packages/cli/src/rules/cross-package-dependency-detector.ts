@@ -4,12 +4,7 @@ import { BollFile } from "../lib/boll-file";
 import { FileContext } from "../lib/file-context";
 import { PackageRule } from "../lib/types";
 import { Result } from "../lib/result-set";
-import {
-  SourceFile,
-  isImportDeclaration,
-  ImportDeclaration,
-  isStringLiteral,
-} from "typescript";
+import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } from "typescript";
 
 /**
  * CrossPackageDependencyDetector will detect usages of files
@@ -39,20 +34,12 @@ export class CrossPackageDependencyDetector implements PackageRule {
     return importPaths;
   }
 
-  checkImportPaths(
-    packageRoot: BollDirectory,
-    sourceFilePath: BollFile,
-    importPaths: string[]
-  ): Result[] {
+  checkImportPaths(packageRoot: BollDirectory, sourceFilePath: BollFile, importPaths: string[]): Result[] {
     const resultSet: Result[] = [];
     importPaths.forEach((i) => {
       const resolvedPath = path.resolve(path.dirname(sourceFilePath), i);
-      if (!resolvedPath.startsWith(packageRoot + "/")) {
-        resultSet.push(
-          Result.fail(
-            `${sourceFilePath} imports ${resolvedPath}, which spans a package boundary.`
-          )
-        );
+      if (!resolvedPath.startsWith(packageRoot + path.sep)) {
+        resultSet.push(Result.fail(`${sourceFilePath} imports ${resolvedPath}, which spans a package boundary.`));
       }
     });
     if (resultSet.length > 0) {

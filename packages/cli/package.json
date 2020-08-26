@@ -36,5 +36,9 @@
     "type": "git",
     "url": "git+https://github.com/jdhuntington/boll.git"
   },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "node dist/tests/all.test.js"
+  },
   "version": "0.0.6"
 }
