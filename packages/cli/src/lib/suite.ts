@@ -3,7 +3,7 @@ import glob from "glob";
 import path from "path";
 import { Logger } from "./logger";
 import { Package } from "./package";
-import { PackageRule } from "./package-rule";
+import { PackageRule } from "./types";
 import { ResultSet } from "./result-set";
 import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
 import { SrcDetector } from "../rules/src-detector";
@@ -19,6 +19,14 @@ const globAsync = promisify(glob);
 export class Suite {
   private _hasRun = false;
 
+  public checks: PackageRule[] = [
+    new SrcDetector(),
+    new TransitiveDependencyDetector(),
+    new CrossPackageDependencyDetector(),
+    new RedundantImportsDetector(),
+    new NodeModulesReferenceDetector(),
+  ];
+
   get hasRun(): boolean {
     return this._hasRun;
   }
@@ -27,13 +35,6 @@ export class Suite {
     this._hasRun = true;
 
     const resultSet = new ResultSet();
-    const rules: PackageRule[] = [
-      new SrcDetector(),
-      new TransitiveDependencyDetector(),
-      new CrossPackageDependencyDetector(),
-      new RedundantImportsDetector(),
-      new NodeModulesReferenceDetector(),
-    ];
     const packageContext = await this.loadPackage(logger);
     const sourceFilePaths = await globAsync("./{,!(node_modules)/**}/*.ts");
     const projectRoot = asBollDirectory(process.cwd());
@@ -41,7 +42,7 @@ export class Suite {
       sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext))
     );
 
-    rules.forEach((r) => {
+    this.checks.forEach((r) => {
       sourceFiles.forEach((s) => {
         const results = r.check(s);
         resultSet.add(results);

@@ -1,5 +1,5 @@
 import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/package-rule";
+import { PackageRule } from "../lib/types";
 import { Result } from "../lib/result-set";
 import { isImportDeclaration, SourceFile } from "typescript";
 
