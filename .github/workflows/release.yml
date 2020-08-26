@@ -30,6 +30,6 @@ jobs:
       - run: |
           git config user.email "kchau@microsoft.com"
           git config user.name "Ken Chau"
-      - run: yarn release -y -n $NPM_AUTHTOKEN -b origin/main
+      - run: yarn release -y -n $NPM_AUTHTOKEN
         env:
           NPM_AUTHTOKEN: ${{ secrets.npm_authtoken }}
