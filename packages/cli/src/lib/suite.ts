@@ -1,10 +1,6 @@
 import fs from "fs";
 import glob from "glob";
 import path from "path";
-import ts from "typescript";
-import { asBollDirectory, BollDirectory } from "./boll-directory";
-import { asBollFile } from "./boll-file";
-import { FileContext } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
 import { PackageRule } from "./types";
@@ -13,29 +9,12 @@ import { CrossPackageDependencyDetector } from "../rules/cross-package-dependenc
 import { SrcDetector } from "../rules/src-detector";
 import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
 import { promisify } from "util";
+import { asBollDirectory } from "./boll-directory";
+import { getSourceFile } from "./file-context";
+import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
+import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
 const readFileAsync = promisify(fs.readFile);
 const globAsync = promisify(glob);
-
-async function getSourceFile(
-  projectRoot: BollDirectory,
-  filename: string,
-  packageContext: Package
-): Promise<FileContext> {
-  const normalizedFile = path.normalize(filename).replace(/\\/g, "/");
-  const content = await readFileAsync(normalizedFile);
-  const source = ts.createSourceFile(
-    normalizedFile,
-    content.toString("utf8"),
-    ts.ScriptTarget.ES5,
-    true
-  );
-  return new FileContext(
-    projectRoot,
-    packageContext,
-    asBollFile(filename),
-    source
-  );
-}
 
 export class Suite {
   private _hasRun = false;
@@ -44,6 +23,8 @@ export class Suite {
     new SrcDetector(),
     new TransitiveDependencyDetector(),
     new CrossPackageDependencyDetector(),
+    new RedundantImportsDetector(),
+    new NodeModulesReferenceDetector(),
   ];
 
   get hasRun(): boolean {
@@ -58,9 +39,7 @@ export class Suite {
     const sourceFilePaths = await globAsync("./{,!(node_modules)/**}/*.ts");
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
-      sourceFilePaths.map((filename) =>
-        getSourceFile(projectRoot, filename, packageContext)
-      )
+      sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext))
     );
 
     this.checks.forEach((r) => {
