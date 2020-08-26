@@ -1,0 +1,26 @@
+{
+  "name": "@boll/cli",
+  "entries": [
+    {
+      "date": "Wed, 26 Aug 2020 23:38:49 GMT",
+      "tag": "@boll/cli_v0.0.8",
+      "version": "0.0.8",
+      "comments": {
+        "patch": [
+          {
+            "comment": "initial release",
+            "author": "kchau@microsoft.com",
+            "commit": "bb626282453340230bbb5e4ba638b7d9a1e43317",
+            "package": "@boll/cli"
+          },
+          {
+            "comment": "fixing publish, redoing a publish",
+            "author": "kchau@microsoft.com",
+            "commit": "bb626282453340230bbb5e4ba638b7d9a1e43317",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    }
+  ]
+}
