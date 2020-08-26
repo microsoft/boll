@@ -15,3 +15,8 @@ export interface ConfigDefinition {
 export interface PackageRule {
   check(file: FileContext): Result[];
 }
+
+export enum ResultStatus {
+  success,
+  failure,
+}

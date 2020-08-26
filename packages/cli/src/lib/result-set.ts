@@ -1,21 +1,34 @@
-export class Result {
-  filename: string = "";
+import { BollFile } from "./boll-file";
+import { BollLineNumber } from "./boll-line-number";
+import { ResultStatus } from "./types";
 
-  constructor(public status: ResultStatus, public text: string = "") {}
+export interface Result {
+  formattedMessage: string;
+  status: ResultStatus;
+}
 
-  static fail(text: string = ""): Result {
-    const result = new Result(ResultStatus.failure, text);
-    return result;
+export class Success implements Result {
+  constructor(public ruleName: string) {}
+
+  get status(): ResultStatus {
+    return ResultStatus.success;
   }
 
-  static succeed(): Result {
-    const result = new Result(ResultStatus.success);
-    return result;
+  get formattedMessage(): string {
+    return `[${this.ruleName}] Succeeded`;
   }
 }
-export enum ResultStatus {
-  success,
-  failure,
+
+export class Failure {
+  constructor(public ruleName: string, public filename: BollFile, public line: BollLineNumber, public text: string) {}
+
+  get status(): ResultStatus {
+    return ResultStatus.failure;
+  }
+
+  get formattedMessage(): string {
+    return `[${this.ruleName}] ${this.filename}:${this.line} ${this.text}`;
+  }
 }
 
 export class ResultSet {

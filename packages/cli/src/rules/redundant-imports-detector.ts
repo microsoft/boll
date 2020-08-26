@@ -1,7 +1,9 @@
 import { FileContext } from "../lib/file-context";
 import { PackageRule } from "../lib/types";
-import { Result } from "../lib/result-set";
+import { Result, Success, Failure } from "../lib/result-set";
 import { isImportDeclaration, SourceFile } from "typescript";
+import { BollFile } from "../lib/boll-file";
+import { asBollLineNumber } from "../lib/boll-line-number";
 
 /**
  * RedundantImportsDetector will detect imports
@@ -11,18 +13,29 @@ import { isImportDeclaration, SourceFile } from "typescript";
  * Imports from the same location should be done in the
  * same import statement.
  */
+const ruleName = "RedundantImportsDetector";
 export class RedundantImportsDetector implements PackageRule {
   _importLocationSet: Set<string> = new Set();
 
   check(fileContext: FileContext): Result[] {
-    return [this.checkImportPaths(this.getImportPaths(fileContext.source))];
+    return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 
-  checkImportPaths(importPaths: string[]) {
-    if (importPaths.some((i) => (this._importLocationSet.has(i) ? true : (this._importLocationSet.add(i), false)))) {
-      return Result.fail(importPaths.join(", "));
+  checkImportPaths(fileName: BollFile, importPaths: string[]): Result[] {
+    const results = importPaths
+      .filter((i) => (this._importLocationSet.has(i) ? true : (this._importLocationSet.add(i), false)))
+      .map((i) => {
+        return new Failure(
+          ruleName,
+          fileName,
+          asBollLineNumber(0),
+          "Already used as an import source; please combine import statements"
+        );
+      });
+    if (results.length > 0) {
+      return results;
     }
-    return Result.succeed();
+    return [new Success(ruleName)];
   }
 
   getImportPaths(sourceFile: SourceFile): string[] {

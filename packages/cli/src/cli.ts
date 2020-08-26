@@ -39,7 +39,7 @@ export class Cli {
       const suite = await this.buildSuite();
       const result = await suite.run(this.logger);
       result.errors.forEach((e) => {
-        this.logger.error(e.text);
+        this.logger.error(e.formattedMessage);
       });
       if (result.hasErrors) {
         return Status.Error;

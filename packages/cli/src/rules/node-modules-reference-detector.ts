@@ -1,7 +1,9 @@
 import { FileContext } from "../lib/file-context";
 import { PackageRule } from "../lib/types";
-import { Result } from "../lib/result-set";
-import { isImportDeclaration, SourceFile } from "typescript";
+import { Result, Success, Failure } from "../lib/result-set";
+import { SourceFile } from "typescript";
+import { BollFile } from "../lib/boll-file";
+import { asBollLineNumber } from "../lib/boll-line-number";
 
 const MULTI_LINE_COMMENT_REGEXP = /\/\*(.|\n|\r)*\*\//g;
 const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
@@ -13,19 +15,25 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  * Imports should only be done from packages explicitly
  * declared in package.json.
  */
+const ruleName = "NodeModulesReferenceDetector";
 export class NodeModulesReferenceDetector implements PackageRule {
   check(fileContext: FileContext): Result[] {
-    return this.checkParsedSourceLines(this.getParsedSourceLines(fileContext.source));
+    return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }
 
-  checkParsedSourceLines(parsedSourceLines: string[]): Result[] {
+  checkParsedSourceLines(fileName: BollFile, parsedSourceLines: string[]): Result[] {
     const results: Result[] = [];
     parsedSourceLines.forEach(
       (l) =>
-        l.includes("node_modules") && results.push(Result.fail(`Explicit reference to "node_modules" directory: ${l}`))
+        l.includes("node_modules") &&
+        results.push(
+          new Failure(ruleName, fileName, asBollLineNumber(0), `Explicit reference to "node_modules" directory: ${l}`)
+        )
     );
-    !results.length && results.push(Result.succeed());
-    return results;
+    if (results.length > 0) {
+      return results;
+    }
+    return [new Success(ruleName)];
   }
 
   getParsedSourceLines(sourceFile: SourceFile): string[] {

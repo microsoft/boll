@@ -1,13 +1,9 @@
 import { DependencyMap } from "../lib/package";
 import { FileContext } from "../lib/file-context";
 import { PackageRule } from "../lib/types";
-import { Result } from "../lib/result-set";
-import {
-  SourceFile,
-  isImportDeclaration,
-  ImportDeclaration,
-  isStringLiteral,
-} from "typescript";
+import { Result, Success, Failure } from "../lib/result-set";
+import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } from "typescript";
+import { asBollLineNumber } from "../lib/boll-line-number";
 
 /**
  * TransitiveDependencyDetector will detect usages of non direct dependencies
@@ -21,30 +17,25 @@ import {
  * This rule catches instances of this chain in typescript source
  * files.
  */
+const ruleName = "TransitiveDependencyDetector";
 export class TransitiveDependencyDetector implements PackageRule {
   check(file: FileContext): Result[] {
     const imports = this.getModuleImports(file.source);
     return imports
       .filter((i) => !this.isValidImport(file.packageDependencies, i))
-      .map((i) =>
-        Result.fail(
-          `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
-        )
+      .map(
+        (i) =>
+          new Failure(
+            ruleName,
+            file.filename,
+            asBollLineNumber(0),
+            `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
+          )
       );
   }
   isValidImport(packageDependencies: DependencyMap, importPath: string): any {
     const validImports = Object.keys(packageDependencies);
-    return validImports.some(
-      (moduleName) =>
-        importPath === moduleName || importPath.startsWith(`${moduleName}/`)
-    );
-  }
-
-  checkImportPaths(importPaths: string[]) {
-    if (importPaths.some((i) => i.toLowerCase().includes("/src/"))) {
-      return Result.fail(importPaths.join(", "));
-    }
-    return Result.succeed();
+    return validImports.some((moduleName) => importPath === moduleName || importPath.startsWith(`${moduleName}/`));
   }
 
   getModuleImports(sourceFile: SourceFile): string[] {

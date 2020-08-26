@@ -3,8 +3,9 @@ import { BollDirectory } from "../lib/boll-directory";
 import { BollFile } from "../lib/boll-file";
 import { FileContext } from "../lib/file-context";
 import { PackageRule } from "../lib/types";
-import { Result } from "../lib/result-set";
-import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } from "typescript";
+import { Result, Success, Failure } from "../lib/result-set";
+import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
+import { asBollLineNumber } from "../lib/boll-line-number";
 
 /**
  * CrossPackageDependencyDetector will detect usages of files
@@ -15,6 +16,8 @@ import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } f
  * referenced through their package name.
  * (eg `import { Foo } from "@company/package"` instead of `import Foo from '../../the-package/foo'`)
  */
+
+const ruleName = "CrossPackageDependencyDetector";
 export class CrossPackageDependencyDetector implements PackageRule {
   check(file: FileContext): Result[] {
     const imports = this.getFileImports(file.source);
@@ -35,17 +38,23 @@ export class CrossPackageDependencyDetector implements PackageRule {
   }
 
   checkImportPaths(packageRoot: BollDirectory, sourceFilePath: BollFile, importPaths: string[]): Result[] {
-    const resultSet: Result[] = [];
+    const results: Result[] = [];
     importPaths.forEach((i) => {
       const resolvedPath = path.resolve(path.dirname(sourceFilePath), i);
       if (!resolvedPath.startsWith(packageRoot + path.sep)) {
-        resultSet.push(Result.fail(`${sourceFilePath} imports ${resolvedPath}, which spans a package boundary.`));
+        const result = new Failure(
+          ruleName,
+          sourceFilePath,
+          asBollLineNumber(0),
+          `Imports ${resolvedPath}, which spans a package boundary.`
+        );
+        results.push(result);
       }
     });
-    if (resultSet.length > 0) {
-      return resultSet;
+    if (results.length > 0) {
+      return results;
     }
-    return [Result.succeed()];
+    return [new Success(ruleName)];
   }
 
   private getPathFromNode(n: ImportDeclaration) {
