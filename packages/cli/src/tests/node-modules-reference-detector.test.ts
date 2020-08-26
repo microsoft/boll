@@ -1,11 +1,11 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import path from "path";
-import { ResultStatus } from "../lib/result-set";
-import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
-import { getSourceFile } from "../lib/file-context";
 import { asBollDirectory } from "../lib/boll-directory";
+import { getSourceFile } from "../lib/file-context";
+import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
 import { Package } from "../lib/package";
+import { ResultStatus } from "../lib/types";
 export const test = baretest("Node modules reference detector");
 
 const TEST_FILE_DIR = path.join(__dirname, "..", "..", "fixtures", "unit-test-files");
