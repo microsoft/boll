@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 27 Aug 2020 17:59:09 GMT",
+      "tag": "@boll/cli_v0.0.9",
+      "version": "0.0.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "More rules, better globbing, 20% less fat.",
+            "author": "jdh@microsoft.com",
+            "commit": "ab9b0b062d6b38d0fb6f61d3a43d780f840051a7",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 26 Aug 2020 23:38:49 GMT",
       "tag": "@boll/cli_v0.0.8",
       "version": "0.0.8",
