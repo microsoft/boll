@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 27 Aug 2020 20:56:52 GMT",
+      "tag": "@boll/cli_v0.0.10",
+      "version": "0.0.10",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Export library accessible entrypoint.",
+            "author": "jdh@microsoft.com",
+            "commit": "21360a05528d7b4e2b17e608d4a0e5e89bdd448b",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Aug 2020 17:59:09 GMT",
       "tag": "@boll/cli_v0.0.9",
       "version": "0.0.9",
