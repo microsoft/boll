@@ -9,6 +9,7 @@ import { Suite } from "./lib/suite";
 import { ArgumentParser } from "argparse";
 import { promisify } from "util";
 import { resolve } from "path";
+import { configFileName } from "./lib/constants";
 const fileExistsAsync = promisify(fs.exists);
 
 const parser = new ArgumentParser({ description: "@boll/cli" });
@@ -16,8 +17,8 @@ const subParser = parser.addSubparsers({
   description: "commands",
   dest: "command",
 });
-const runParser = subParser.addParser("run");
-const initParser = subParser.addParser("init");
+subParser.addParser("run");
+subParser.addParser("init");
 
 type ParsedCommand = {
   command: "run" | "init";
@@ -29,8 +30,6 @@ export enum Status {
 }
 
 export class Cli {
-  private readonly configFileName = ".boll.config.js";
-
   constructor(private logger: Logger) {}
 
   async run(args: string[]): Promise<Status> {
@@ -54,12 +53,10 @@ export class Cli {
   }
 
   private async buildSuite(): Promise<Suite> {
-    const fullConfigPath = resolve(this.configFileName);
+    const fullConfigPath = resolve(configFileName);
     const exists = await fileExistsAsync(fullConfigPath);
     if (!exists) {
-      this.logger.error(
-        `Unable to find ${fullConfigPath}; consider running "init" to create example config.`
-      );
+      this.logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
     }
     bootstrapConfigurations();
     const config = new Config(ConfigRegistryInstance, RuleRegistryInstance);
