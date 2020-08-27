@@ -1,3 +1,4 @@
+import { BollFile } from "./boll-file";
 import { FileContext } from "./file-context";
 import { Result } from "./result-set";
 
@@ -19,4 +20,8 @@ export interface PackageRule {
 export enum ResultStatus {
   success,
   failure,
+}
+
+export interface FileGlob {
+  findFiles(): Promise<BollFile[]>;
 }

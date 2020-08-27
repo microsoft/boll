@@ -1,23 +1,23 @@
 import fs from "fs";
-import glob from "glob";
 import path from "path";
+import { asBollDirectory } from "./boll-directory";
+import { FileGlob, PackageRule } from "./types";
+import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
-import { PackageRule } from "./types";
 import { ResultSet } from "./result-set";
+import { TypescriptSourceGlob } from "./glob";
 import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
+import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
+import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
 import { SrcDetector } from "../rules/src-detector";
 import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
 import { promisify } from "util";
-import { asBollDirectory } from "./boll-directory";
-import { getSourceFile } from "./file-context";
-import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
-import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
 const readFileAsync = promisify(fs.readFile);
-const globAsync = promisify(glob);
 
 export class Suite {
   private _hasRun = false;
+  private fileGlob: FileGlob = new TypescriptSourceGlob();
 
   public checks: PackageRule[] = [
     new SrcDetector(),
@@ -36,7 +36,7 @@ export class Suite {
 
     const resultSet = new ResultSet();
     const packageContext = await this.loadPackage(logger);
-    const sourceFilePaths = await globAsync("./{,!(node_modules)/**}/*.ts");
+    const sourceFilePaths = await this.fileGlob.findFiles();
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
       sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext))
