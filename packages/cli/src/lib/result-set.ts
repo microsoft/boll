@@ -19,7 +19,7 @@ export class Success implements Result {
   }
 }
 
-export class Failure {
+export class Failure implements Result {
   constructor(public ruleName: string, public filename: BollFile, public line: BollLineNumber, public text: string) {}
 
   get status(): ResultStatus {
