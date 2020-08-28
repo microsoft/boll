@@ -11,6 +11,8 @@ export interface ConfigDefinition {
   name?: string;
   checks?: CheckConfiguration[];
   extends?: string;
+  exclude?: string[];
+  include?: string[];
 }
 
 export interface PackageRule {
@@ -24,4 +26,9 @@ export enum ResultStatus {
 
 export interface FileGlob {
   findFiles(): Promise<BollFile[]>;
+}
+
+export interface FileGlobOptions {
+  exclude?: string[];
+  include?: string[];
 }

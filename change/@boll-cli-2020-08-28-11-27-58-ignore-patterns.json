@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Include/exclude directives in config.",
+  "packageName": "@boll/cli",
+  "email": "jdh@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2020-08-28T18:27:58.230Z"
+}

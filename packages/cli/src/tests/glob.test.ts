@@ -28,3 +28,19 @@ test("should find .tsx source", async () => {
     );
   });
 });
+
+test("should not return files explicitly excluded", async () => {
+  await inFixtureDir("glob", async () => {
+    const glob: FileGlob = new TypescriptSourceGlob({ exclude: ["./**/b.ts"] });
+    const results = await glob.findFiles();
+    assert.deepEqual(results, [asBollFile("a/a.ts")]);
+  });
+});
+
+test("should return files explicitly included", async () => {
+  await inFixtureDir("glob", async () => {
+    const glob: FileGlob = new TypescriptSourceGlob({ include: ["./c/*"] });
+    const results = await glob.findFiles();
+    assert.deepEqual(results, [asBollFile("a/a.ts"), asBollFile("b/b.ts"), asBollFile("c/c.someextension")]);
+  });
+});

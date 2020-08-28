@@ -6,5 +6,7 @@ export const RecommendedConfig: ConfigDefinition = {
     { rule: "SrcDetector" },
     { rule: "CrossPackageDependencyDetector" },
     { rule: "TransitiveDependencyDetector" },
+    { rule: "NodeModulesReferenceDetector" },
+    { rule: "RedundantImportsDetector" },
   ],
 };

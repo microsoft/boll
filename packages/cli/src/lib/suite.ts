@@ -17,7 +17,7 @@ const readFileAsync = promisify(fs.readFile);
 
 export class Suite {
   private _hasRun = false;
-  private fileGlob: FileGlob = new TypescriptSourceGlob();
+  public fileGlob: FileGlob = new TypescriptSourceGlob();
 
   public checks: PackageRule[] = [
     new SrcDetector(),
