@@ -10,7 +10,7 @@ import { promisify } from "util";
 import { resolve } from "path";
 const fileExistsAsync = promisify(fs.exists);
 
-async function buildSuite(logger: Logger): Promise<Suite> {
+export async function buildSuite(logger: Logger): Promise<Suite> {
   const fullConfigPath = resolve(configFileName);
   const exists = await fileExistsAsync(fullConfigPath);
   if (!exists) {
