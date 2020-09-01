@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Tue, 01 Sep 2020 19:30:14 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Sep 2020 21:31:10 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.14
+
+Tue, 01 Sep 2020 21:31:10 GMT
+
+### Patches
+
+- config extending should use file globs too (jdh@microsoft.com)
 
 ## 0.0.13
 

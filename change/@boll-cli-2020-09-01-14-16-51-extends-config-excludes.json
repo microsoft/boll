@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "config extending should use file globs too",
-  "packageName": "@boll/cli",
-  "email": "jdh@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2020-09-01T21:16:51.866Z"
-}

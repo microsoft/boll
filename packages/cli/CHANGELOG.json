@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Tue, 01 Sep 2020 21:31:10 GMT",
+      "tag": "@boll/cli_v0.0.14",
+      "version": "0.0.14",
+      "comments": {
+        "patch": [
+          {
+            "comment": "config extending should use file globs too",
+            "author": "jdh@microsoft.com",
+            "commit": "44708d47fe09a14afcaef7f86adc3ddfa2a092d4",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Sep 2020 19:30:14 GMT",
       "tag": "@boll/cli_v0.0.13",
       "version": "0.0.13",
