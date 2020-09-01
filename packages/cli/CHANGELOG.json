@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Tue, 01 Sep 2020 17:48:54 GMT",
+      "tag": "@boll/cli_v0.0.12",
+      "version": "0.0.12",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Multi level inheritance for configuration.",
+            "author": "jdh@microsoft.com",
+            "commit": "7e9fae187282c79b1f23d98055fd79eab880a7d8",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 28 Aug 2020 19:06:06 GMT",
       "tag": "@boll/cli_v0.0.11",
       "version": "0.0.11",
