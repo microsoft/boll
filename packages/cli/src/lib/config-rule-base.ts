@@ -13,8 +13,6 @@ interface ConfigOptions {
   path: string;
 }
 
-type Test = keyof ConfigOptions;
-
 /**
  * Base class from which config rules should inherit. This class is responsible for
  * parsing the options provided in the rule and parsing the config file. Currently
