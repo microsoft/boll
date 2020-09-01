@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Tue, 01 Sep 2020 17:48:54 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Sep 2020 19:30:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.13
+
+Tue, 01 Sep 2020 19:30:14 GMT
+
+### Patches
+
+- Fix for redundant imports. (jdh@microsoft.com)
 
 ## 0.0.12
 

@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Tue, 01 Sep 2020 19:30:14 GMT",
+      "tag": "@boll/cli_v0.0.13",
+      "version": "0.0.13",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix for redundant imports.",
+            "author": "jdh@microsoft.com",
+            "commit": "60ccdc83c66221227571a81ad238667a7dc5d87a",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Sep 2020 17:48:54 GMT",
       "tag": "@boll/cli_v0.0.12",
       "version": "0.0.12",
