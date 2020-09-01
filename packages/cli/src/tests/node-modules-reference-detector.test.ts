@@ -8,7 +8,7 @@ import { Package } from "../lib/package";
 import { ResultStatus } from "../lib/types";
 export const test = baretest("Node modules reference detector");
 
-const TEST_FILE_DIR = path.join(__dirname, "..", "..", "fixtures", "unit-test-files");
+const TEST_FILE_DIR = path.join(__dirname, "..", "..", "fixtures", "node-modules-references");
 
 test("Should pass if no references to node_modules exist in source code", async () => {
   const sut = new NodeModulesReferenceDetector();
