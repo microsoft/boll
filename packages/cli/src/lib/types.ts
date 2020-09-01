@@ -26,6 +26,8 @@ export enum ResultStatus {
 
 export interface FileGlob {
   findFiles(): Promise<BollFile[]>;
+  exclude: string[];
+  include: string[];
 }
 
 export interface FileGlobOptions {

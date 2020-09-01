@@ -46,3 +46,12 @@ test("should allow multi-level inheritance of configs", () => {
   config.buildSuite();
   assert.ok(called, "Rule factory should have been invoked when creating suite.");
 });
+
+test("should apply exclude/include across extended config", () => {
+  const configRegistry = new ConfigRegistry();
+  configRegistry.register({ name: "base", exclude: ["testme"] });
+  const config = new Config(configRegistry, new RuleRegistry());
+  config.load({ extends: "base" });
+  const suite = config.buildSuite();
+  assert.deepEqual(suite.fileGlob.exclude, ["testme"]);
+});
