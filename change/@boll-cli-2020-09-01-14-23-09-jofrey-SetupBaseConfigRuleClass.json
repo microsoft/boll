@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add base config rule class",
-  "packageName": "@boll/cli",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-09-01T21:23:09.558Z"
-}

@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Tue, 01 Sep 2020 21:31:10 GMT and should not be manually modified.
+This log was last generated on Tue, 01 Sep 2020 21:34:00 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.15
+
+Tue, 01 Sep 2020 21:34:00 GMT
+
+### Patches
+
+- Add base config rule class (email not defined)
 
 ## 0.0.14
 

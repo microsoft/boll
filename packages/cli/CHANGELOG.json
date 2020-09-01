@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Tue, 01 Sep 2020 21:34:00 GMT",
+      "tag": "@boll/cli_v0.0.15",
+      "version": "0.0.15",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add base config rule class",
+            "author": "email not defined",
+            "commit": "79789daff3cf11d4d48a38b4a2bca9544d0971ed",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Sep 2020 21:31:10 GMT",
       "tag": "@boll/cli_v0.0.14",
       "version": "0.0.14",
