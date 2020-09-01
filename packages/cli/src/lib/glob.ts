@@ -31,4 +31,12 @@ export class TypescriptSourceGlob implements FileGlob {
 
     return paths.map(asBollFile);
   }
+
+  get include(): string[] {
+    return this.options.include || [];
+  }
+
+  get exclude(): string[] {
+    return this.options.exclude || [];
+  }
 }

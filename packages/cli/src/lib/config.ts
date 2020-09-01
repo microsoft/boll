@@ -22,9 +22,10 @@ export class Config {
   }
 
   buildFileGlob(): FileGlob {
+    const config = this.resolvedConfiguration();
     return new TypescriptSourceGlob({
-      include: this.configuration.include || [],
-      exclude: this.configuration.exclude || [],
+      include: config.include || [],
+      exclude: config.exclude || [],
     });
   }
 
