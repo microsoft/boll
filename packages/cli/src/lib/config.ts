@@ -32,10 +32,22 @@ export class Config {
     this.configuration = def;
   }
 
+  // TODO this will need a hand-crafted "deep merge" at some point
   resolvedConfiguration(): ConfigDefinition {
-    if (this.configuration.extends) {
-      return this.configRegistry.get(this.configuration.extends);
+    return {
+      ...this.resolveParentConfiguration(this.configuration.extends),
+      ...this.configuration,
+    };
+  }
+
+  resolveParentConfiguration(baseConfigName: string | null | undefined): ConfigDefinition {
+    if (!baseConfigName) {
+      return {};
     }
-    return this.configuration;
+    const baseConfig = this.configRegistry.get(baseConfigName);
+    return {
+      ...this.resolveParentConfiguration(baseConfig.extends),
+      ...baseConfig,
+    };
   }
 }
