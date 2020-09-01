@@ -10,12 +10,7 @@ test("should correctly parse JS config", async () => {
   await inFixtureDir("configs", async () => {
     const sut = new ConfigRuleBase({ path: path.resolve(process.cwd(), "./base-config.js") });
     const data = await sut._rawData;
-    assert.equal(data["foo"], "bar");
-    assert.equal(
-      true,
-      [1, 2, 3].every((v, i) => v === data["bar"][i])
-    );
-    assert.equal(data["test"]["foo"], "bar");
+    assert.deepEqual(data, { foo: "bar", test: { foo: "bar" }, bar: [1, 2, 3] });
   });
 });
 
@@ -23,12 +18,7 @@ test("should correctly parse YAML config", async () => {
   await inFixtureDir("configs", async () => {
     const sut = new ConfigRuleBase({ path: path.resolve(process.cwd(), "./base-config.yaml") });
     const data = await sut._rawData;
-    assert.equal(data["foo"], "bar");
-    assert.equal(
-      true,
-      [1, 2, 3].every((v, i) => v === data["bar"][i])
-    );
-    assert.equal(data["test"]["foo"], "bar");
+    assert.deepEqual(data, { foo: "bar", test: { foo: "bar" }, bar: [1, 2, 3] });
   });
 });
 
@@ -36,11 +26,6 @@ test("should correctly parse JSON config", async () => {
   await inFixtureDir("configs", async () => {
     const sut = new ConfigRuleBase({ path: path.resolve(process.cwd(), "./base-config.json") });
     const data = await sut._rawData;
-    assert.equal(data["foo"], "bar");
-    assert.equal(
-      true,
-      [1, 2, 3].every((v, i) => v === data["bar"][i])
-    );
-    assert.equal(data["test"]["foo"], "bar");
+    assert.deepEqual(data, { foo: "bar", test: { foo: "bar" }, bar: [1, 2, 3] });
   });
 });
