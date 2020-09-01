@@ -1,5 +1,6 @@
 import * as assert from "assert";
 import baretest from "baretest";
+import * as path from "path";
 import { asBollFile } from "../lib/boll-file";
 import { asBollLineNumber } from "../lib/boll-line-number";
 import { ResultStatus } from "../lib/types";
@@ -14,7 +15,7 @@ const assertContains = (needle: string, haystack: string) => {
 
 test("includes the name of the source file", () => {
   const sut = new Failure("ignore", asBollFile("src/foo.tsx"), asBollLineNumber(-1), "ignore");
-  assertContains("src/foo.tsx", sut.formattedMessage);
+  assertContains(path.normalize("src/foo.tsx"), sut.formattedMessage);
 });
 
 test("includes the line of the offense", () => {
@@ -35,7 +36,7 @@ test("includes descriptive text", () => {
 test("variations", () => {
   const sut = new Failure("OtherRule", asBollFile("src/bar.ts"), asBollLineNumber(1), "ignore");
   assertContains("OtherRule", sut.formattedMessage);
-  assertContains("src/bar.ts:1", sut.formattedMessage);
+  assertContains(`${path.normalize("src/bar.ts")}:1`, sut.formattedMessage);
 });
 
 test("success", () => {

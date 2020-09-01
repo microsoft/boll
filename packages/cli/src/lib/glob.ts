@@ -32,3 +32,9 @@ export class TypescriptSourceGlob implements FileGlob {
     return paths.map(asBollFile);
   }
 }
+
+export class ConfigSourceGlob implements FileGlob {
+  findFiles(): Promise<BollFile[]> {
+    throw new Error("Method not implemented.");
+  }
+}

@@ -1,4 +1,4 @@
 "use strict";
 module.exports = {
-    extends: "boll:recommended",
+  extends: "boll:recommended",
 };

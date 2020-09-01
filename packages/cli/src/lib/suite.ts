@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { FileGlob, PackageRule } from "./types";
+import { FileGlob, Rule } from "./types";
 import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
@@ -19,7 +19,7 @@ export class Suite {
   private _hasRun = false;
   public fileGlob: FileGlob = new TypescriptSourceGlob();
 
-  public checks: PackageRule[] = [
+  public checks: Rule[] = [
     new SrcDetector(),
     new TransitiveDependencyDetector(),
     new CrossPackageDependencyDetector(),
