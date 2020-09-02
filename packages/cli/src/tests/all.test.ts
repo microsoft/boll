@@ -3,6 +3,7 @@ import { test as ConfigTest } from "./config.test";
 import { test as ConfigRuleBaseTest } from "./config-rule-base.test";
 import { test as CrossPackageDepDetectorTest } from "./cross-package-dep-detector.test";
 import { test as E2ETest } from "./e2e.test";
+import { test as EslintRuleBaseTest } from "./eslint-rule-base.test";
 import { test as FormatTest } from "./format.test";
 import { test as GlobTest } from "./glob.test";
 import { test as NodeModulesReferenceDetectorTest } from "./node-modules-reference-detector.test";
@@ -15,6 +16,7 @@ async function suite() {
   await ConfigRuleBaseTest.run();
   await CrossPackageDepDetectorTest.run();
   await E2ETest.run();
+  await EslintRuleBaseTest.run();
   await FormatTest.run();
   await GlobTest.run();
   await NodeModulesReferenceDetectorTest.run();

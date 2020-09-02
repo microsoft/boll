@@ -9,8 +9,14 @@ export enum ConfigFileType {
   Json,
 }
 
-interface ConfigOptions {
-  path: string;
+// interface ConfigOptions {
+//   packageDirectories?: string[];
+//   filename?: string;
+//   path: string;
+// }
+
+export interface ConfigFiles {
+  [path: string]: { fileType: ConfigFileType; rawData: any };
 }
 
 /**
@@ -24,26 +30,30 @@ interface ConfigOptions {
  *   - *.json
  */
 export class ConfigRuleBase {
-  _path: string;
-  _fileType: ConfigFileType;
-  _rawData: any;
+  _configs: ConfigFiles;
 
-  constructor(options: any) {
-    const parsedOptions = this.parseOptions(options);
-    this._path = parsedOptions.path;
-    this._fileType = this.getConfigFileType();
-    this._rawData = this.parseConfig();
+  constructor(paths: Promise<string[]>) {
+    this._configs = {};
+    paths.then((paths) =>
+      paths.forEach(
+        (path) => (this._configs[path] = { fileType: this.getConfigFileType(path), rawData: this.parseConfig(path) })
+      )
+    );
+    // const parsedOptions = this.parseConfigRuleOptions(options);
+    // this._path = parsedOptions.path;
+    // this._fileType = this.getConfigFileType();
+    // this._rawData = this.parseConfig();
   }
 
-  parseOptions(options: any): ConfigOptions {
-    if (options["path"]) {
-      return { path: options["path"] };
-    }
-    throw new Error("Config rule options missing path to config file");
-  }
+  // parseConfigRuleOptions(options: any): ConfigOptions {
+  //   if (options["path"]) {
+  //     return { path: options["path"] };
+  //   }
+  //   throw new Error("Config rule options missing path to config file");
+  // }
 
-  getConfigFileType(): ConfigFileType {
-    const extension = this._path.split(".").pop();
+  getConfigFileType(path: string): ConfigFileType {
+    const extension = path.split(".").pop();
 
     switch (extension) {
       case "js":
@@ -59,53 +69,54 @@ export class ConfigRuleBase {
     }
   }
 
-  parseConfig() {
-    switch (this._fileType) {
+  parseConfig(path: string) {
+    const fileType = this.getConfigFileType(path);
+    switch (fileType) {
       case ConfigFileType.Js:
-        return this.parseJsConfig();
+        return this.parseJsConfig(path);
       case ConfigFileType.Yaml:
-        return this.parseYamlConfig();
+        return this.parseYamlConfig(path);
       case ConfigFileType.Json:
-        return this.parseJsonConfig();
+        return this.parseJsonConfig(path);
       default:
-        throw new Error(`Cannot parse unsupported config type: ${ConfigFileType[this._fileType]}`);
+        throw new Error(`Cannot parse unsupported config type: ${ConfigFileType[fileType]}`);
     }
   }
 
-  async parseJsConfig() {
-    const fileContent = await this.readFile();
+  async parseJsConfig(path: string) {
+    const fileContent = await this.readFile(path);
     try {
-      return require(this._path);
+      return require(path);
     } catch (err) {
-      throw new Error(`Could not parse JS file at ${this._path}`);
+      throw new Error(`Could not parse JS file at ${path}`);
     }
   }
 
-  async parseYamlConfig() {
-    const fileContent = await this.readFile();
+  async parseYamlConfig(path: string) {
+    const fileContent = await this.readFile(path);
     try {
       return YAML.parse(fileContent);
     } catch (err) {
       console.log(err);
-      throw new Error(`Could not parse YAML file at ${this._path}`);
+      throw new Error(`Could not parse YAML file at ${path}`);
     }
   }
 
-  async parseJsonConfig() {
-    const fileContent = await this.readFile();
+  async parseJsonConfig(path: string) {
+    const fileContent = await this.readFile(path);
     try {
       return JSON.parse(fileContent);
     } catch (err) {
-      throw new Error(`Could not parse JSON file at ${this._path}`);
+      throw new Error(`Could not parse JSON file at ${path}`);
     }
   }
 
-  async readFile(): Promise<string> {
+  async readFile(path: string): Promise<string> {
     try {
-      const content = await readFileAsync(this._path);
+      const content = await readFileAsync(path);
       return content.toString("utf-8");
     } catch (err) {
-      throw new Error(`Failed to read file at ${this._path}`);
+      throw new Error(`Failed to read file at ${path}`);
     }
   }
 }
