@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Tue, 01 Sep 2020 21:34:00 GMT and should not be manually modified.
+This log was last generated on Thu, 03 Sep 2020 19:40:21 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.16
+
+Thu, 03 Sep 2020 19:40:21 GMT
+
+### Patches
+
+- Allow per-file checks to be skipped with pragma. (jdh@microsoft.com)
 
 ## 0.0.15
 
