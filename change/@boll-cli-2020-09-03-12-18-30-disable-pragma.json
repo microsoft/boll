@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Allow per-file checks to be skipped with pragma.",
+  "packageName": "@boll/cli",
+  "email": "jdh@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2020-09-03T19:18:30.415Z"
+}

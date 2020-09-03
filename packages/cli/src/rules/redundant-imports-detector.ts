@@ -15,6 +15,10 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  */
 const ruleName = "RedundantImportsDetector";
 export class RedundantImportsDetector implements PackageRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(fileContext: FileContext): Result[] {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }

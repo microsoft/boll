@@ -19,6 +19,10 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  */
 const ruleName = "TransitiveDependencyDetector";
 export class TransitiveDependencyDetector implements PackageRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(file: FileContext): Result[] {
     const imports = this.getModuleImports(file.source);
     return imports

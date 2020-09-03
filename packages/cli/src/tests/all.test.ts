@@ -6,6 +6,7 @@ import { test as E2ETest } from "./e2e.test";
 import { test as FormatTest } from "./format.test";
 import { test as GlobTest } from "./glob.test";
 import { test as NodeModulesReferenceDetectorTest } from "./node-modules-reference-detector.test";
+import { test as PragmaTest } from "./pragma.test";
 import { test as RedundantImportsDetectorTest } from "./redundant-imports-detector.test";
 import { test as SrcDetectorTest } from "./src-detector.test";
 
@@ -18,6 +19,7 @@ async function suite() {
   await FormatTest.run();
   await GlobTest.run();
   await NodeModulesReferenceDetectorTest.run();
+  await PragmaTest.run();
   await RedundantImportsDetectorTest.run();
   await SrcDetectorTest.run();
 }
