@@ -44,6 +44,7 @@ export class Suite {
 
     this.checks.forEach((r) => {
       sourceFiles.forEach((s) => {
+        if (s.shouldSkip(r)) return;
         const results = r.check(s);
         resultSet.add(results);
       });

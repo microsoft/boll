@@ -17,6 +17,7 @@ export interface ConfigDefinition {
 }
 
 export interface Rule {
+  name: string;
   check(file: any): Result[];
 }
 

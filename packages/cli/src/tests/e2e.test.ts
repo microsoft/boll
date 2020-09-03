@@ -50,6 +50,7 @@ test("should find no issues with clean-project", async () => {
   await inFixtureDir("clean", async () => {
     const suite = await buildSuite(NullLogger);
     const result = await suite.run(NullLogger);
+    console.log(result.errors);
     assert.equal(0, result.errors.length);
   });
 });
