@@ -25,13 +25,3 @@ export const inFixtureDir = async (fixture: string, cb: () => Promise<void>) => 
     process.chdir(original);
   }
 };
-
-export const inDir = async (dir: string, cb: () => Promise<void>) => {
-  const original = process.cwd();
-  try {
-    process.chdir(dir);
-    await cb();
-  } finally {
-    process.chdir(original);
-  }
-};
