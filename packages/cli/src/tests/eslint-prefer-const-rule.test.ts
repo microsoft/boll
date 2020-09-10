@@ -8,7 +8,7 @@ import { ResultStatus } from "../lib/types";
 
 export const test = baretest("ESLint Rules");
 
-test("", () => {
+test("Should succeed because prefer-const rule is set to 'error'", () => {
   inFixtureDir("configs/eslint/prefer-const", async () => {
     const eslintRules = new ESLintRules();
     const config = await eslintRules.getSourceFileConfig(asBollFile("foo.ts"));
@@ -19,7 +19,7 @@ test("", () => {
   });
 });
 
-test("", () => {
+test("Should fail because prefer-const rule is set to 'off'", () => {
   inFixtureDir("configs/eslint/prefer-const/prefer-const-off", async () => {
     const eslintRules = new ESLintRules();
     const config = await eslintRules.getSourceFileConfig(asBollFile("foo.ts"));
