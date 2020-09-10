@@ -6,6 +6,7 @@ import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
 import { RuleRegistryInstance } from "../lib/rule-registry";
 import { SrcDetector } from "../rules/src-detector";
 import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
+import { ESLintPreferConstRule } from "../rules/eslint-prefer-const-rule";
 
 let bootstrapRun = false;
 export const bootstrapConfigurations = () => {
@@ -15,6 +16,7 @@ export const bootstrapConfigurations = () => {
   RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
   RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
+  RuleRegistryInstance.register("ESLintPreferConstRule", () => new ESLintPreferConstRule());
 
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;

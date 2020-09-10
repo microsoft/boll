@@ -1,5 +1,5 @@
 import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
+import { PackageRule, PackageRuleType } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
@@ -16,7 +16,7 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  * declared in package.json.
  */
 const ruleName = "NodeModulesReferenceDetector";
-export class NodeModulesReferenceDetector implements PackageRule {
+export class NodeModulesReferenceDetector extends PackageRuleType implements PackageRule {
   check(fileContext: FileContext): Result[] {
     return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }
@@ -42,7 +42,7 @@ export class NodeModulesReferenceDetector implements PackageRule {
       const trimmedNodeText = c.getFullText().trim();
       const multiLineCommentsRemovedText = trimmedNodeText
         .split(MULTI_LINE_COMMENT_REGEXP)
-        .map((n) => n.trim())
+        .map((n) => n && n.trim())
         .filter((n) => n)
         .join("");
       const singleLineCommentsRemovedText = multiLineCommentsRemovedText

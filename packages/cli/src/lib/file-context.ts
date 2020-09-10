@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "graceful-fs";
 import path from "path";
 import ts from "typescript";
 import { promisify } from "util";
@@ -27,16 +27,6 @@ export async function getSourceFile(
 ): Promise<FileContext> {
   const normalizedFile = path.normalize(filename).replace(/\\/g, "/");
   const content = await readFileAsync(normalizedFile);
-  const source = ts.createSourceFile(
-    normalizedFile,
-    content.toString("utf8"),
-    ts.ScriptTarget.ES5,
-    true
-  );
-  return new FileContext(
-    projectRoot,
-    packageContext,
-    asBollFile(filename),
-    source
-  );
+  const source = ts.createSourceFile(normalizedFile, content.toString("utf8"), ts.ScriptTarget.ES5, true);
+  return new FileContext(projectRoot, packageContext, asBollFile(filename), source);
 }

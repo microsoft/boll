@@ -16,13 +16,20 @@ export const inTmpDir = async (cb: () => Promise<void>) => {
   }
 };
 
-export const inFixtureDir = async (
-  fixture: string,
-  cb: () => Promise<void>
-) => {
+export const inFixtureDir = async (fixture: string, cb: () => Promise<void>) => {
   const original = process.cwd();
   try {
     process.chdir(path.join(__dirname, "..", "..", "fixtures", fixture));
+    await cb();
+  } finally {
+    process.chdir(original);
+  }
+};
+
+export const inDir = async (dir: string, cb: () => Promise<void>) => {
+  const original = process.cwd();
+  try {
+    process.chdir(dir);
     await cb();
   } finally {
     process.chdir(original);

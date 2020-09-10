@@ -8,5 +8,9 @@ export const RecommendedConfig: ConfigDefinition = {
     { rule: "TransitiveDependencyDetector" },
     { rule: "NodeModulesReferenceDetector" },
     { rule: "RedundantImportsDetector" },
+    { rule: "ESLintPreferConstRule" },
   ],
+  eslintOptions: {
+    resolvePluginsRelativeTo: "./packages/eslint-plugin-office-online-rules",
+  },
 };

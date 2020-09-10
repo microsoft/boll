@@ -10,7 +10,7 @@ export class Config {
   constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry) {}
 
   buildSuite(): Suite {
-    const suite = new Suite();
+    const suite = new Suite(this.resolvedConfiguration());
     suite.checks = this.loadChecks();
     suite.fileGlob = this.buildFileGlob();
     return suite;

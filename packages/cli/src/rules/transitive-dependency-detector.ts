@@ -1,6 +1,6 @@
 import { DependencyMap } from "../lib/package";
 import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
+import { PackageRule, PackageRuleType } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } from "typescript";
 import { asBollLineNumber } from "../lib/boll-line-number";
@@ -18,7 +18,7 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * files.
  */
 const ruleName = "TransitiveDependencyDetector";
-export class TransitiveDependencyDetector implements PackageRule {
+export class TransitiveDependencyDetector extends PackageRuleType implements PackageRule {
   check(file: FileContext): Result[] {
     const imports = this.getModuleImports(file.source);
     return imports
