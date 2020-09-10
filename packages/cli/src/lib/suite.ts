@@ -50,6 +50,7 @@ export class Suite {
 
     this.checks.forEach((r) => {
       sourceFiles.forEach(async (s) => {
+        if (s.shouldSkip(r)) return;
         if (r.type === "PackageRule") {
           const results = r.check(s);
           resultSet.add(results);

@@ -25,6 +25,7 @@ export interface ESLintOptions {
 }
 
 export interface Rule {
+  name: string;
   check(file: any): Result[];
   type: RuleType;
 }

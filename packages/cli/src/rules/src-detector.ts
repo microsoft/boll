@@ -16,6 +16,10 @@ import { BollFile } from "../lib/boll-file";
  */
 const ruleName = "SrcDetector";
 export class SrcDetector extends PackageRuleType implements PackageRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(fileContext: FileContext): Result[] {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }

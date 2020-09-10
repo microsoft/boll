@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 03 Sep 2020 19:40:21 GMT",
+      "tag": "@boll/cli_v0.0.16",
+      "version": "0.0.16",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow per-file checks to be skipped with pragma.",
+            "author": "jdh@microsoft.com",
+            "commit": "08f9cac9982a8e00ddec84a251a485c67543d39e",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Sep 2020 21:34:00 GMT",
       "tag": "@boll/cli_v0.0.15",
       "version": "0.0.15",

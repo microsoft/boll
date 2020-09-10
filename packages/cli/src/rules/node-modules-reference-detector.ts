@@ -17,6 +17,10 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  */
 const ruleName = "NodeModulesReferenceDetector";
 export class NodeModulesReferenceDetector extends PackageRuleType implements PackageRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(fileContext: FileContext): Result[] {
     return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }

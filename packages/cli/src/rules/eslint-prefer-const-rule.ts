@@ -10,6 +10,10 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  */
 const ruleName = "ESLintPreferConstRule";
 export class ESLintPreferConstRule extends ESLintRuleType implements ESLintRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(config: any): Result[] {
     const resultSet: Result[] = [];
     const filename = asBollFile(config.filename);

@@ -19,6 +19,10 @@ import { asBollLineNumber } from "../lib/boll-line-number";
 
 const ruleName = "CrossPackageDependencyDetector";
 export class CrossPackageDependencyDetector extends PackageRuleType implements PackageRule {
+  get name(): string {
+    return ruleName;
+  }
+
   check(file: FileContext): Result[] {
     const imports = this.getFileImports(file.source);
     return this.checkImportPaths(file.packageRoot, file.filename, imports);
