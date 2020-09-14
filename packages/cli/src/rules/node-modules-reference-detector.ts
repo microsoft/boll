@@ -8,6 +8,8 @@ import { asBollLineNumber } from "../lib/boll-line-number";
 const MULTI_LINE_COMMENT_REGEXP = /\/\*(.|\n|\r)*\*\//g;
 const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
 
+const ruleName = "NodeModulesReferenceDetector";
+
 /**
  * NodeModulesReferenceDetector will detect references to
  * the node_modules directory in code and imports.
@@ -15,7 +17,6 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  * Imports should only be done from packages explicitly
  * declared in package.json.
  */
-const ruleName = "NodeModulesReferenceDetector";
 export class NodeModulesReferenceDetector implements PackageRule {
   get name(): string {
     return ruleName;

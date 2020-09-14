@@ -7,6 +7,8 @@ import { Result, Success, Failure } from "../lib/result-set";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
 import { asBollLineNumber } from "../lib/boll-line-number";
 
+const ruleName = "CrossPackageDependencyDetector";
+
 /**
  * CrossPackageDependencyDetector will detect usages of files
  * stored directly in other packages that happen to be in a known
@@ -16,8 +18,6 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * referenced through their package name.
  * (eg `import { Foo } from "@company/package"` instead of `import Foo from '../../the-package/foo'`)
  */
-
-const ruleName = "CrossPackageDependencyDetector";
 export class CrossPackageDependencyDetector implements PackageRule {
   get name(): string {
     return ruleName;
