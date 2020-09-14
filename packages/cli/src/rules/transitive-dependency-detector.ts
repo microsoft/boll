@@ -5,6 +5,8 @@ import { Result, Success, Failure } from "../lib/result-set";
 import { SourceFile, isImportDeclaration, ImportDeclaration, isStringLiteral } from "typescript";
 import { asBollLineNumber } from "../lib/boll-line-number";
 
+const ruleName = "TransitiveDependencyDetector";
+
 /**
  * TransitiveDependencyDetector will detect usages of non direct dependencies
  * in import statements of typescript source files.
@@ -17,7 +19,6 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * This rule catches instances of this chain in typescript source
  * files.
  */
-const ruleName = "TransitiveDependencyDetector";
 export class TransitiveDependencyDetector implements PackageRule {
   get name(): string {
     return ruleName;

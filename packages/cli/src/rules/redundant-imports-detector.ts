@@ -5,6 +5,8 @@ import { isImportDeclaration, SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
 import { asBollLineNumber } from "../lib/boll-line-number";
 
+const ruleName = "RedundantImportsDetector";
+
 /**
  * RedundantImportsDetector will detect imports
  * that are importing from a location that another import
@@ -13,7 +15,6 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * Imports from the same location should be done in the
  * same import statement.
  */
-const ruleName = "RedundantImportsDetector";
 export class RedundantImportsDetector implements PackageRule {
   get name(): string {
     return ruleName;

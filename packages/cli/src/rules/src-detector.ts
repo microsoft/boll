@@ -5,6 +5,8 @@ import { PackageRule } from "../lib/types";
 import { isImportDeclaration, SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
 
+const ruleName = "SrcDetector";
+
 /**
  * SrcDetector will detect usages of `src` in
  * import statements of typescript source files.
@@ -14,7 +16,6 @@ import { BollFile } from "../lib/boll-file";
  * in a project rather than being consumed from compiled
  * sources.
  */
-const ruleName = "SrcDetector";
 export class SrcDetector implements PackageRule {
   get name(): string {
     return ruleName;
