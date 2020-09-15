@@ -2,7 +2,7 @@ import * as path from "path";
 import { BollDirectory } from "../lib/boll-directory";
 import { BollFile } from "../lib/boll-file";
 import { FileContext } from "../lib/file-context";
-import { PackageRule, PackageRuleType } from "../lib/types";
+import { PackageRule } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
 import { asBollLineNumber } from "../lib/boll-line-number";
@@ -18,12 +18,12 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  */
 
 const ruleName = "CrossPackageDependencyDetector";
-export class CrossPackageDependencyDetector extends PackageRuleType implements PackageRule {
+export class CrossPackageDependencyDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }
 
-  check(file: FileContext): Result[] {
+  async check(file: FileContext): Promise<Result[]> {
     const imports = this.getFileImports(file.source);
     return this.checkImportPaths(file.packageRoot, file.filename, imports);
   }

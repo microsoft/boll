@@ -1,6 +1,6 @@
-import { Rule } from "./types";
+import { PackageRule } from "./types";
 
-type RuleDefinition = () => Rule;
+type RuleDefinition = () => PackageRule;
 export class RuleRegistry {
   public registrations: { [name: string]: RuleDefinition } = {};
 

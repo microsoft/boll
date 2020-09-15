@@ -31,6 +31,7 @@ export class ESLintRules {
         `Error encountered trying to get ESLint config for file ${file}. Please check to make sure that an ESLint configuration file was provided for this project.`
       );
       this._logger.warn(`\tFull error:\n\t${err}`);
+      return undefined;
     }
   }
 }

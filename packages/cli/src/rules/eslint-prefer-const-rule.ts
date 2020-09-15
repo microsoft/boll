@@ -1,7 +1,8 @@
-import { ESLintRule, ESLintRuleType } from "../lib/types";
+import { PackageRule } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { asBollFile } from "../lib/boll-file";
 import { asBollLineNumber } from "../lib/boll-line-number";
+import { FileContext } from "../lib/file-context";
 
 /**
  * ESLintPreferConstRule will esnure that the prefer-const
@@ -9,14 +10,15 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * rule is enabled as an error.
  */
 const ruleName = "ESLintPreferConstRule";
-export class ESLintPreferConstRule extends ESLintRuleType implements ESLintRule {
+export class ESLintPreferConstRule implements PackageRule {
   get name(): string {
     return ruleName;
   }
 
-  check(config: any): Result[] {
+  async check(file: FileContext): Promise<Result[]> {
     const resultSet: Result[] = [];
-    const filename = asBollFile(config.filename);
+    const filename = asBollFile(file.filename);
+    const config = await file.eslintConfig;
     const preferConst = config && config.rules && config.rules["prefer-const"];
 
     if (preferConst) {

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { FileGlob, Rule, ConfigDefinition } from "./types";
+import { FileGlob, ConfigDefinition, PackageRule } from "./types";
 import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
@@ -21,7 +21,7 @@ export class Suite {
   private _hasRun = false;
   public fileGlob: FileGlob = new TypescriptSourceGlob();
 
-  public checks: Rule[] = [
+  public checks: PackageRule[] = [
     new SrcDetector(),
     new TransitiveDependencyDetector(),
     new CrossPackageDependencyDetector(),
@@ -45,21 +45,14 @@ export class Suite {
     const eslintRules: ESLintRules = this.getESLintRules(logger);
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
-      sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext))
+      sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext, eslintRules))
     );
 
     this.checks.forEach((r) => {
       sourceFiles.forEach(async (s) => {
         if (s.shouldSkip(r)) return;
-        if (r.type === "PackageRule") {
-          const results = r.check(s);
-          resultSet.add(results);
-        } else if (r.type === "ESLintRule") {
-          const eslintConfig = await eslintRules.getSourceFileConfig(s.filename);
-          const eslintConfigWithFilename = { ...eslintConfig, filename: s.filename };
-          const results = r.check(eslintConfigWithFilename);
-          resultSet.add(results);
-        }
+        const results = await r.check(s);
+        resultSet.add(results);
       });
     });
 

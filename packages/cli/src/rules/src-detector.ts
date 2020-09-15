@@ -1,7 +1,7 @@
 import { asBollLineNumber } from "../lib/boll-line-number";
 import { Failure, Result, Success } from "../lib/result-set";
 import { FileContext } from "../lib/file-context";
-import { PackageRule, PackageRuleType } from "../lib/types";
+import { PackageRule } from "../lib/types";
 import { isImportDeclaration, SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
 
@@ -15,12 +15,12 @@ import { BollFile } from "../lib/boll-file";
  * sources.
  */
 const ruleName = "SrcDetector";
-export class SrcDetector extends PackageRuleType implements PackageRule {
+export class SrcDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }
 
-  check(fileContext: FileContext): Result[] {
+  async check(fileContext: FileContext): Promise<Result[]> {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 

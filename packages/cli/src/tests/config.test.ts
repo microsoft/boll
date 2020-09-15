@@ -19,14 +19,14 @@ test("should load default suite when extended from recommended", async () => {
     extends: "boll:recommended",
   });
   const suite = sut.buildSuite();
-  assert.equal(suite.checks.length, RecommendedConfig.checks!.length);
+  assert.strictEqual(suite.checks.length, RecommendedConfig.checks!.length);
 });
 
 test("should create suite with 1 check when directed", async () => {
   const sut = new Config(ConfigRegistryInstance, RuleRegistryInstance);
   sut.load({ checks: [{ rule: "SrcDetector" }] });
   const suite = sut.buildSuite();
-  assert.equal(suite.checks.length, 1);
+  assert.strictEqual(suite.checks.length, 1);
 });
 
 test("should allow multi-level inheritance of configs", () => {
@@ -53,5 +53,5 @@ test("should apply exclude/include across extended config", () => {
   const config = new Config(configRegistry, new RuleRegistry());
   config.load({ extends: "base" });
   const suite = config.buildSuite();
-  assert.deepEqual(suite.fileGlob.exclude, ["testme"]);
+  assert.deepStrictEqual(suite.fileGlob.exclude, ["testme"]);
 });

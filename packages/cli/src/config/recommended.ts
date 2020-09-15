@@ -8,6 +8,5 @@ export const RecommendedConfig: ConfigDefinition = {
     { rule: "TransitiveDependencyDetector" },
     { rule: "NodeModulesReferenceDetector" },
     { rule: "RedundantImportsDetector" },
-    { rule: "ESLintPreferConstRule" },
   ],
 };

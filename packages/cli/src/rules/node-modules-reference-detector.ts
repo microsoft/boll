@@ -1,5 +1,5 @@
 import { FileContext } from "../lib/file-context";
-import { PackageRule, PackageRuleType } from "../lib/types";
+import { PackageRule } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
@@ -16,12 +16,12 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  * declared in package.json.
  */
 const ruleName = "NodeModulesReferenceDetector";
-export class NodeModulesReferenceDetector extends PackageRuleType implements PackageRule {
+export class NodeModulesReferenceDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }
 
-  check(fileContext: FileContext): Result[] {
+  async check(fileContext: FileContext): Promise<Result[]> {
     return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }
 

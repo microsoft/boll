@@ -1,5 +1,3 @@
-import chalk from "chalk";
-
 type MessagePrinter = (msg: string) => void;
 export class Logger {
   constructor(
@@ -22,10 +20,5 @@ export class Logger {
 }
 
 export const DefaultLogger = new Logger(console.log, console.warn, console.error);
-export const ChalkLogger = new Logger(
-  (msg) => console.log(chalk.green(msg)),
-  (msg) => console.warn(chalk.yellow(msg)),
-  (msg) => console.error(chalk.red(msg))
-);
 const empty = (a: string) => {};
 export const NullLogger = new Logger(empty, empty, empty);

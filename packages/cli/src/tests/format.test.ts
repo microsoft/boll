@@ -3,7 +3,6 @@ import baretest from "baretest";
 import * as path from "path";
 import { asBollFile } from "../lib/boll-file";
 import { asBollLineNumber } from "../lib/boll-line-number";
-import { ResultStatus } from "../lib/types";
 import { Success, Failure } from "../lib/result-set";
 
 export const test = baretest("Output formatter");

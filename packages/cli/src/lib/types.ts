@@ -1,10 +1,6 @@
 import { BollFile } from "./boll-file";
 import { FileContext } from "./file-context";
 import { Result } from "./result-set";
-import { ConfigContext } from "./config-context";
-import { BollDirectory } from "./boll-directory";
-
-export type RuleType = "PackageRule" | "ESLintRule";
 
 export interface CheckConfiguration {
   rule: string;
@@ -24,30 +20,9 @@ export interface ESLintOptions {
   resolvePluginsRelativeTo?: string;
 }
 
-export interface Rule {
+export interface PackageRule {
   name: string;
-  check(file: any): Result[];
-  type: RuleType;
-}
-
-export interface PackageRule extends Rule {
-  check(file: FileContext): Result[];
-}
-
-export interface ESLintRule extends Rule {
-  check(config: any): Result[];
-}
-
-export class PackageRuleType {
-  get type(): RuleType {
-    return "PackageRule";
-  }
-}
-
-export class ESLintRuleType {
-  get type(): RuleType {
-    return "ESLintRule";
-  }
+  check(file: FileContext): Promise<Result[]>;
 }
 
 export enum ResultStatus {

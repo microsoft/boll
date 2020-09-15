@@ -1,5 +1,5 @@
 import { FileContext } from "../lib/file-context";
-import { PackageRule, PackageRuleType } from "../lib/types";
+import { PackageRule } from "../lib/types";
 import { Result, Success, Failure } from "../lib/result-set";
 import { isImportDeclaration, SourceFile } from "typescript";
 import { BollFile } from "../lib/boll-file";
@@ -14,12 +14,12 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * same import statement.
  */
 const ruleName = "RedundantImportsDetector";
-export class RedundantImportsDetector extends PackageRuleType implements PackageRule {
+export class RedundantImportsDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }
 
-  check(fileContext: FileContext): Result[] {
+  async check(fileContext: FileContext): Promise<Result[]> {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 
