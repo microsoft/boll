@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Tue, 15 Sep 2020 20:23:35 GMT",
+      "tag": "@boll/cli_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "major": [
+          {
+            "comment": "Move core modules to @boll/core",
+            "author": "jdh@microsoft.com",
+            "commit": "9e99f07a35851e1d1a504259506475955672401c",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Sep 2020 19:40:21 GMT",
       "tag": "@boll/cli_v0.0.16",
       "version": "0.0.16",

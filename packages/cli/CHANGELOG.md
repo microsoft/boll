@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Thu, 03 Sep 2020 19:40:21 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Sep 2020 20:23:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Tue, 15 Sep 2020 20:23:35 GMT
+
+### Major changes
+
+- Move core modules to @boll/core (jdh@microsoft.com)
 
 ## 0.0.16
 
