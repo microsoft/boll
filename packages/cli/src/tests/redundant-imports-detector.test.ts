@@ -1,9 +1,8 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { asBollFile } from "../lib/boll-file";
 import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
-import { ResultStatus } from "../lib/types";
-export const test = baretest("Redunant imports detector");
+import { asBollFile, ResultStatus } from "@boll/core";
+export const test: any = baretest("Redunant imports detector");
 
 test("Should pass if no redundant import paths", async () => {
   const importPaths = ["a", "b/c/d/e/f", "b/c/d/e/g"];

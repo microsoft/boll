@@ -10,8 +10,8 @@
   "private": true,
   "repository": "https://github.com/jdhuntington/boll.git",
   "scripts": {
-    "build": "lerna exec -- npm run build",
-    "test": "lerna exec -- npm run test",
+    "build": "lerna run build",
+    "test": "lerna run test",
     "change": "beachball change -b origin/main",
     "checkchange": "beachball check -b origin/main",
     "release": "beachball publish -b origin/main"

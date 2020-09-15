@@ -1,8 +1,4 @@
-import { PackageRule } from "../lib/types";
-import { Result, Success, Failure } from "../lib/result-set";
-import { asBollFile } from "../lib/boll-file";
-import { asBollLineNumber } from "../lib/boll-line-number";
-import { FileContext } from "../lib/file-context";
+import { PackageRule, FileContext, asBollFile, asBollLineNumber, Result, Success, Failure } from "@boll/core";
 
 /**
  * ESLintPreferConstRule will esnure that the prefer-const

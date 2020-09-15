@@ -1,4 +1,4 @@
-import { ConfigDefinition } from "../lib/types";
+import { ConfigDefinition } from "@boll/core";
 
 export const RecommendedConfig: ConfigDefinition = {
   name: "boll:recommended",
@@ -7,6 +7,6 @@ export const RecommendedConfig: ConfigDefinition = {
     { rule: "CrossPackageDependencyDetector" },
     { rule: "TransitiveDependencyDetector" },
     { rule: "NodeModulesReferenceDetector" },
-    { rule: "RedundantImportsDetector" },
-  ],
+    { rule: "RedundantImportsDetector" }
+  ]
 };

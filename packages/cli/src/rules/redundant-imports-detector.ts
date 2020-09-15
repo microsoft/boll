@@ -1,9 +1,7 @@
-import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
-import { Result, Success, Failure } from "../lib/result-set";
+import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
 import { isImportDeclaration, SourceFile } from "typescript";
-import { BollFile } from "../lib/boll-file";
-import { asBollLineNumber } from "../lib/boll-line-number";
+
+const ruleName = "RedundantImportsDetector";
 
 /**
  * RedundantImportsDetector will detect imports
@@ -13,7 +11,6 @@ import { asBollLineNumber } from "../lib/boll-line-number";
  * Imports from the same location should be done in the
  * same import statement.
  */
-const ruleName = "RedundantImportsDetector";
 export class RedundantImportsDetector implements PackageRule {
   get name(): string {
     return ruleName;
@@ -26,8 +23,8 @@ export class RedundantImportsDetector implements PackageRule {
   checkImportPaths(fileName: BollFile, importPaths: string[]): Result[] {
     const importLocations: Set<string> = new Set();
     const results = importPaths
-      .filter((i) => (importLocations.has(i) ? true : (importLocations.add(i), false)))
-      .map((i) => {
+      .filter(i => (importLocations.has(i) ? true : (importLocations.add(i), false)))
+      .map(i => {
         return new Failure(
           ruleName,
           fileName,
@@ -43,7 +40,7 @@ export class RedundantImportsDetector implements PackageRule {
 
   getImportPaths(sourceFile: SourceFile): string[] {
     const importPaths: string[] = [];
-    sourceFile.forEachChild((n) => {
+    sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
         importPaths.push(n.moduleSpecifier.getText());
       }

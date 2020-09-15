@@ -1,9 +1,7 @@
-import { asBollLineNumber } from "../lib/boll-line-number";
-import { Failure, Result, Success } from "../lib/result-set";
-import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
+import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
 import { isImportDeclaration, SourceFile } from "typescript";
-import { BollFile } from "../lib/boll-file";
+
+const ruleName = "SrcDetector";
 
 /**
  * SrcDetector will detect usages of `src` in
@@ -14,7 +12,6 @@ import { BollFile } from "../lib/boll-file";
  * in a project rather than being consumed from compiled
  * sources.
  */
-const ruleName = "SrcDetector";
 export class SrcDetector implements PackageRule {
   get name(): string {
     return ruleName;
@@ -26,8 +23,8 @@ export class SrcDetector implements PackageRule {
 
   checkImportPaths(fileName: BollFile, importPaths: string[]): Result[] {
     const results = importPaths
-      .filter((i) => i.toLowerCase().includes("/src/"))
-      .map((i) => {
+      .filter(i => i.toLowerCase().includes("/src/"))
+      .map(i => {
         return new Failure(
           ruleName,
           fileName,
@@ -44,7 +41,7 @@ export class SrcDetector implements PackageRule {
 
   getImportPaths(sourceFile: SourceFile): string[] {
     const importPaths: string[] = [];
-    sourceFile.forEachChild((n) => {
+    sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
         importPaths.push(n.moduleSpecifier.getText());
       }

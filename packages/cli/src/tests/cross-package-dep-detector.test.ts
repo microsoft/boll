@@ -1,10 +1,8 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { asBollDirectory } from "../lib/boll-directory";
-import { asBollFile } from "../lib/boll-file";
 import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
-import { ResultStatus } from "../lib/types";
-export const test = baretest("Cross package dependency detector");
+import { asBollDirectory, asBollFile, ResultStatus } from "@boll/core";
+export const test: any = baretest("Cross package dependency detector");
 
 test("Should pass if no cross-package dependencies detected", async () => {
   const importPaths = ["./foo", "./foo/bar"];

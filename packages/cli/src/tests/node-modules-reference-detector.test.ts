@@ -1,13 +1,10 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import path from "path";
-import { asBollDirectory } from "../lib/boll-directory";
-import { getSourceFile } from "../lib/file-context";
 import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
-import { Package } from "../lib/package";
-import { ResultStatus } from "../lib/types";
-import { ESLintRules } from "../lib/eslint-rules";
-export const test = baretest("Node modules reference detector");
+import { asBollDirectory, getSourceFile, Package, ResultStatus } from "@boll/core";
+import { ESLintRules } from "@boll/core";
+export const test: any = baretest("Node modules reference detector");
 
 const TEST_FILE_DIR = path.join(__dirname, "..", "..", "fixtures", "node-modules-references");
 

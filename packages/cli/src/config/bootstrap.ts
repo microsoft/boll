@@ -1,12 +1,11 @@
 import { RecommendedConfig } from "./recommended";
-import { ConfigRegistryInstance } from "../lib/config-registry";
 import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
 import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
 import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
-import { RuleRegistryInstance } from "../lib/rule-registry";
 import { SrcDetector } from "../rules/src-detector";
 import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
 import { ESLintPreferConstRule } from "../rules/eslint-prefer-const-rule";
+import { ConfigRegistryInstance, RuleRegistryInstance } from "@boll/core";
 
 let bootstrapRun = false;
 export const bootstrapConfigurations = () => {

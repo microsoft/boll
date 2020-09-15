@@ -1,12 +1,10 @@
-import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
-import { Result, Success, Failure } from "../lib/result-set";
+import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
 import { SourceFile } from "typescript";
-import { BollFile } from "../lib/boll-file";
-import { asBollLineNumber } from "../lib/boll-line-number";
 
 const MULTI_LINE_COMMENT_REGEXP = /\/\*(.|\n|\r)*\*\//g;
 const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
+
+const ruleName = "NodeModulesReferenceDetector";
 
 /**
  * NodeModulesReferenceDetector will detect references to
@@ -15,7 +13,6 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
  * Imports should only be done from packages explicitly
  * declared in package.json.
  */
-const ruleName = "NodeModulesReferenceDetector";
 export class NodeModulesReferenceDetector implements PackageRule {
   get name(): string {
     return ruleName;
@@ -28,7 +25,7 @@ export class NodeModulesReferenceDetector implements PackageRule {
   checkParsedSourceLines(fileName: BollFile, parsedSourceLines: string[]): Result[] {
     const results: Result[] = [];
     parsedSourceLines.forEach(
-      (l) =>
+      l =>
         l.includes("node_modules") &&
         results.push(
           new Failure(ruleName, fileName, asBollLineNumber(0), `Explicit reference to "node_modules" directory: ${l}`)
@@ -42,17 +39,17 @@ export class NodeModulesReferenceDetector implements PackageRule {
 
   getParsedSourceLines(sourceFile: SourceFile): string[] {
     const parsedSourceLines: string[] = [];
-    sourceFile.forEachChild((c) => {
+    sourceFile.forEachChild(c => {
       const trimmedNodeText = c.getFullText().trim();
       const multiLineCommentsRemovedText = trimmedNodeText
         .split(MULTI_LINE_COMMENT_REGEXP)
-        .map((n) => n && n.trim())
-        .filter((n) => n)
+        .map(n => n && n.trim())
+        .filter(n => n)
         .join("");
       const singleLineCommentsRemovedText = multiLineCommentsRemovedText
         .split(SINGLE_LINE_COMMENT_REGEXP)
-        .map((n) => n && n.trim())
-        .filter((n) => n)
+        .map(n => n && n.trim())
+        .filter(n => n)
         .join("");
       parsedSourceLines.push(singleLineCommentsRemovedText);
     });
