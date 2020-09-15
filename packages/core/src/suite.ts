@@ -7,11 +7,6 @@ import { Logger } from "./logger";
 import { Package } from "./package";
 import { ResultSet } from "./result-set";
 import { TypescriptSourceGlob } from "./glob";
-import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
-import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
-import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
-import { SrcDetector } from "../rules/src-detector";
-import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
 import { promisify } from "util";
 const readFileAsync = promisify(fs.readFile);
 
@@ -19,13 +14,7 @@ export class Suite {
   private _hasRun = false;
   public fileGlob: FileGlob = new TypescriptSourceGlob();
 
-  public checks: Rule[] = [
-    new SrcDetector(),
-    new TransitiveDependencyDetector(),
-    new CrossPackageDependencyDetector(),
-    new RedundantImportsDetector(),
-    new NodeModulesReferenceDetector(),
-  ];
+  public checks: Rule[] = [];
 
   get hasRun(): boolean {
     return this._hasRun;
@@ -39,11 +28,11 @@ export class Suite {
     const sourceFilePaths = await this.fileGlob.findFiles();
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
-      sourceFilePaths.map((filename) => getSourceFile(projectRoot, filename, packageContext))
+      sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext))
     );
 
-    this.checks.forEach((r) => {
-      sourceFiles.forEach((s) => {
+    this.checks.forEach(r => {
+      sourceFiles.forEach(s => {
         if (s.shouldSkip(r)) return;
         const results = r.check(s);
         resultSet.add(results);

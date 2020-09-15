@@ -39,7 +39,7 @@ export class ResultSet {
   }
 
   add(results: Result[]) {
-    results.forEach((result) => {
+    results.forEach(result => {
       if (result.status === ResultStatus.failure) {
         this.errors.push(result);
       }

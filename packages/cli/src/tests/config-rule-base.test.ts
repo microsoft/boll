@@ -1,10 +1,10 @@
 import * as assert from "assert";
-import baretest from "baretest";
 import * as path from "path";
-import { ConfigRuleBase } from "../lib/config-rule-base";
+import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
+import { ConfigRuleBase } from "@boll/core";
 
-export const test = baretest("Config Rule Base");
+export const test: any = baretest("Config Rule Base");
 
 test("should correctly parse JS config", async () => {
   await inFixtureDir("configs", async () => {

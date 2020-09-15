@@ -6,9 +6,7 @@ export class ConfigRegistry {
   register(config: ConfigDefinition) {
     const name = config.name;
     if (!name) {
-      throw new Error(
-        "config must have name to be registered as extensible config, but is missing"
-      );
+      throw new Error("config must have name to be registered as extensible config, but is missing");
     }
     if (this.registrations[name]) {
       throw new Error(`Already know about config "${name}", cannot redefine.`);

@@ -6,7 +6,7 @@ const readFileAsync = promisify(fs.readFile);
 export enum ConfigFileType {
   Js,
   Yaml,
-  Json,
+  Json
 }
 
 interface ConfigOptions {

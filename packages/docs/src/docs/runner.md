@@ -17,7 +17,7 @@ First, import the configuration registry and bootstrap so that other
 rules can be run successfully.
 
 ```js
-import { ConfigRegistryInstance } from '@boll/cli/dist/lib/config-registry';
+import { ConfigRegistryInstance } from "@boll/cli/dist/lib/config-registry";
 
 ConfigRegistryInstance.register(baseConfig);
 ```
@@ -25,11 +25,11 @@ ConfigRegistryInstance.register(baseConfig);
 Next, call `runBoll`.
 
 ```js
-import { runBoll } from '@boll/cli/dist/main';
+import { runBoll } from "@boll/cli/dist/main";
 
 const result = await runBoll();
 if (!result) {
-  throw new Error('boll (repo-wide linter) failed; please inspect previous output.');
+  throw new Error("boll (repo-wide linter) failed; please inspect previous output.");
 }
 ```
 

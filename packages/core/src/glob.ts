@@ -13,7 +13,7 @@ export class TypescriptSourceGlob implements FileGlob {
     if (this.options.exclude) {
       for (const excludeGlob of this.options.exclude) {
         const exclusions = await globAsync(excludeGlob);
-        const filteredPaths = paths.filter((p) => !exclusions.includes(p));
+        const filteredPaths = paths.filter(p => !exclusions.includes(p));
         paths = filteredPaths;
       }
     }
@@ -21,7 +21,7 @@ export class TypescriptSourceGlob implements FileGlob {
     if (this.options.include) {
       for (const includeGlob of this.options.include) {
         const inclusions = await globAsync(includeGlob);
-        inclusions.forEach((i) => {
+        inclusions.forEach(i => {
           if (!paths.includes(i)) {
             paths.push(i);
           }

@@ -1,11 +1,14 @@
 import * as fs from "fs";
 import { bootstrapConfigurations } from "./config/bootstrap";
-import { Config } from "./lib/config";
-import { configFileName } from "./lib/constants";
-import { ConfigRegistryInstance } from "./lib/config-registry";
-import { DefaultLogger, Logger } from "./lib/logger";
-import { RuleRegistryInstance } from "./lib/rule-registry";
-import { Suite } from "./lib/suite";
+import {
+  Config,
+  configFileName,
+  ConfigRegistryInstance,
+  DefaultLogger,
+  Logger,
+  RuleRegistryInstance,
+  Suite
+} from "@boll/core";
 import { promisify } from "util";
 import { resolve } from "path";
 const fileExistsAsync = promisify(fs.exists);
@@ -29,7 +32,7 @@ export async function buildSuite(logger: Logger): Promise<Suite> {
 export async function runBoll(logger: Logger = DefaultLogger): Promise<boolean> {
   const suite = await buildSuite(logger);
   const result = await suite.run(logger);
-  result.errors.forEach((e) => {
+  result.errors.forEach(e => {
     logger.error(e.formattedMessage);
   });
   if (result.hasErrors) {

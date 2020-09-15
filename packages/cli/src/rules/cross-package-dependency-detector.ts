@@ -1,11 +1,15 @@
 import * as path from "path";
-import { BollDirectory } from "../lib/boll-directory";
-import { BollFile } from "../lib/boll-file";
-import { FileContext } from "../lib/file-context";
-import { PackageRule } from "../lib/types";
-import { Result, Success, Failure } from "../lib/result-set";
+import {
+  asBollLineNumber,
+  BollDirectory,
+  BollFile,
+  Failure,
+  FileContext,
+  PackageRule,
+  Result,
+  Success
+} from "@boll/core";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
-import { asBollLineNumber } from "../lib/boll-line-number";
 
 const ruleName = "CrossPackageDependencyDetector";
 
@@ -30,7 +34,7 @@ export class CrossPackageDependencyDetector implements PackageRule {
 
   getFileImports(sourceFile: SourceFile): string[] {
     const importPaths: string[] = [];
-    sourceFile.forEachChild((n) => {
+    sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
         const path = this.getPathFromNode(n);
         if (path.startsWith(".")) {
@@ -43,7 +47,7 @@ export class CrossPackageDependencyDetector implements PackageRule {
 
   checkImportPaths(packageRoot: BollDirectory, sourceFilePath: BollFile, importPaths: string[]): Result[] {
     const results: Result[] = [];
-    importPaths.forEach((i) => {
+    importPaths.forEach(i => {
       const resolvedPath = path.resolve(path.dirname(sourceFilePath), i);
       if (!resolvedPath.startsWith(packageRoot + path.sep)) {
         const result = new Failure(

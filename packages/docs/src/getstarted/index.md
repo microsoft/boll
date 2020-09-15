@@ -29,7 +29,7 @@ by default. It should look like the following.
 ```js
 "use strict";
 module.exports = {
-    extends: "boll:recommended",
+  extends: "boll:recommended"
 };
 ```
 

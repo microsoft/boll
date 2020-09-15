@@ -34,13 +34,13 @@ export class FileContext {
   get ignoredChecks(): string[] {
     if (this._parsedIgnoreChecks) return this._ignoredChecks;
 
-    this.content.match(/boll-disable.*/g)?.forEach((line) => {
+    this.content.match(/boll-disable.*/g)?.forEach(line => {
       const capture = line.match(/boll-disable\s([\w,\s-]*)/);
       if (capture && capture.length > 0 && capture[1]) {
         capture[1]
           .split(",")
-          .map((x) => x.trim())
-          .forEach((rule) => this._ignoredChecks.push(rule));
+          .map(x => x.trim())
+          .forEach(rule => this._ignoredChecks.push(rule));
       }
     });
 

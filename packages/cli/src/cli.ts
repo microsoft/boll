@@ -1,21 +1,16 @@
 import * as fs from "fs";
 import { bootstrapConfigurations } from "./config/bootstrap";
-import { Config } from "./lib/config";
 import { ConfigGenerator } from "./config-generator";
-import { ConfigRegistryInstance } from "./lib/config-registry";
-import { Logger } from "./lib/logger";
-import { RuleRegistryInstance } from "./lib/rule-registry";
-import { Suite } from "./lib/suite";
 import { ArgumentParser } from "argparse";
+import { Config, configFileName, ConfigRegistryInstance, Logger, RuleRegistryInstance, Suite } from "@boll/core";
 import { promisify } from "util";
 import { resolve } from "path";
-import { configFileName } from "./lib/constants";
 const fileExistsAsync = promisify(fs.exists);
 
 const parser = new ArgumentParser({ description: "@boll/cli" });
 const subParser = parser.addSubparsers({
   description: "commands",
-  dest: "command",
+  dest: "command"
 });
 subParser.addParser("run");
 subParser.addParser("init");
@@ -26,7 +21,7 @@ type ParsedCommand = {
 
 export enum Status {
   Ok,
-  Error,
+  Error
 }
 
 export class Cli {
@@ -37,7 +32,7 @@ export class Cli {
     if (parsedCommand.command === "run") {
       const suite = await this.buildSuite();
       const result = await suite.run(this.logger);
-      result.errors.forEach((e) => {
+      result.errors.forEach(e => {
         this.logger.error(e.formattedMessage);
       });
       if (result.hasErrors) {
