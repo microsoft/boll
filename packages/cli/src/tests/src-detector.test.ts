@@ -1,10 +1,8 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { ResultStatus } from "../lib/types";
+import { asBollFile, ResultStatus } from "@boll/core";
 import { SrcDetector } from "../rules/src-detector";
-import { FileContext } from "../lib/file-context";
-import { asBollFile } from "../lib/boll-file";
-export const test = baretest("Source detector");
+export const test: any = baretest("Source detector");
 
 test("Should pass if no `src` detected in imports", async () => {
   const importPaths = ["a", "b/c/d/e/f"];

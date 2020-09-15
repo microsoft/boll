@@ -1,12 +1,11 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import * as path from "path";
-import { asBollFile } from "../lib/boll-file";
-import { asBollLineNumber } from "../lib/boll-line-number";
-import { ResultStatus } from "../lib/types";
-import { Success, Failure } from "../lib/result-set";
+import { asBollFile } from "../boll-file";
+import { asBollLineNumber } from "../boll-line-number";
+import { Success, Failure } from "../result-set";
 
-export const test = baretest("Output formatter");
+export const test: any = baretest("Output formatter");
 
 const assertContains = (needle: string, haystack: string) => {
   const message = `Expected '${haystack}' to contain '${needle}'`;

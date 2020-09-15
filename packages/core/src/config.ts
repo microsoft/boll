@@ -18,14 +18,14 @@ export class Config {
 
   loadChecks(): Rule[] {
     const config = this.resolvedConfiguration();
-    return (config.checks || []).map((check) => this.ruleRegistry.get(check.rule)());
+    return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)());
   }
 
   buildFileGlob(): FileGlob {
     const config = this.resolvedConfiguration();
     return new TypescriptSourceGlob({
       include: config.include || [],
-      exclude: config.exclude || [],
+      exclude: config.exclude || []
     });
   }
 
@@ -37,7 +37,7 @@ export class Config {
   resolvedConfiguration(): ConfigDefinition {
     return {
       ...this.resolveParentConfiguration(this.configuration.extends),
-      ...this.configuration,
+      ...this.configuration
     };
   }
 
@@ -48,7 +48,7 @@ export class Config {
     const baseConfig = this.configRegistry.get(baseConfigName);
     return {
       ...this.resolveParentConfiguration(baseConfig.extends),
-      ...baseConfig,
+      ...baseConfig
     };
   }
 }

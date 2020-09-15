@@ -1,10 +1,9 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
-import { NullLogger } from "../lib/logger";
-import { Suite } from "../lib/suite";
 import { buildSuite } from "../main";
-export const test = baretest("e2e");
+import { NullLogger } from "@boll/core";
+export const test: any = baretest("e2e");
 
 test("should catch an error in project-a", async () => {
   await inFixtureDir("project-a", async () => {
@@ -50,7 +49,6 @@ test("should find no issues with clean-project", async () => {
   await inFixtureDir("clean", async () => {
     const suite = await buildSuite(NullLogger);
     const result = await suite.run(NullLogger);
-    console.log(result.errors);
     assert.equal(0, result.errors.length);
   });
 });

@@ -31,7 +31,7 @@ export interface ConfigRule extends Rule {
 
 export enum ResultStatus {
   success,
-  failure,
+  failure
 }
 
 export interface FileGlob {

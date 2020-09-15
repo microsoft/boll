@@ -1,11 +1,11 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
-import { asBollFile } from "../lib/boll-file";
-import { FileGlob } from "../lib/types";
-import { TypescriptSourceGlob } from "../lib/glob";
+import { asBollFile } from "../boll-file";
+import { FileGlob } from "../types";
+import { TypescriptSourceGlob } from "../glob";
 
-export const test = baretest("Glob");
+export const test: any = baretest("Glob");
 
 test("should find .ts source", async () => {
   await inFixtureDir("project-a", async () => {

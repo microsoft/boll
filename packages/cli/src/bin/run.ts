@@ -1,5 +1,5 @@
 import { Cli, Status } from "../cli";
-import { DefaultLogger } from "../lib/logger";
+import { DefaultLogger } from "@boll/core";
 
 const cli = new Cli(DefaultLogger);
 async function doStuff() {

@@ -1,33 +1,19 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { bootstrapConfigurations } from "../config/bootstrap";
-import { Config } from "../lib/config";
-import { ConfigRegistry, ConfigRegistryInstance } from "../lib/config-registry";
-import { RecommendedConfig } from "../config/recommended";
-import { RuleRegistry, RuleRegistryInstance } from "../lib/rule-registry";
-import { SrcDetector } from "../rules/src-detector";
+import { Config } from "../config";
+import { ConfigRegistry } from "../config-registry";
+import { Result } from "../result-set";
+import { RuleRegistry } from "../rule-registry";
+import { Rule } from "../types";
 
-export const test = baretest("Config");
+export const test: any = baretest("Config");
 
-test.before(() => {
-  bootstrapConfigurations();
-});
-
-test("should load default suite when extended from recommended", async () => {
-  const sut = new Config(ConfigRegistryInstance, RuleRegistryInstance);
-  sut.load({
-    extends: "boll:recommended",
-  });
-  const suite = sut.buildSuite();
-  assert.equal(suite.checks.length, RecommendedConfig.checks!.length);
-});
-
-test("should create suite with 1 check when directed", async () => {
-  const sut = new Config(ConfigRegistryInstance, RuleRegistryInstance);
-  sut.load({ checks: [{ rule: "SrcDetector" }] });
-  const suite = sut.buildSuite();
-  assert.equal(suite.checks.length, 1);
-});
+class FakeRule implements Rule {
+  name: string = "fakerule";
+  check(file: any): Result[] {
+    throw new Error("Method not implemented.");
+  }
+}
 
 test("should allow multi-level inheritance of configs", () => {
   const configRegistry = new ConfigRegistry();
@@ -35,7 +21,7 @@ test("should allow multi-level inheritance of configs", () => {
   let called = false;
   ruleRegistry.register("foo", () => {
     called = true;
-    return new SrcDetector();
+    return new FakeRule();
   });
   configRegistry.register({ name: "base", checks: [{ rule: "foo" }] });
   configRegistry.register({ name: "level1", extends: "base" });

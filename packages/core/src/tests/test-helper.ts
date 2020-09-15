@@ -1,8 +1,8 @@
 import os from "os";
 import path from "path";
-import { asBollDirectory, BollDirectory } from "@boll/core";
 import { mkdtemp } from "fs";
 import { promisify } from "util";
+import { asBollDirectory, BollDirectory } from "../boll-directory";
 const mkdtempAsync = promisify(mkdtemp);
 
 export const inTmpDir = async (cb: () => Promise<void>) => {

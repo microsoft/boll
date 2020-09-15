@@ -2,13 +2,12 @@ import * as assert from "assert";
 import baretest from "baretest";
 import { inTmpDir } from "./test-helper";
 import { Cli } from "../cli";
-import { NullLogger } from "../lib/logger";
-import { Suite } from "../lib/suite";
 import { exists } from "fs";
+import { NullLogger } from "@boll/core";
 import { promisify } from "util";
 const existsAsync = promisify(exists);
 
-export const test = baretest("CLI");
+export const test: any = baretest("CLI");
 
 test("should create example config file when invoked with `init`", async () => {
   await inTmpDir(async () => {
