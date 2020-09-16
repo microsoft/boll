@@ -6,6 +6,11 @@ const SINGLE_LINE_COMMENT_REGEXP = /\/\/.*(\n|\r)*/g;
 
 const ruleName = "NodeModulesReferenceDetector";
 
+interface SourceLineAndLineNumber {
+  line: string;
+  lineNumber: number;
+}
+
 /**
  * NodeModulesReferenceDetector will detect references to
  * the node_modules directory in code and imports.
@@ -22,13 +27,18 @@ export class NodeModulesReferenceDetector implements PackageRule {
     return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }
 
-  checkParsedSourceLines(fileName: BollFile, parsedSourceLines: string[]): Result[] {
+  checkParsedSourceLines(fileName: BollFile, parsedSourceLines: SourceLineAndLineNumber[]): Result[] {
     const results: Result[] = [];
     parsedSourceLines.forEach(
       l =>
-        l.includes("node_modules") &&
+        l.line.includes("node_modules") &&
         results.push(
-          new Failure(ruleName, fileName, asBollLineNumber(0), `Explicit reference to "node_modules" directory: ${l}`)
+          new Failure(
+            ruleName,
+            fileName,
+            asBollLineNumber(l.lineNumber),
+            `Explicit reference to "node_modules" directory: ${l}`
+          )
         )
     );
     if (results.length > 0) {
@@ -37,10 +47,11 @@ export class NodeModulesReferenceDetector implements PackageRule {
     return [new Success(ruleName)];
   }
 
-  getParsedSourceLines(sourceFile: SourceFile): string[] {
-    const parsedSourceLines: string[] = [];
-    sourceFile.forEachChild(c => {
-      const trimmedNodeText = c.getFullText().trim();
+  getParsedSourceLines(sourceFile: SourceFile): SourceLineAndLineNumber[] {
+    const parsedSourceLines: SourceLineAndLineNumber[] = [];
+    sourceFile.forEachChild(n => {
+      const lineNumber = sourceFile.getLineAndCharacterOfPosition(n.pos).line;
+      const trimmedNodeText = n.getFullText().trim();
       const multiLineCommentsRemovedText = trimmedNodeText
         .split(MULTI_LINE_COMMENT_REGEXP)
         .map(n => n.trim())
@@ -51,7 +62,7 @@ export class NodeModulesReferenceDetector implements PackageRule {
         .map(n => n && n.trim())
         .filter(n => n)
         .join("");
-      parsedSourceLines.push(singleLineCommentsRemovedText);
+      parsedSourceLines.push({ line: singleLineCommentsRemovedText, lineNumber });
     });
     return parsedSourceLines;
   }

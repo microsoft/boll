@@ -31,7 +31,7 @@ export interface ConfigRule extends Rule {
 
 export enum ResultStatus {
   success,
-  failure
+  failure,
 }
 
 export interface FileGlob {
@@ -43,4 +43,9 @@ export interface FileGlob {
 export interface FileGlobOptions {
   exclude?: string[];
   include?: string[];
+}
+
+export interface ImportPathAndLineNumber {
+  path: string;
+  lineNumber: number;
 }

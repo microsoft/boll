@@ -1,4 +1,13 @@
-import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
+import {
+  asBollLineNumber,
+  BollFile,
+  Failure,
+  FileContext,
+  ImportPathAndLineNumber,
+  PackageRule,
+  Result,
+  Success
+} from "@boll/core";
 import { isImportDeclaration, SourceFile } from "typescript";
 
 const ruleName = "RedundantImportsDetector";
@@ -20,15 +29,15 @@ export class RedundantImportsDetector implements PackageRule {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 
-  checkImportPaths(fileName: BollFile, importPaths: string[]): Result[] {
+  checkImportPaths(fileName: BollFile, importPaths: ImportPathAndLineNumber[]): Result[] {
     const importLocations: Set<string> = new Set();
     const results = importPaths
-      .filter(i => (importLocations.has(i) ? true : (importLocations.add(i), false)))
+      .filter(i => (importLocations.has(i.path) ? true : (importLocations.add(i.path), false)))
       .map(i => {
         return new Failure(
           ruleName,
           fileName,
-          asBollLineNumber(0),
+          asBollLineNumber(i.lineNumber),
           "Already used as an import source; please combine import statements"
         );
       });
@@ -38,11 +47,14 @@ export class RedundantImportsDetector implements PackageRule {
     return [new Success(ruleName)];
   }
 
-  getImportPaths(sourceFile: SourceFile): string[] {
-    const importPaths: string[] = [];
+  getImportPaths(sourceFile: SourceFile): ImportPathAndLineNumber[] {
+    const importPaths: ImportPathAndLineNumber[] = [];
     sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
-        importPaths.push(n.moduleSpecifier.getText());
+        importPaths.push({
+          path: n.moduleSpecifier.getText(),
+          lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line
+        });
       }
     });
     return importPaths;
