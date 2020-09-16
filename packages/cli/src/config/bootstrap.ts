@@ -4,6 +4,7 @@ import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-de
 import { RedundantImportsDetector } from "../rules/redundant-imports-detector";
 import { SrcDetector } from "../rules/src-detector";
 import { TransitiveDependencyDetector } from "../rules/transitive-dependency-detector";
+import { TSLintNoNamespaceRule } from "../rules/tslint-no-namespace-rule";
 import { ConfigRegistryInstance, RuleRegistryInstance } from "@boll/core";
 
 let bootstrapRun = false;
@@ -14,6 +15,7 @@ export const bootstrapConfigurations = () => {
   RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
   RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
+  RuleRegistryInstance.register("TSLintNoNamespaceRule", () => new TSLintNoNamespaceRule());
 
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;
