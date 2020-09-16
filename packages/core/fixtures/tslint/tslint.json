@@ -1,0 +1,25 @@
+{
+  "rules": {
+    "rule-one": {
+      "severity": "error",
+      "options": [1, 2, 3]
+    },
+    "rule-two": {
+      "severity": "off"
+    },
+    "rule-three": {
+      "severity": "error",
+      "options": "test"
+    },
+    "rule-four": {
+      "severity": "warning"
+    }
+  },
+  "jsRules": {
+    "rule-one": true,
+    "rule-two": {
+      "severity": "warning",
+      "options": "test"
+    }
+  }
+}

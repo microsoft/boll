@@ -1,3 +1,4 @@
+import { TSLintNoNamespaceRule } from "../rules/tslint-no-namespace-rule";
 import { test as CliTest } from "./cli.test";
 import { test as ConfigRuleBaseTest } from "./config-rule-base.test";
 import { test as CrossPackageDepDetectorTest } from "./cross-package-dep-detector.test";
@@ -5,6 +6,7 @@ import { test as E2ETest } from "./e2e.test";
 import { test as NodeModulesReferenceDetectorTest } from "./node-modules-reference-detector.test";
 import { test as RedundantImportsDetectorTest } from "./redundant-imports-detector.test";
 import { test as SrcDetectorTest } from "./src-detector.test";
+import { test as TSLintNoNamespaceRuleTest } from "./tslint-no-namespace-rule.test";
 
 async function suite() {
   await CliTest.run();
@@ -14,6 +16,7 @@ async function suite() {
   await NodeModulesReferenceDetectorTest.run();
   await RedundantImportsDetectorTest.run();
   await SrcDetectorTest.run();
+  await TSLintNoNamespaceRuleTest.run();
 }
 
 suite();

@@ -1,0 +1,16 @@
+rules:
+  rule-two:
+    severity: "warning"
+    options:
+      - 1
+      - 2
+      - 3
+  rule-five:
+    severity: "off"
+    options: "test"
+jsRules:
+  rule-two:
+    severity: "off"
+    options: "test"
+  rule-three:
+    severity: "error"

@@ -1,9 +1,11 @@
 import fs from "fs";
+import { IConfigurationFile } from "tslint/lib/configuration";
 import ts from "typescript";
 import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
 import { DependencyMap, Package } from "./package";
+import { TSLintRules } from "./tslint-rules";
 import { Rule } from "./types";
 const readFileAsync = promisify(fs.readFile);
 
@@ -12,6 +14,7 @@ export class FileContext {
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
+  private _tslintRules: TSLintRules = new TSLintRules();
 
   constructor(
     public packageRoot: BollDirectory,
@@ -25,6 +28,10 @@ export class FileContext {
     this._sourceFile = ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
     this._sourceFileLoaded = true;
     return this._sourceFile;
+  }
+
+  get tslintConfig(): IConfigurationFile | undefined {
+    return this._tslintRules.getSourceFileConfig(asBollFile(this.filename)).results;
   }
 
   get packageDependencies(): DependencyMap {
