@@ -1,4 +1,13 @@
-import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
+import {
+  asBollLineNumber,
+  BollFile,
+  Failure,
+  FileContext,
+  ImportPathAndLineNumber,
+  PackageRule,
+  Result,
+  Success
+} from "@boll/core";
 import { isImportDeclaration, SourceFile } from "typescript";
 
 const ruleName = "SrcDetector";
@@ -21,14 +30,14 @@ export class SrcDetector implements PackageRule {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 
-  checkImportPaths(fileName: BollFile, importPaths: string[]): Result[] {
+  checkImportPaths(fileName: BollFile, importPaths: ImportPathAndLineNumber[]): Result[] {
     const results = importPaths
-      .filter(i => i.toLowerCase().includes("/src/"))
+      .filter(i => i.path.toLowerCase().includes("/src/"))
       .map(i => {
         return new Failure(
           ruleName,
           fileName,
-          asBollLineNumber(0),
+          asBollLineNumber(i.lineNumber),
           "Import includes 'src', but should not. Import from root package instead."
         );
       });
@@ -39,11 +48,14 @@ export class SrcDetector implements PackageRule {
     return [new Success(ruleName)];
   }
 
-  getImportPaths(sourceFile: SourceFile): string[] {
-    const importPaths: string[] = [];
+  getImportPaths(sourceFile: SourceFile): ImportPathAndLineNumber[] {
+    const importPaths: ImportPathAndLineNumber[] = [];
     sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
-        importPaths.push(n.moduleSpecifier.getText());
+        importPaths.push({
+          path: n.moduleSpecifier.getText(),
+          lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line
+        });
       }
     });
     return importPaths;

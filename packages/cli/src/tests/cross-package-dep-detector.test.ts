@@ -5,7 +5,10 @@ import { asBollDirectory, asBollFile, ResultStatus } from "@boll/core";
 export const test: any = baretest("Cross package dependency detector");
 
 test("Should pass if no cross-package dependencies detected", async () => {
-  const importPaths = ["./foo", "./foo/bar"];
+  const importPaths = [
+    { path: "./foo", lineNumber: 0 },
+    { path: "./foo/bar", lineNumber: 1 },
+  ];
   const sut = new CrossPackageDependencyDetector();
   const result = sut.checkImportPaths(asBollDirectory("/a/b/c"), asBollFile("/a/b/c/baz.ts"), importPaths);
   assert.equal(1, result.length);
@@ -13,7 +16,11 @@ test("Should pass if no cross-package dependencies detected", async () => {
 });
 
 test("Should fail if cross-package dependency detected", async () => {
-  const importPaths = ["./foo", "./foo/bar", "../foo/bar"];
+  const importPaths = [
+    { path: "./foo", lineNumber: 0 },
+    { path: "./foo/bar", lineNumber: 1 },
+    { path: "../foo/bar", lineNumber: 2 },
+  ];
   const sut = new CrossPackageDependencyDetector();
   const result = sut.checkImportPaths(asBollDirectory("/a/b/c"), asBollFile("/a/b/c/baz.ts"), importPaths);
   assert.equal(1, result.length);
