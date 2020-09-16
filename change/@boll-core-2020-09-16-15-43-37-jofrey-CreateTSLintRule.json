@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Create initial TSLint rule",
+  "packageName": "@boll/core",
+  "email": "email not defined",
+  "dependentChangeType": "patch",
+  "date": "2020-09-16T22:43:37.704Z"
+}
