@@ -1,4 +1,12 @@
-import { asBollLineNumber, DependencyMap, Failure, FileContext, PackageRule, Result } from "@boll/core";
+import {
+  asBollLineNumber,
+  DependencyMap,
+  Failure,
+  FileContext,
+  ImportPathAndLineNumber,
+  PackageRule,
+  Result
+} from "@boll/core";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
 
 const ruleName = "TransitiveDependencyDetector";
@@ -23,13 +31,13 @@ export class TransitiveDependencyDetector implements PackageRule {
   async check(file: FileContext): Promise<Result[]> {
     const imports = this.getModuleImports(file.source);
     return imports
-      .filter(i => !this.isValidImport(file.packageDependencies, i))
+      .filter(i => !this.isValidImport(file.packageDependencies, i.path))
       .map(
         i =>
           new Failure(
             ruleName,
             file.filename,
-            asBollLineNumber(0),
+            asBollLineNumber(i.lineNumber),
             `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
           )
       );
@@ -39,13 +47,13 @@ export class TransitiveDependencyDetector implements PackageRule {
     return validImports.some(moduleName => importPath === moduleName || importPath.startsWith(`${moduleName}/`));
   }
 
-  getModuleImports(sourceFile: SourceFile): string[] {
-    const importPaths: string[] = [];
+  getModuleImports(sourceFile: SourceFile): ImportPathAndLineNumber[] {
+    const importPaths: ImportPathAndLineNumber[] = [];
     sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
         const path = this.getPathFromNode(n);
         if (!path.startsWith(".")) {
-          importPaths.push(path);
+          importPaths.push({ path, lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line });
         }
       }
     });

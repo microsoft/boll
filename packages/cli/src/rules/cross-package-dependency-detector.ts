@@ -7,7 +7,8 @@ import {
   FileContext,
   PackageRule,
   Result,
-  Success
+  Success,
+  ImportPathAndLineNumber
 } from "@boll/core";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
 
@@ -32,28 +33,32 @@ export class CrossPackageDependencyDetector implements PackageRule {
     return this.checkImportPaths(file.packageRoot, file.filename, imports);
   }
 
-  getFileImports(sourceFile: SourceFile): string[] {
-    const importPaths: string[] = [];
+  getFileImports(sourceFile: SourceFile): ImportPathAndLineNumber[] {
+    const importPaths: ImportPathAndLineNumber[] = [];
     sourceFile.forEachChild(n => {
       if (isImportDeclaration(n)) {
         const path = this.getPathFromNode(n);
         if (path.startsWith(".")) {
-          importPaths.push(path);
+          importPaths.push({ path, lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line });
         }
       }
     });
     return importPaths;
   }
 
-  checkImportPaths(packageRoot: BollDirectory, sourceFilePath: BollFile, importPaths: string[]): Result[] {
+  checkImportPaths(
+    packageRoot: BollDirectory,
+    sourceFilePath: BollFile,
+    importPaths: ImportPathAndLineNumber[]
+  ): Result[] {
     const results: Result[] = [];
     importPaths.forEach(i => {
-      const resolvedPath = path.resolve(path.dirname(sourceFilePath), i);
+      const resolvedPath = path.resolve(path.dirname(sourceFilePath), i.path);
       if (!resolvedPath.startsWith(packageRoot + path.sep)) {
         const result = new Failure(
           ruleName,
           sourceFilePath,
-          asBollLineNumber(0),
+          asBollLineNumber(i.lineNumber),
           `Imports ${resolvedPath}, which spans a package boundary.`
         );
         results.push(result);
