@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import path from "path";
-import { NodeModulesReferenceDetector } from "../rules/node-modules-reference-detector";
+import { NodeModulesReferenceDetector } from "../node-modules-reference-detector";
 import { asBollDirectory, getSourceFile, Package, ResultStatus } from "@boll/core";
 export const test: any = baretest("Node modules reference detector");
 
