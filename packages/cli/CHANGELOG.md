@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Tue, 15 Sep 2020 20:23:35 GMT and should not be manually modified.
+This log was last generated on Thu, 17 Sep 2020 22:06:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.1
+
+Thu, 17 Sep 2020 22:06:55 GMT
+
+### Patches
+
+- More package breakup. (jdh@microsoft.com)
 
 ## 1.0.0
 

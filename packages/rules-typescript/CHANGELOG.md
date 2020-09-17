@@ -1,21 +1,13 @@
-# Change Log - @boll/core
+# Change Log - @boll/rules-typescript
 
 This log was last generated on Thu, 17 Sep 2020 22:06:55 GMT and should not be manually modified.
 
 <!-- Start content -->
 
-## 1.0.1
+## 0.0.2
 
 Thu, 17 Sep 2020 22:06:55 GMT
 
 ### Patches
 
 - More package breakup. (jdh@microsoft.com)
-
-## 1.0.0
-
-Tue, 15 Sep 2020 20:23:35 GMT
-
-### Major changes
-
-- Move core modules to @boll/core (jdh@microsoft.com)
