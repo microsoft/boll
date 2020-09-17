@@ -861,23 +861,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@boll/core@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@boll/core/-/core-1.0.1.tgz#82fe8d22617445d023cff1c3d9b2bc59bb9e67d9"
-  integrity sha512-SBs/4AsQfvobbcG6P6KHARAR9wBV45FmSMvV1BmJY1z9xmijb+VR3JfFoSdbKyHMBF5tINZRXwgjb8sTNZDy8g==
-  dependencies:
-    glob "^7.1.6"
-    typescript "^3.9.7"
-    yaml "^1.10.0"
-
-"@boll/rules-typescript@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@boll/rules-typescript/-/rules-typescript-0.0.2.tgz#99c9fe9cfa25103589d1014c9e0a916762d6dfaf"
-  integrity sha512-FssGtWWblz/Ie6mwCtZifdQgldOEbsh8kccgg0vdlx45T4B4waCrDl+KQcKnnN9UHHNTMGOqtNiA7tzIt9LIZQ==
-  dependencies:
-    "@boll/core" "1.0.1"
-    typescript "^3.9.7"
-
 "@eslint/eslintrc@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.1.3.tgz#7d1a2b2358552cc04834c0979bd4275362e37085"
