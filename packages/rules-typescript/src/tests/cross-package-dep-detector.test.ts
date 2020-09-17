@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { CrossPackageDependencyDetector } from "../rules/cross-package-dependency-detector";
+import { CrossPackageDependencyDetector } from "../cross-package-dependency-detector";
 import { asBollDirectory, asBollFile, ResultStatus } from "@boll/core";
 export const test: any = baretest("Cross package dependency detector");
 
