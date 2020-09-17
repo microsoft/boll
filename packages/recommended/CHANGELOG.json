@@ -1,0 +1,20 @@
+{
+  "name": "@boll/recommended",
+  "entries": [
+    {
+      "date": "Thu, 17 Sep 2020 22:06:55 GMT",
+      "tag": "@boll/recommended_v0.0.2",
+      "version": "0.0.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "More package breakup.",
+            "author": "jdh@microsoft.com",
+            "commit": "84f4d2111b34e5337fe31381222a436a4268d9ee",
+            "package": "@boll/recommended"
+          }
+        ]
+      }
+    }
+  ]
+}

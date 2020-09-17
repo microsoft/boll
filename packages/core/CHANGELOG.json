@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Thu, 17 Sep 2020 22:06:55 GMT",
+      "tag": "@boll/core_v1.0.1",
+      "version": "1.0.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "More package breakup.",
+            "author": "jdh@microsoft.com",
+            "commit": "84f4d2111b34e5337fe31381222a436a4268d9ee",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Sep 2020 20:23:35 GMT",
       "tag": "@boll/core_v1.0.0",
       "version": "1.0.0",
