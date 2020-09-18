@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Fri, 18 Sep 2020 17:10:21 GMT",
+      "tag": "@boll/cli_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Added new category of rules for enforcing ESLint configurations",
+            "author": "email not defined",
+            "commit": "a0e085a50c4e57a28850195287716ed5eb68cb2e",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Sep 2020 22:06:55 GMT",
       "tag": "@boll/cli_v1.0.1",
       "version": "1.0.1",

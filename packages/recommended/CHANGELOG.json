@@ -2,6 +2,21 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Fri, 18 Sep 2020 17:10:21 GMT",
+      "tag": "@boll/recommended_v0.0.3",
+      "version": "0.0.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add ESLint Rule",
+            "author": "email not defined",
+            "commit": "a0e085a50c4e57a28850195287716ed5eb68cb2e",
+            "package": "@boll/recommended"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Sep 2020 22:06:55 GMT",
       "tag": "@boll/recommended_v0.0.2",
       "version": "0.0.2",

@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Add ESLint Rule",
-  "packageName": "@boll/recommended",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-09-17T22:52:33.732Z"
-}
