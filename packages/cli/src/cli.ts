@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { bootstrapConfigurations } from "./config/bootstrap";
 import { ConfigGenerator } from "./config-generator";
 import { ArgumentParser } from "argparse";
 import { Config, configFileName, ConfigRegistryInstance, Logger, RuleRegistryInstance, Suite } from "@boll/core";
@@ -53,8 +52,7 @@ export class Cli {
     if (!exists) {
       this.logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
     }
-    bootstrapConfigurations();
-    const config = new Config(ConfigRegistryInstance, RuleRegistryInstance);
+    const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, this.logger);
     config.load(require(fullConfigPath));
     return config.buildSuite();
   }

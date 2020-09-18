@@ -5,16 +5,19 @@
   },
   "dependencies": {
     "@boll/core": "1.0.2",
-    "@boll/rules-external-tools": "0.0.3",
-    "@boll/rules-typescript": "0.0.3"
+    "eslint": "^7.8.1"
   },
-  "description": "Recommended configuration for TypeScript monorepos ",
+  "description": "@boll rules for typescript source files",
   "devDependencies": {
+    "@types/baretest": "^2.0.0",
+    "@types/eslint": "^7.2.2",
+    "baretest": "^2.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",
-    "typedoc-plugin-markdown": "^2.4.2"
+    "typedoc-plugin-markdown": "^2.4.2",
+    "typescript": "^3.9.7"
   },
   "files": [
     "dist"
@@ -23,7 +26,7 @@
   "homepage": "https://github.com/microsoft/boll#readme",
   "license": "unlicensed",
   "main": "dist/index.js",
-  "name": "@boll/recommended",
+  "name": "@boll/rules-external-tools",
   "publishConfig": {
     "access": "public"
   },
@@ -34,7 +37,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "docs": "typedoc --mode file --out ./docs --theme markdown ./src"
+    "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
+    "test": "node dist/tests/all.test.js"
   },
   "version": "0.0.3"
 }

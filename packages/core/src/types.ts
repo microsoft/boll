@@ -13,11 +13,6 @@ export interface ConfigDefinition {
   extends?: string;
   exclude?: string[];
   include?: string[];
-  eslintOptions?: ESLintOptions;
-}
-
-export interface ESLintOptions {
-  resolvePluginsRelativeTo?: string;
 }
 
 export interface PackageRule {

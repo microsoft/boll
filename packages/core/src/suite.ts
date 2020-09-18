@@ -8,7 +8,6 @@ import { Package } from "./package";
 import { ResultSet } from "./result-set";
 import { TypescriptSourceGlob } from "./glob";
 import { promisify } from "util";
-import { ESLintRules } from "./eslint-rules";
 const readFileAsync = promisify(fs.readFile);
 
 export class Suite {
@@ -29,10 +28,9 @@ export class Suite {
     const resultSet = new ResultSet();
     const packageContext = await this.loadPackage(logger);
     const sourceFilePaths = await this.fileGlob.findFiles();
-    const eslintRules: ESLintRules = this.getESLintRules(logger);
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
-      sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext, eslintRules))
+      sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext))
     );
 
     this.checks.forEach(r => {
@@ -57,13 +55,5 @@ export class Suite {
       logger.error(`Error loading ${filename}`);
       throw e;
     }
-  }
-
-  private getESLintRules(logger: Logger): ESLintRules {
-    const resolvePluginsRelativeTo = this.config.eslintOptions && this.config.eslintOptions.resolvePluginsRelativeTo;
-    const fullPath = resolvePluginsRelativeTo && path.resolve(process.cwd(), resolvePluginsRelativeTo);
-    return fullPath
-      ? new ESLintRules({ resolvePluginsRelativeTo: asBollDirectory(fullPath), logger })
-      : new ESLintRules({ logger });
   }
 }

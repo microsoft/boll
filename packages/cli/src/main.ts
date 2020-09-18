@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { bootstrapConfigurations } from "./config/bootstrap";
 import {
   Config,
   configFileName,
@@ -19,8 +18,7 @@ export async function buildSuite(logger: Logger): Promise<Suite> {
   if (!exists) {
     logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
   }
-  bootstrapConfigurations();
-  const config = new Config(ConfigRegistryInstance, RuleRegistryInstance);
+  const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, logger);
   config.load(require(fullConfigPath));
   return config.buildSuite();
 }

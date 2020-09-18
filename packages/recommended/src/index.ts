@@ -1,4 +1,4 @@
-import { ConfigDefinition, ConfigRegistryInstance, RuleRegistryInstance } from "@boll/core";
+import { ConfigDefinition, ConfigRegistryInstance, Logger, RuleRegistryInstance } from "@boll/core";
 import {
   CrossPackageDependencyDetector,
   NodeModulesReferenceDetector,
@@ -6,6 +6,7 @@ import {
   SrcDetector,
   TransitiveDependencyDetector
 } from "@boll/rules-typescript";
+import { ESLintPreferConstRule } from "@boll/rules-external-tools";
 
 let bootstrapRun = false;
 export const bootstrapRecommendedConfiguration = () => {
@@ -15,6 +16,7 @@ export const bootstrapRecommendedConfiguration = () => {
   RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
   RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
+  RuleRegistryInstance.register("ESLintPreferConstRule", (l: Logger) => new ESLintPreferConstRule(l));
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;
 };

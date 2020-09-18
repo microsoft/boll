@@ -1,13 +1,14 @@
-import { ConfigDefinition, PackageRule, FileGlob } from "./types";
+import { ConfigDefinition, FileGlob, PackageRule } from "./types";
+import { ConfigRegistry } from "./config-registry";
+import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
 import { Suite } from "./suite";
-import { ConfigRegistry } from "./config-registry";
 import { TypescriptSourceGlob } from "./glob";
 
 export class Config {
   private configuration: ConfigDefinition = {};
 
-  constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry) {}
+  constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry, private logger: Logger) {}
 
   buildSuite(): Suite {
     const suite = new Suite(this.resolvedConfiguration());
@@ -18,7 +19,7 @@ export class Config {
 
   loadChecks(): PackageRule[] {
     const config = this.resolvedConfiguration();
-    return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)());
+    return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)(this.logger));
   }
 
   buildFileGlob(): FileGlob {
