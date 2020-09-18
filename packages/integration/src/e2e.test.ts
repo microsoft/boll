@@ -3,12 +3,12 @@ import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
 import { buildSuite } from "@boll/cli/dist/main";
 import { NullLogger } from "@boll/core";
-import { bootstrapRecommendedConfiguration } from '@boll/recommended'
+import { bootstrapRecommendedConfiguration } from "@boll/recommended";
 export const test: any = baretest("e2e");
 
 test.before(async () => {
   bootstrapRecommendedConfiguration();
-})
+});
 
 test("should catch an error in project-a", async () => {
   await inFixtureDir("project-a", async () => {
