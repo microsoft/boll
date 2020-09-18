@@ -1,8 +1,8 @@
 {
   "author": "JD Huntington <jdh@microsoft.com>",
   "devDependencies": {
-    "lerna": "^3.22.1",
-    "beachball": "^1.35.3"
+    "beachball": "^1.35.3",
+    "lerna": "^3.22.1"
   },
   "license": "MIT",
   "main": "index.js",
@@ -11,11 +11,12 @@
   "repository": "https://github.com/jdhuntington/boll.git",
   "scripts": {
     "build": "lerna run build --stream",
-    "clean": "lerna run clean --stream",
-    "test": "lerna run test --stream",
     "change": "beachball change -b origin/main",
     "checkchange": "beachball check -b origin/main",
-    "release": "beachball publish -b origin/main"
+    "clean": "lerna run clean --stream",
+    "lint": "./node_modules/.bin/prettier --check './**/src/**/*'",
+    "release": "beachball publish -b origin/main",
+    "test": "lerna run test --stream"
   },
   "version": "1.0.0",
   "workspaces": {
