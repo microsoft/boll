@@ -1,10 +1,11 @@
-import fs from "fs";
+import fs from "graceful-fs";
 import ts from "typescript";
 import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
+import { ESLintRules } from "./eslint-rules";
 import { DependencyMap, Package } from "./package";
-import { Rule } from "./types";
+import { PackageRule } from "./types";
 const readFileAsync = promisify(fs.readFile);
 
 export class FileContext {
@@ -12,12 +13,15 @@ export class FileContext {
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
+  private _eslintConfigLoaded: boolean = false;
+  private _eslintConfig?: Promise<any> = undefined;
 
   constructor(
     public packageRoot: BollDirectory,
     public packageContext: Package,
     public filename: BollFile,
-    public content: string
+    public content: string,
+    private eslintRules: ESLintRules
   ) {}
 
   get source(): ts.SourceFile {
@@ -25,6 +29,13 @@ export class FileContext {
     this._sourceFile = ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
     this._sourceFileLoaded = true;
     return this._sourceFile;
+  }
+
+  get eslintConfig(): Promise<any> {
+    if (this._eslintConfigLoaded) return this._eslintConfig!;
+    this._eslintConfig = this.eslintRules.getSourceFileConfig(asBollFile(this.source.fileName));
+    this._eslintConfigLoaded = true;
+    return this._eslintConfig;
   }
 
   get packageDependencies(): DependencyMap {
@@ -48,7 +59,7 @@ export class FileContext {
     return this._ignoredChecks;
   }
 
-  shouldSkip(r: Rule) {
+  shouldSkip(r: PackageRule) {
     return this.ignoredChecks.includes(r.name);
   }
 }
@@ -56,9 +67,10 @@ export class FileContext {
 export async function getSourceFile(
   projectRoot: BollDirectory,
   filename: string,
-  packageContext: Package
+  packageContext: Package,
+  eslintRules: ESLintRules
 ): Promise<FileContext> {
   const bollFile = asBollFile(filename);
   const content = await readFileAsync(bollFile);
-  return new FileContext(projectRoot, packageContext, bollFile, content.toString("utf8"));
+  return new FileContext(projectRoot, packageContext, bollFile, content.toString("utf8"), eslintRules);
 }

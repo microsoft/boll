@@ -1,4 +1,4 @@
-import { ConfigDefinition, Rule, FileGlob } from "./types";
+import { ConfigDefinition, PackageRule, FileGlob } from "./types";
 import { RuleRegistry } from "./rule-registry";
 import { Suite } from "./suite";
 import { ConfigRegistry } from "./config-registry";
@@ -10,13 +10,13 @@ export class Config {
   constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry) {}
 
   buildSuite(): Suite {
-    const suite = new Suite();
+    const suite = new Suite(this.resolvedConfiguration());
     suite.checks = this.loadChecks();
     suite.fileGlob = this.buildFileGlob();
     return suite;
   }
 
-  loadChecks(): Rule[] {
+  loadChecks(): PackageRule[] {
     const config = this.resolvedConfiguration();
     return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)());
   }

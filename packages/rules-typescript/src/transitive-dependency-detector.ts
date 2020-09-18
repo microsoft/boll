@@ -28,7 +28,7 @@ export class TransitiveDependencyDetector implements PackageRule {
     return ruleName;
   }
 
-  check(file: FileContext): Result[] {
+  async check(file: FileContext): Promise<Result[]> {
     const imports = this.getModuleImports(file.source);
     return imports
       .filter(i => !this.isValidImport(file.packageDependencies, i.path))

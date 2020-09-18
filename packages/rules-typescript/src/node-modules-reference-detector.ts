@@ -23,7 +23,7 @@ export class NodeModulesReferenceDetector implements PackageRule {
     return ruleName;
   }
 
-  check(fileContext: FileContext): Result[] {
+  async check(fileContext: FileContext): Promise<Result[]> {
     return this.checkParsedSourceLines(fileContext.filename, this.getParsedSourceLines(fileContext.source));
   }
 
@@ -54,7 +54,7 @@ export class NodeModulesReferenceDetector implements PackageRule {
       const trimmedNodeText = n.getFullText().trim();
       const multiLineCommentsRemovedText = trimmedNodeText
         .split(MULTI_LINE_COMMENT_REGEXP)
-        .map(n => n.trim())
+        .map(n => n && n.trim())
         .filter(n => n)
         .join("");
       const singleLineCommentsRemovedText = multiLineCommentsRemovedText

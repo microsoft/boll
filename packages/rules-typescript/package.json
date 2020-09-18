@@ -12,6 +12,7 @@
     "@types/baretest": "^2.0.0",
     "baretest": "^2.0.0",
     "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",
     "typedoc-plugin-markdown": "^2.4.2"
@@ -33,6 +34,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "clean": "rimraf ./dist",
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },

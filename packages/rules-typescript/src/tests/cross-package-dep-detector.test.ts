@@ -11,8 +11,8 @@ test("Should pass if no cross-package dependencies detected", async () => {
   ];
   const sut = new CrossPackageDependencyDetector();
   const result = sut.checkImportPaths(asBollDirectory("/a/b/c"), asBollFile("/a/b/c/baz.ts"), importPaths);
-  assert.equal(1, result.length);
-  assert.equal(ResultStatus.success, result[0].status);
+  assert.strictEqual(1, result.length);
+  assert.strictEqual(ResultStatus.success, result[0].status);
 });
 
 test("Should fail if cross-package dependency detected", async () => {
@@ -23,6 +23,6 @@ test("Should fail if cross-package dependency detected", async () => {
   ];
   const sut = new CrossPackageDependencyDetector();
   const result = sut.checkImportPaths(asBollDirectory("/a/b/c"), asBollFile("/a/b/c/baz.ts"), importPaths);
-  assert.equal(1, result.length);
-  assert.equal(ResultStatus.failure, result[0].status);
+  assert.strictEqual(1, result.length);
+  assert.strictEqual(ResultStatus.failure, result[0].status);
 });

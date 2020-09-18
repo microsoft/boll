@@ -1,7 +1,6 @@
 import { BollFile } from "./boll-file";
 import { FileContext } from "./file-context";
 import { Result } from "./result-set";
-import { ConfigContext } from "./config-context";
 
 export interface CheckConfiguration {
   rule: string;
@@ -14,19 +13,16 @@ export interface ConfigDefinition {
   extends?: string;
   exclude?: string[];
   include?: string[];
+  eslintOptions?: ESLintOptions;
 }
 
-export interface Rule {
+export interface ESLintOptions {
+  resolvePluginsRelativeTo?: string;
+}
+
+export interface PackageRule {
   name: string;
-  check(file: any): Result[];
-}
-
-export interface PackageRule extends Rule {
-  check(file: FileContext): Result[];
-}
-
-export interface ConfigRule extends Rule {
-  check(file: ConfigContext): Result[];
+  check(file: FileContext): Promise<Result[]>;
 }
 
 export enum ResultStatus {

@@ -4,13 +4,13 @@ import { Config } from "../config";
 import { ConfigRegistry } from "../config-registry";
 import { Result } from "../result-set";
 import { RuleRegistry } from "../rule-registry";
-import { Rule } from "../types";
+import { PackageRule } from "../types";
 
 export const test: any = baretest("Config");
 
-class FakeRule implements Rule {
+class FakeRule implements PackageRule {
   name: string = "fakerule";
-  check(file: any): Result[] {
+  async check(file: any): Promise<Result[]> {
     throw new Error("Method not implemented.");
   }
 }
@@ -39,5 +39,5 @@ test("should apply exclude/include across extended config", () => {
   const config = new Config(configRegistry, new RuleRegistry());
   config.load({ extends: "base" });
   const suite = config.buildSuite();
-  assert.deepEqual(suite.fileGlob.exclude, ["testme"]);
+  assert.deepStrictEqual(suite.fileGlob.exclude, ["testme"]);
 });

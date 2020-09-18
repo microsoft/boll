@@ -5,9 +5,15 @@ export class Logger {
     private warnPrinter: MessagePrinter,
     private errorPrinter: MessagePrinter
   ) {}
+
   log(msg: string) {
     this.logPrinter(msg);
   }
+
+  warn(msg: string) {
+    this.warnPrinter(msg);
+  }
+
   error(msg: string) {
     this.errorPrinter(msg);
   }

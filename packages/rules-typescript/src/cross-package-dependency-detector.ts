@@ -28,7 +28,7 @@ export class CrossPackageDependencyDetector implements PackageRule {
     return ruleName;
   }
 
-  check(file: FileContext): Result[] {
+  async check(file: FileContext): Promise<Result[]> {
     const imports = this.getFileImports(file.source);
     return this.checkImportPaths(file.packageRoot, file.filename, imports);
   }

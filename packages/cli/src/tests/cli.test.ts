@@ -12,12 +12,12 @@ export const test: any = baretest("CLI");
 test("should create example config file when invoked with `init`", async () => {
   await inTmpDir(async () => {
     const configExistsPrecondition = await existsAsync("boll.config.js");
-    assert.equal(false, configExistsPrecondition);
+    assert.strictEqual(false, configExistsPrecondition);
 
     const sut = new Cli(NullLogger);
     await sut.run(["init"]);
 
     const configExistsExpected = await existsAsync(".boll.config.js");
-    assert.equal(true, configExistsExpected);
+    assert.strictEqual(true, configExistsExpected);
   });
 });

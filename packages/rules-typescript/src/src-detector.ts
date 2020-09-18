@@ -26,7 +26,7 @@ export class SrcDetector implements PackageRule {
     return ruleName;
   }
 
-  check(fileContext: FileContext): Result[] {
+  async check(fileContext: FileContext): Promise<Result[]> {
     return this.checkImportPaths(fileContext.filename, this.getImportPaths(fileContext.source));
   }
 
