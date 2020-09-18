@@ -27,7 +27,7 @@ export interface PackageRule {
 
 export enum ResultStatus {
   success,
-  failure,
+  failure
 }
 
 export interface FileGlob {

@@ -7,7 +7,7 @@ export const test: any = baretest("Source detector");
 test("Should pass if no `src` detected in imports", async () => {
   const importPaths = [
     { path: "a", lineNumber: 0 },
-    { path: "b/c/d/e/f", lineNumber: 1 },
+    { path: "b/c/d/e/f", lineNumber: 1 }
   ];
   const sut = new SrcDetector();
   const result = sut.checkImportPaths(asBollFile("a"), importPaths);
@@ -17,7 +17,7 @@ test("Should pass if no `src` detected in imports", async () => {
 test("Should fail if `src` detected in imports", async () => {
   const importPaths = [
     { path: "a/src/b", lineNumber: 0 },
-    { path: "b/c/d/e/f", lineNumber: 1 },
+    { path: "b/c/d/e/f", lineNumber: 1 }
   ];
   const sut = new SrcDetector();
   const result = sut.checkImportPaths(asBollFile("a"), importPaths);

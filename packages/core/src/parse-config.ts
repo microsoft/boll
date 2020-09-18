@@ -5,7 +5,7 @@ import { BollFile } from "./boll-file";
 export enum ConfigFileType {
   Js,
   Yaml,
-  Json,
+  Json
 }
 
 /**

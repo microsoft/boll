@@ -8,7 +8,7 @@ test("Should pass if no redundant import paths", async () => {
   const importPaths = [
     { path: "a", lineNumber: 0 },
     { path: "b/c/d/e/f", lineNumber: 1 },
-    { path: "b/c/d/e/g", lineNumber: 2 },
+    { path: "b/c/d/e/g", lineNumber: 2 }
   ];
   const sut = new RedundantImportsDetector();
   const result = sut.checkImportPaths(asBollFile("a"), importPaths);
@@ -19,7 +19,7 @@ test("Should fail if there are redundant import paths", async () => {
   const importPaths = [
     { path: "a/b", lineNumber: 0 },
     { path: "b/c/d/e/f", lineNumber: 1 },
-    { path: "a/b", lineNumber: 2 },
+    { path: "a/b", lineNumber: 2 }
   ];
   const sut = new RedundantImportsDetector();
   const result = sut.checkImportPaths(asBollFile("a"), importPaths);
