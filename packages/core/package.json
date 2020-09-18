@@ -4,7 +4,6 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "eslint": "^7.8.1",
     "glob": "^7.1.6",
     "graceful-fs": "4.2.4",
     "typescript": "^3.9.7",
@@ -13,7 +12,6 @@
   "description": "> TODO: description",
   "devDependencies": {
     "@types/baretest": "^2.0.0",
-    "@types/eslint": "^7.2.2",
     "@types/glob": "^7.1.3",
     "@types/graceful-fs": "4.1.3",
     "baretest": "^2.0.0",

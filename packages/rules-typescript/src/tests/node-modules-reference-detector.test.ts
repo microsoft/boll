@@ -3,7 +3,6 @@ import baretest from "baretest";
 import path from "path";
 import { NodeModulesReferenceDetector } from "../node-modules-reference-detector";
 import { asBollDirectory, getSourceFile, Package, ResultStatus } from "@boll/core";
-import { ESLintRules } from "@boll/core";
 export const test: any = baretest("Node modules reference detector");
 
 const TEST_FILE_DIR = path.join(__dirname, "..", "..", "fixtures", "node-modules-references");
@@ -14,8 +13,7 @@ test("Should pass if no references to node_modules exist in source code", async 
     await getSourceFile(
       asBollDirectory(TEST_FILE_DIR),
       path.join(TEST_FILE_DIR, "node-modules-reference-none.ts"),
-      new Package({}),
-      new ESLintRules()
+      new Package({})
     )
   );
   assert.strictEqual(1, result.length);
@@ -28,8 +26,7 @@ test("Should failt if references to node_modules exist in source code", async ()
     await getSourceFile(
       asBollDirectory(TEST_FILE_DIR),
       path.join(TEST_FILE_DIR, "node-modules-reference.ts"),
-      new Package({}),
-      new ESLintRules()
+      new Package({})
     )
   );
   assert.strictEqual(2, result.length);

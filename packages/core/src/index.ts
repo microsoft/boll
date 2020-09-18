@@ -4,7 +4,6 @@ export * from "./boll-line-number";
 export * from "./config-registry";
 export * from "./config";
 export * from "./constants";
-export * from "./eslint-rules";
 export * from "./file-context";
 export * from "./glob";
 export * from "./logger";

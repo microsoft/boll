@@ -1,6 +1,7 @@
+import { Logger } from "./logger";
 import { PackageRule } from "./types";
 
-export type RuleDefinition = () => PackageRule;
+export type RuleDefinition = (logger: Logger) => PackageRule;
 export class RuleRegistry {
   public registrations: { [name: string]: RuleDefinition } = {};
 
