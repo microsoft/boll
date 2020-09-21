@@ -11,6 +11,7 @@
   },
   "description": "> TODO: description",
   "devDependencies": {
+    "@boll/test-internal": "0.0.1",
     "@types/baretest": "^2.0.0",
     "@types/glob": "^7.1.3",
     "@types/graceful-fs": "4.1.3",

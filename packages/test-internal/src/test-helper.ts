@@ -1,9 +1,15 @@
 import os from "os";
 import path from "path";
-import { asBollDirectory, BollDirectory } from "@boll/core";
+import callsites from "callsites";
 import { mkdtemp } from "fs";
 import { promisify } from "util";
 const mkdtempAsync = promisify(mkdtemp);
+
+type BollDirectory = string & { __id: "BollDirectory" };
+
+function asBollDirectory(dirPath: string): BollDirectory {
+  return path.resolve(dirPath) as BollDirectory;
+}
 
 export const inTmpDir = async (cb: () => Promise<void>) => {
   const original = process.cwd();
@@ -17,10 +23,10 @@ export const inTmpDir = async (cb: () => Promise<void>) => {
   }
 };
 
-export const inFixtureDir = async (fixture: string, cb: (location: BollDirectory) => Promise<void>) => {
+export const inFixtureDir = async (fixture: string, dir: string, cb: (location: BollDirectory) => Promise<void>) => {
   const original = process.cwd();
   try {
-    const fixtureLocation = asBollDirectory(path.join(__dirname, "..", "fixtures", fixture));
+    const fixtureLocation = asBollDirectory(path.join(dir, "..", "fixtures", fixture));
     process.chdir(fixtureLocation);
     await cb(fixtureLocation);
   } finally {

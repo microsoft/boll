@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { inFixtureDir } from "./test-helper";
+import { inFixtureDir } from "@boll/test-internal";
 import { asBollFile } from "../boll-file";
 import { FileGlob } from "../types";
 import { TypescriptSourceGlob } from "../glob";
@@ -8,7 +8,7 @@ import { TypescriptSourceGlob } from "../glob";
 export const test: any = baretest("Glob");
 
 test("should find .ts source", async () => {
-  await inFixtureDir("project-a", async () => {
+  await inFixtureDir("project-a", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob();
     const results = await glob.findFiles();
     assert.ok(
@@ -19,7 +19,7 @@ test("should find .ts source", async () => {
 });
 
 test("should find .tsx source", async () => {
-  await inFixtureDir("project-a", async () => {
+  await inFixtureDir("project-a", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob();
     const results = await glob.findFiles();
     assert.ok(
@@ -30,7 +30,7 @@ test("should find .tsx source", async () => {
 });
 
 test("should not return files explicitly excluded", async () => {
-  await inFixtureDir("glob", async () => {
+  await inFixtureDir("glob", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob({ exclude: ["./**/b.ts"] });
     const results = await glob.findFiles();
     assert.deepStrictEqual(results, [asBollFile("a/a.ts")]);
@@ -38,7 +38,7 @@ test("should not return files explicitly excluded", async () => {
 });
 
 test("should return files explicitly included", async () => {
-  await inFixtureDir("glob", async () => {
+  await inFixtureDir("glob", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob({ include: ["./c/*"] });
     const results = await glob.findFiles();
     assert.deepStrictEqual(results, [asBollFile("a/a.ts"), asBollFile("b/b.ts"), asBollFile("c/c.someextension")]);

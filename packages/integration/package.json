@@ -10,6 +10,7 @@
     "@boll/rules-typescript": "0.0.3"
   },
   "devDependencies": {
+    "@boll/test-internal": "0.0.1",
     "@types/argparse": "^1.0.38",
     "@types/baretest": "^2.0.0",
     "@types/glob": "^7.1.3",
