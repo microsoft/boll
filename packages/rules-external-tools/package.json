@@ -11,13 +11,15 @@
   "devDependencies": {
     "@types/baretest": "^2.0.0",
     "@types/eslint": "^7.2.2",
+    "@types/uuid": "^8.3.0",
     "baretest": "^2.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",
     "typedoc-plugin-markdown": "^2.4.2",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "uuid": "^8.3.0"
   },
   "files": [
     "dist"

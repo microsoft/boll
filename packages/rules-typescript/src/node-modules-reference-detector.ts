@@ -1,4 +1,4 @@
-import { asBollLineNumber, BollFile, Failure, FileContext, PackageRule, Result, Success } from "@boll/core";
+import { asBollLineNumber, BollFile, Failure, FileContext, SourceFileRule, Result, Success } from "@boll/core";
 import { SourceFile } from "typescript";
 
 const MULTI_LINE_COMMENT_REGEXP = /\/\*(.|\n|\r)*\*\//g;
@@ -18,7 +18,7 @@ interface SourceLineAndLineNumber {
  * Imports should only be done from packages explicitly
  * declared in package.json.
  */
-export class NodeModulesReferenceDetector implements PackageRule {
+export class NodeModulesReferenceDetector implements SourceFileRule {
   get name(): string {
     return ruleName;
   }

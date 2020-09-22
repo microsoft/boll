@@ -5,7 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "outDir": "./dist",
-      "declaration":true,
+    "declaration": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "es5"

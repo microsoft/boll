@@ -1,4 +1,4 @@
-import { ConfigDefinition, FileGlob, PackageRule } from "./types";
+import { ConfigDefinition, FileGlob, SourceFileRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
@@ -17,7 +17,7 @@ export class Config {
     return suite;
   }
 
-  loadChecks(): PackageRule[] {
+  loadChecks(): SourceFileRule[] {
     const config = this.resolvedConfiguration();
     return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)(this.logger));
   }

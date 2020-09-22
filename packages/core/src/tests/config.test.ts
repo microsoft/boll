@@ -3,13 +3,13 @@ import baretest from "baretest";
 import { Config } from "../config";
 import { ConfigRegistry } from "../config-registry";
 import { NullLogger } from "../logger";
-import { PackageRule } from "../types";
+import { SourceFileRule } from "../types";
 import { Result } from "../result-set";
 import { RuleRegistry } from "../rule-registry";
 
 export const test: any = baretest("Config");
 
-class FakeRule implements PackageRule {
+class FakeRule implements SourceFileRule {
   name: string = "fakerule";
   async check(file: any): Promise<Result[]> {
     throw new Error("Method not implemented.");

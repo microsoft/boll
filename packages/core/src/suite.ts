@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { FileGlob, ConfigDefinition, PackageRule } from "./types";
+import { FileGlob, ConfigDefinition, SourceFileRule } from "./types";
 import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
@@ -14,7 +14,7 @@ export class Suite {
   private _hasRun = false;
   public fileGlob: FileGlob = new TypescriptSourceGlob();
 
-  public checks: PackageRule[] = [];
+  public checks: SourceFileRule[] = [];
 
   constructor(private config: ConfigDefinition) {}
 

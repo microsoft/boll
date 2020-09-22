@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import { inFixtureDir } from "./test-helper";
-import { ESLintPreferConstRule } from "../eslint-prefer-const-rule";
+import { ESLintPreferConstRule } from "../rules/eslint-prefer-const-rule";
 import { ESLintRules } from "../eslint-config";
 import { asBollDirectory, getSourceFile, NullLogger, Package, ResultStatus } from "@boll/core";
 

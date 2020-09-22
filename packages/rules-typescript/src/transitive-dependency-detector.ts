@@ -4,7 +4,7 @@ import {
   Failure,
   FileContext,
   ImportPathAndLineNumber,
-  PackageRule,
+  SourceFileRule,
   Result
 } from "@boll/core";
 import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } from "typescript";
@@ -23,7 +23,7 @@ const ruleName = "TransitiveDependencyDetector";
  * This rule catches instances of this chain in typescript source
  * files.
  */
-export class TransitiveDependencyDetector implements PackageRule {
+export class TransitiveDependencyDetector implements SourceFileRule {
   get name(): string {
     return ruleName;
   }

@@ -1,6 +1,15 @@
-import { PackageRule, FileContext, asBollFile, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
+import {
+  SourceFileRule,
+  FileContext,
+  asBollFile,
+  asBollLineNumber,
+  Result,
+  Success,
+  Failure,
+  Logger
+} from "@boll/core";
 import { ESLint } from "eslint";
-import { ESLintRules } from "./eslint-config";
+import { ESLintRules } from "../eslint-config";
 
 /**
  * ESLintPreferConstRule will esnure that the prefer-const
@@ -8,7 +17,7 @@ import { ESLintRules } from "./eslint-config";
  * rule is enabled as an error.
  */
 const ruleName = "ESLintPreferConstRule";
-export class ESLintPreferConstRule implements PackageRule {
+export class ESLintPreferConstRule implements SourceFileRule {
   configLoader: ESLintRules;
   constructor(private logger: Logger) {
     this.configLoader = new ESLintRules({ logger });
