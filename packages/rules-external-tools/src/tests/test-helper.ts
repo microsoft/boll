@@ -34,7 +34,7 @@ export const inFixtureDir = async (fixture: string, cb: (location: BollDirectory
 
 export const inTmpBranch = async (cb: () => Promise<void>) => {
   const tmpBranch = uuidv4();
-  const originalBranch = execSync("git branch --show-current").toString();
+  const originalBranch = execSync("git branch --show-current").toString().trim();
   try {
     execSync(`git checkout -b ${tmpBranch}`);
     await cb();

@@ -11,6 +11,8 @@ import {
 const ruleName = "PackageManifestNoAddRootResolutions";
 const success = [new Success(ruleName)];
 export class PackageManifestNoAddRootResolutions implements PackageManifestRule {
+  constructor(private branch?: string) {}
+
   get name(): string {
     return ruleName;
   }
@@ -18,7 +20,7 @@ export class PackageManifestNoAddRootResolutions implements PackageManifestRule 
   async check(packageManifestContext: PackageManifestContext): Promise<Result[]> {
     if (packageManifestContext.isRoot) {
       const packageManifest = await packageManifestContext.getPackageManifest();
-      const mainBranchPackageManifest = await packageManifestContext.getPackageManifestOnMainBranch();
+      const mainBranchPackageManifest = await packageManifestContext.getPackageManifestOnMainBranch(this.branch);
       if (
         !mainBranchPackageManifest.resolutions ||
         (mainBranchPackageManifest.resolutions && !packageManifest.resolutions)

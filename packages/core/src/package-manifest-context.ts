@@ -21,11 +21,12 @@ export class PackageManifestContext {
   private _pacakgeManifest?: PackageManifest = undefined;
   private _isMainBranchPackageManifestLoaded: BranchToLoadedState = {};
   private _mainBranchPacakgeManifest: BranchToPackageManifest = {};
+  private _gitRoot?: string = undefined;
 
   public isRoot: boolean;
 
   constructor(public fileName: BollFile) {
-    this.isRoot = this.fileName.slice(process.cwd().length + 1).includes(path.sep);
+    this.isRoot = !this.fileName.slice(process.cwd().length + 1).includes(path.sep);
   }
 
   async getPackageManifest(): Promise<PackageManifest> {
@@ -40,7 +41,7 @@ export class PackageManifestContext {
   async getPackageManifestOnMainBranch(mainBranch?: string): Promise<PackageManifest> {
     const branch = mainBranch || DEFAULT_MAIN_BRANCH;
     if (this._isMainBranchPackageManifestLoaded[branch]) return this._mainBranchPacakgeManifest[branch];
-    const normalizedFileName = this.fileName.slice(process.cwd().length + 1).replace("\\", "/");
+    const normalizedFileName = this.fileName.slice(this.getGitRoot().length).replace(/\\/g, "/");
     const getMainBranchFileContentCommand = `git -P show ${branch}:${normalizedFileName}`;
     try {
       const mainBranchFileContent = execSync(getMainBranchFileContentCommand).toString();
@@ -50,5 +51,11 @@ export class PackageManifestContext {
     } catch (err) {
       throw new Error(`Could not get file data for file ${this.fileName} on branch ${branch}`);
     }
+  }
+
+  private getGitRoot(): string {
+    if (this._gitRoot) return this._gitRoot;
+    this._gitRoot = execSync("git rev-parse --show-toplevel").toString();
+    return this._gitRoot;
   }
 }
