@@ -1,6 +1,21 @@
 {
-  "name": "@boll/rules-typescript",
+  "name": "@boll/rules-external-tools",
   "entries": [
+    {
+      "date": "Thu, 24 Sep 2020 21:39:25 GMT",
+      "tag": "@boll/rules-external-tools_v0.0.4",
+      "version": "0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Create package to monitor external tools",
+            "author": "jdh@microsoft.com",
+            "commit": "ae95a4f41ee367ee07b3a9b6e99e6ffc4edbf84a",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
     {
       "date": "Fri, 18 Sep 2020 17:10:21 GMT",
       "tag": "@boll/rules-typescript_v0.0.3",

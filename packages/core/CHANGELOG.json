@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2020 21:39:25 GMT",
+      "tag": "@boll/core_v1.1.0",
+      "version": "1.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Pull eslint parsing out into dedicated package",
+            "author": "jdh@microsoft.com",
+            "commit": "ae95a4f41ee367ee07b3a9b6e99e6ffc4edbf84a",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Sep 2020 17:10:21 GMT",
       "tag": "@boll/core_v1.0.2",
       "version": "1.0.2",
