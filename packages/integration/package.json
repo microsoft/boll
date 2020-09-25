@@ -4,10 +4,10 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/cli": "1.1.4",
-    "@boll/core": "1.2.2",
-    "@boll/recommended": "0.1.3",
-    "@boll/rules-typescript": "0.0.8"
+    "@boll/cli": "1.1.5",
+    "@boll/core": "1.2.3",
+    "@boll/recommended": "0.1.4",
+    "@boll/rules-typescript": "0.0.9"
   },
   "devDependencies": {
     "@boll/test-internal": "0.0.1",
