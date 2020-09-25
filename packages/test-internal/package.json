@@ -19,6 +19,7 @@
   "license": "unlicensed",
   "main": "dist/index.js",
   "name": "@boll/test-internal",
+  "private": true,
   "publishConfig": {
     "access": "public"
   },
