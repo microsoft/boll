@@ -7,12 +7,18 @@ export interface CheckConfiguration {
   options?: {};
 }
 
-export interface ConfigDefinition {
-  name?: string;
+export interface RuleSetConfiguration {
+  fileLocator: FileGlob;
   checks?: CheckConfiguration[];
-  extends?: string;
   exclude?: string[];
   include?: string[];
+}
+
+export interface ConfigDefinition {
+  name?: string;
+  extends?: string;
+  exclude?: string[];
+  ruleSets?: RuleSetConfiguration[];
 }
 
 export interface PackageRule {

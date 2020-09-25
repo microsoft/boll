@@ -4,27 +4,27 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.1.0",
-    "@boll/rules-external-tools": "0.0.4",
-    "@boll/rules-core": "0.0.3",
-    "@boll/rules-typescript": "0.0.4"
+    "@boll/core": "1.1.0"
   },
-  "description": "Recommended configuration for TypeScript monorepos ",
+  "description": "@boll rules for project configuration and layout",
   "devDependencies": {
+    "@types/baretest": "^2.0.0",
+    "baretest": "^2.0.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",
-    "typedoc-plugin-markdown": "^2.4.2"
+    "typedoc-plugin-markdown": "^2.4.2",
+    "typescript": "^3.9.7"
   },
   "files": [
     "dist"
   ],
   "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
   "homepage": "https://github.com/microsoft/boll#readme",
-  "license": "unlicensed",
+  "license": "MIT",
   "main": "dist/index.js",
-  "name": "@boll/recommended",
+  "name": "@boll/rules-core",
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +35,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "docs": "typedoc --mode file --out ./docs --theme markdown ./src"
+    "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
+    "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.4"
+  "version": "0.0.3"
 }
