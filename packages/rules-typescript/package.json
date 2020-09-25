@@ -38,5 +38,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.5"
+  "version": "0.0.6"
 }

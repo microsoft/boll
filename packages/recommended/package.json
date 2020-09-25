@@ -5,9 +5,9 @@
   },
   "dependencies": {
     "@boll/core": "1.2.0",
-    "@boll/rules-external-tools": "0.0.5",
+    "@boll/rules-external-tools": "0.0.6",
     "@boll/rules-core": "0.0.4",
-    "@boll/rules-typescript": "0.0.5"
+    "@boll/rules-typescript": "0.0.6"
   },
   "description": "Recommended configuration for TypeScript monorepos ",
   "devDependencies": {
@@ -37,5 +37,5 @@
     "clean": "rimraf ./dist",
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

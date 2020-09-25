@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-external-tools
 
-This log was last generated on Fri, 25 Sep 2020 19:21:24 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Sep 2020 20:09:35 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.6
+
+Fri, 25 Sep 2020 20:09:35 GMT
+
+### Patches
+
+- Remove unused fixtures (email not defined)
 
 ## 0.0.5
 
