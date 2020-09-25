@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-external-tools
 
-This log was last generated on Thu, 24 Sep 2020 21:39:25 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Sep 2020 19:21:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.5
+
+Fri, 25 Sep 2020 19:21:24 GMT
+
+### Patches
+
+- Test fix (jdh@microsoft.com)
 
 ## 0.0.4
 

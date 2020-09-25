@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Fri, 25 Sep 2020 19:21:24 GMT",
+      "tag": "@boll/core_v1.2.0",
+      "version": "1.2.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Change config to scope rules to specific file globs",
+            "author": "jdh@microsoft.com",
+            "commit": "39d50c71c53b4273870f1826202d413265d49d23",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Sep 2020 21:39:25 GMT",
       "tag": "@boll/core_v1.1.0",
       "version": "1.1.0",

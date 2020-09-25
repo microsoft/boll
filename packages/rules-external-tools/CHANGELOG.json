@@ -2,6 +2,21 @@
   "name": "@boll/rules-external-tools",
   "entries": [
     {
+      "date": "Fri, 25 Sep 2020 19:21:24 GMT",
+      "tag": "@boll/rules-external-tools_v0.0.5",
+      "version": "0.0.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Test fix",
+            "author": "jdh@microsoft.com",
+            "commit": "39d50c71c53b4273870f1826202d413265d49d23",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Sep 2020 21:39:25 GMT",
       "tag": "@boll/rules-external-tools_v0.0.4",
       "version": "0.0.4",

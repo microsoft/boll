@@ -2,6 +2,21 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Fri, 25 Sep 2020 19:21:24 GMT",
+      "tag": "@boll/recommended_v0.1.0",
+      "version": "0.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Include @boll/rules-core, change recommended config",
+            "author": "jdh@microsoft.com",
+            "commit": "39d50c71c53b4273870f1826202d413265d49d23",
+            "package": "@boll/recommended"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 24 Sep 2020 21:39:25 GMT",
       "tag": "@boll/recommended_v0.0.4",
       "version": "0.0.4",

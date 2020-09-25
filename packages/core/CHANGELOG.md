@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Thu, 24 Sep 2020 21:39:25 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Sep 2020 19:21:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Fri, 25 Sep 2020 19:21:24 GMT
+
+### Minor changes
+
+- Change config to scope rules to specific file globs (jdh@microsoft.com)
 
 ## 1.1.0
 

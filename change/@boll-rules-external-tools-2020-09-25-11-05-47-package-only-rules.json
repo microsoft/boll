@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Test fix",
-  "packageName": "@boll/rules-external-tools",
-  "email": "jdh@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2020-09-25T18:05:47.642Z"
-}
