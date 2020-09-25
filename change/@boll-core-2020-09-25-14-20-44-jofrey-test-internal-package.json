@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Adding internal testing package",
-  "packageName": "@boll/core",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-09-25T21:20:20.369Z"
-}
