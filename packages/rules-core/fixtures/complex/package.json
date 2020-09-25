@@ -1,0 +1,4 @@
+{
+    "dependencies": { "react": "1"},
+    "peerDependencies": { "react-dom": "1"}
+}

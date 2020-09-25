@@ -1,6 +1,51 @@
 {
-  "name": "@boll/rules-typescript",
+  "name": "@boll/rules-external-tools",
   "entries": [
+    {
+      "date": "Fri, 25 Sep 2020 20:09:35 GMT",
+      "tag": "@boll/rules-external-tools_v0.0.6",
+      "version": "0.0.6",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove unused fixtures",
+            "author": "email not defined",
+            "commit": "f249d5c23d672a39869815514a184d591935ec9c",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 25 Sep 2020 19:21:24 GMT",
+      "tag": "@boll/rules-external-tools_v0.0.5",
+      "version": "0.0.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Test fix",
+            "author": "jdh@microsoft.com",
+            "commit": "39d50c71c53b4273870f1826202d413265d49d23",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Sep 2020 21:39:25 GMT",
+      "tag": "@boll/rules-external-tools_v0.0.4",
+      "version": "0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Create package to monitor external tools",
+            "author": "jdh@microsoft.com",
+            "commit": "ae95a4f41ee367ee07b3a9b6e99e6ffc4edbf84a",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
     {
       "date": "Fri, 18 Sep 2020 17:10:21 GMT",
       "tag": "@boll/rules-typescript_v0.0.3",

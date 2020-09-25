@@ -1,8 +1,24 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Fri, 18 Sep 2020 17:10:21 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Sep 2020 19:21:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.0
+
+Fri, 25 Sep 2020 19:21:24 GMT
+
+### Minor changes
+
+- Include @boll/rules-core, change recommended config (jdh@microsoft.com)
+
+## 0.0.4
+
+Thu, 24 Sep 2020 21:39:25 GMT
+
+### Patches
+
+- Add eslint package (jdh@microsoft.com)
 
 ## 0.0.3
 

@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "fakePackage": "0.0.0",
-    "@scope/everything": "1"
-  }
-}
