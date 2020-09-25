@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { inTmpDir } from "./test-helper";
+import { inTmpDir } from "@boll/test-internal";
 import { Cli } from "../cli";
 import { exists } from "fs";
 import { NullLogger } from "@boll/core";

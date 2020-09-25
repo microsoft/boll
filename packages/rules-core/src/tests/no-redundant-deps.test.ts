@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import baretest from "baretest";
-import { inFixtureDir } from "./test-helper";
 import { NoRedundantDepsRule } from "../no-redundant-deps";
 import { asBollDirectory, getSourceFile, NullLogger, ResultStatus } from "@boll/core";
+import { inFixtureDir } from "@boll/test-internal";
 
 export const test: any = baretest("NoRedundantDepsTest");
 
@@ -10,7 +10,7 @@ const sut = new NoRedundantDepsRule(NullLogger);
 const emptyPackageContentsStub = { dependencies: {} };
 
 test("passes when no peerDeps present", async () => {
-  await inFixtureDir("simple", async () => {
+  await inFixtureDir("simple", __dirname, async () => {
     const source = await getSourceFile(asBollDirectory("."), "package.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 1);
@@ -19,7 +19,7 @@ test("passes when no peerDeps present", async () => {
 });
 
 test("passes when no overlap between dependencies and peerDeps", async () => {
-  await inFixtureDir("complex", async () => {
+  await inFixtureDir("complex", __dirname, async () => {
     const source = await getSourceFile(asBollDirectory("."), "package.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 1);
@@ -28,7 +28,7 @@ test("passes when no overlap between dependencies and peerDeps", async () => {
 });
 
 test("fails when overlap between dependencies and peerDeps", async () => {
-  await inFixtureDir("redundant", async () => {
+  await inFixtureDir("redundant", __dirname, async () => {
     const source = await getSourceFile(asBollDirectory("."), "package.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 1);

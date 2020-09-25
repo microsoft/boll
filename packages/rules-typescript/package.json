@@ -9,6 +9,7 @@
   },
   "description": "@boll rules for typescript source files",
   "devDependencies": {
+    "@boll/test-internal": "0.0.1",
     "@types/baretest": "^2.0.0",
     "baretest": "^2.0.0",
     "prettier": "^2.0.5",
