@@ -1,8 +1,8 @@
 import os from "os";
 import path from "path";
-import callsites from "callsites";
 import { mkdtemp } from "fs";
 import { promisify } from "util";
+import { findFixturesDir } from "./utils";
 const mkdtempAsync = promisify(mkdtemp);
 
 type BollDirectory = string & { __id: "BollDirectory" };
@@ -26,7 +26,7 @@ export const inTmpDir = async (cb: () => Promise<void>) => {
 export const inFixtureDir = async (fixture: string, dir: string, cb: (location: BollDirectory) => Promise<void>) => {
   const original = process.cwd();
   try {
-    const fixtureLocation = asBollDirectory(path.join(dir, "..", "fixtures", fixture));
+    const fixtureLocation = asBollDirectory(path.join(await findFixturesDir(dir), fixture));
     process.chdir(fixtureLocation);
     await cb(fixtureLocation);
   } finally {

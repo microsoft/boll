@@ -3,9 +3,7 @@
   "bugs": {
     "url": "https://github.com/microsoft/boll/issues"
   },
-  "dependencies": {
-    "callsites": "^3.1.0"
-  },
+  "dependencies": {},
   "description": "@boll package used internally for shared testing logic",
   "devDependencies": {
     "@types/baretest": "^2.0.0",
