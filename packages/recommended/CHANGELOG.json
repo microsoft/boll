@@ -2,6 +2,21 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Thu, 24 Sep 2020 21:39:25 GMT",
+      "tag": "@boll/recommended_v0.0.4",
+      "version": "0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add eslint package",
+            "author": "jdh@microsoft.com",
+            "commit": "ae95a4f41ee367ee07b3a9b6e99e6ffc4edbf84a",
+            "package": "@boll/recommended"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 18 Sep 2020 17:10:21 GMT",
       "tag": "@boll/recommended_v0.0.3",
       "version": "0.0.3",
