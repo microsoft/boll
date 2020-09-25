@@ -4,56 +4,74 @@ import { FileGlob, FileGlobOptions } from "./types";
 import { promisify } from "util";
 const globAsync = promisify(glob);
 
-class SourceGlob implements FileGlob {
-  constructor(
-    private globPattern: string,
-    private fileGlobOptions: FileGlobOptions = {},
-    private filterString?: string
-  ) {}
+export class TypescriptSourceGlob implements FileGlob {
+  public include: string[] = [];
+  public exclude: string[] = [];
+
+  constructor(options: FileGlobOptions = {}) {
+    if (options.include) {
+      this.include = options.include;
+    }
+    if (options.exclude) {
+      this.exclude = options.exclude;
+    }
+  }
 
   async findFiles(): Promise<BollFile[]> {
-    let paths = await globAsync(this.globPattern);
-    if (this.filterString) paths = paths.filter(path => !path.includes(this.filterString!));
+    let paths = await globAsync("./{,!(node_modules)/**}/*.ts?(x)");
+    paths = paths.filter(path => !path.includes("node_modules"));
 
-    if (this.fileGlobOptions.exclude) {
-      for (const excludeGlob of this.fileGlobOptions.exclude) {
-        const exclusions = await globAsync(excludeGlob);
-        const filteredPaths = paths.filter(p => !exclusions.includes(p));
-        paths = filteredPaths;
-      }
+    for (const excludeGlob of this.exclude) {
+      const exclusions = await globAsync(excludeGlob);
+      const filteredPaths = paths.filter(p => !exclusions.includes(p));
+      paths = filteredPaths;
     }
 
-    if (this.fileGlobOptions.include) {
-      for (const includeGlob of this.fileGlobOptions.include) {
-        const inclusions = await globAsync(includeGlob);
-        inclusions.forEach(i => {
-          if (!paths.includes(i)) {
-            paths.push(i);
-          }
-        });
-      }
+    for (const includeGlob of this.include) {
+      const inclusions = await globAsync(includeGlob);
+      inclusions.forEach(i => {
+        if (!paths.includes(i)) {
+          paths.push(i);
+        }
+      });
     }
 
     return paths.map(asBollFile);
   }
-
-  get include(): string[] {
-    return this.fileGlobOptions.include || [];
-  }
-
-  get exclude(): string[] {
-    return this.fileGlobOptions.exclude || [];
-  }
 }
 
-export class TypescriptSourceGlob extends SourceGlob {
-  constructor(private options: FileGlobOptions = {}) {
-    super("./{,!(node_modules)/**}/*.ts?(x)", options, "node_modules");
-  }
-}
+export class PackageJsonGlob implements FileGlob {
+  public include: string[] = [];
+  public exclude: string[] = [];
 
-export class PackageManifestGlob extends SourceGlob {
-  constructor(private options: FileGlobOptions = {}) {
-    super("./{,!(node_modules)/**}/package.json", options, "node_modules");
+  constructor(options: FileGlobOptions = {}) {
+    if (options.include) {
+      this.include = options.include;
+    }
+    if (options.exclude) {
+      this.exclude = options.exclude;
+    }
+  }
+
+  async findFiles(): Promise<BollFile[]> {
+    let paths = await globAsync("./package.json");
+    paths = paths.filter(path => !path.includes("node_modules"));
+
+    for (const excludeGlob of this.exclude) {
+      const exclusions = await globAsync(excludeGlob);
+      const filteredPaths = paths.filter(p => !exclusions.includes(p));
+      paths = filteredPaths;
+    }
+
+    for (const includeGlob of this.include) {
+      const inclusions = await globAsync(includeGlob);
+      inclusions.forEach(i => {
+        if (!paths.includes(i)) {
+          paths.push(i);
+        }
+      });
+    }
+
+    return paths.map(asBollFile);
   }
 }

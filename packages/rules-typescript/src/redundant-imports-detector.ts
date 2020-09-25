@@ -4,7 +4,7 @@ import {
   Failure,
   FileContext,
   ImportPathAndLineNumber,
-  SourceFileRule,
+  PackageRule,
   Result,
   Success
 } from "@boll/core";
@@ -20,7 +20,7 @@ const ruleName = "RedundantImportsDetector";
  * Imports from the same location should be done in the
  * same import statement.
  */
-export class RedundantImportsDetector implements SourceFileRule {
+export class RedundantImportsDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }

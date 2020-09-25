@@ -1,8 +1,24 @@
 # Change Log - @boll/cli
 
-This log was last generated on Fri, 18 Sep 2020 17:10:21 GMT and should not be manually modified.
+This log was last generated on Fri, 25 Sep 2020 21:48:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.3
+
+Fri, 25 Sep 2020 21:48:01 GMT
+
+### Patches
+
+- Adding internal testing package (email not defined)
+
+## 1.1.1
+
+Thu, 24 Sep 2020 21:39:25 GMT
+
+### Patches
+
+- Remove unnecessary dependencies (jdh@microsoft.com)
 
 ## 1.1.0
 

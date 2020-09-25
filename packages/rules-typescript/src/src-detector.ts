@@ -4,7 +4,7 @@ import {
   Failure,
   FileContext,
   ImportPathAndLineNumber,
-  SourceFileRule,
+  PackageRule,
   Result,
   Success
 } from "@boll/core";
@@ -21,7 +21,7 @@ const ruleName = "SrcDetector";
  * in a project rather than being consumed from compiled
  * sources.
  */
-export class SrcDetector implements SourceFileRule {
+export class SrcDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }

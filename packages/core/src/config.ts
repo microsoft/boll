@@ -1,9 +1,9 @@
-import { ConfigDefinition, FileGlob, SourceFileRule } from "./types";
+import { ConfigDefinition, FileGlob, PackageRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
+import { RuleSet } from "./rule-set";
 import { Suite } from "./suite";
-import { TypescriptSourceGlob } from "./glob";
 
 export class Config {
   private configuration: ConfigDefinition = {};
@@ -11,22 +11,20 @@ export class Config {
   constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry, private logger: Logger) {}
 
   buildSuite(): Suite {
-    const suite = new Suite(this.resolvedConfiguration());
-    suite.checks = this.loadChecks();
-    suite.fileGlob = this.buildFileGlob();
+    const suite = new Suite();
+    suite.ruleSets = this.loadRuleSets();
     return suite;
   }
 
-  loadChecks(): SourceFileRule[] {
+  loadRuleSets(): RuleSet[] {
     const config = this.resolvedConfiguration();
-    return (config.checks || []).map(check => this.ruleRegistry.get(check.rule)(this.logger));
-  }
-
-  buildFileGlob(): FileGlob {
-    const config = this.resolvedConfiguration();
-    return new TypescriptSourceGlob({
-      include: config.include || [],
-      exclude: config.exclude || []
+    return (config.ruleSets || []).map(ruleSetConfig => {
+      const exclude = [...(ruleSetConfig.exclude || []), ...(config.exclude || [])];
+      const glob = ruleSetConfig.fileLocator;
+      glob.exclude = exclude;
+      glob.include = ruleSetConfig.include || [];
+      const checks = (ruleSetConfig.checks || []).map(check => this.ruleRegistry.get(check.rule)(this.logger));
+      return new RuleSet(glob, checks);
     });
   }
 

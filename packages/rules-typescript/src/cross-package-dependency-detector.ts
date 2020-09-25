@@ -5,7 +5,7 @@ import {
   BollFile,
   Failure,
   FileContext,
-  SourceFileRule,
+  PackageRule,
   Result,
   Success,
   ImportPathAndLineNumber
@@ -23,7 +23,7 @@ const ruleName = "CrossPackageDependencyDetector";
  * referenced through their package name.
  * (eg `import { Foo } from "@company/package"` instead of `import Foo from '../../the-package/foo'`)
  */
-export class CrossPackageDependencyDetector implements SourceFileRule {
+export class CrossPackageDependencyDetector implements PackageRule {
   get name(): string {
     return ruleName;
   }

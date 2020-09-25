@@ -1,22 +1,18 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { FileGlob, ConfigDefinition, SourceFileRule } from "./types";
+import { ConfigDefinition } from "./types";
 import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
 import { ResultSet } from "./result-set";
-import { TypescriptSourceGlob } from "./glob";
+import { RuleSet } from "./rule-set";
 import { promisify } from "util";
 const readFileAsync = promisify(fs.readFile);
 
 export class Suite {
   private _hasRun = false;
-  public fileGlob: FileGlob = new TypescriptSourceGlob();
-
-  public checks: SourceFileRule[] = [];
-
-  constructor(private config: ConfigDefinition) {}
+  public ruleSets: RuleSet[] = [];
 
   get hasRun(): boolean {
     return this._hasRun;
@@ -24,24 +20,29 @@ export class Suite {
 
   async run(logger: Logger): Promise<ResultSet> {
     this._hasRun = true;
-
     const resultSet = new ResultSet();
+    for (let i = 0; i < this.ruleSets.length; i++) {
+      await this.runRuleSet(logger, this.ruleSets[i], resultSet);
+    }
+    return resultSet;
+  }
+
+  async runRuleSet(logger: Logger, ruleSet: RuleSet, resultSet: ResultSet): Promise<boolean> {
     const packageContext = await this.loadPackage(logger);
-    const sourceFilePaths = await this.fileGlob.findFiles();
+    const sourceFilePaths = await ruleSet.fileGlob.findFiles();
     const projectRoot = asBollDirectory(process.cwd());
     const sourceFiles = await Promise.all(
       sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext))
     );
 
-    this.checks.forEach(r => {
+    ruleSet.checks.forEach(r => {
       sourceFiles.forEach(async s => {
         if (s.shouldSkip(r)) return;
         const results = await r.check(s);
         resultSet.add(results);
       });
     });
-
-    return resultSet;
+    return true;
   }
 
   private async loadPackage(logger: Logger) {

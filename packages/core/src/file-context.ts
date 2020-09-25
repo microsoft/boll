@@ -4,7 +4,7 @@ import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
 import { DependencyMap, Package } from "./package";
-import { SourceFileRule } from "./types";
+import { PackageRule } from "./types";
 const readFileAsync = promisify(fs.readFile);
 
 export class FileContext {
@@ -48,7 +48,7 @@ export class FileContext {
     return this._ignoredChecks;
   }
 
-  shouldSkip(r: SourceFileRule) {
+  shouldSkip(r: PackageRule) {
     return this.ignoredChecks.includes(r.name);
   }
 }

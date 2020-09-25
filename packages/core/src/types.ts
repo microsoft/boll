@@ -1,6 +1,5 @@
 import { BollFile } from "./boll-file";
 import { FileContext } from "./file-context";
-import { PackageManifestContext } from "./package-manifest-context";
 import { Result } from "./result-set";
 
 export interface CheckConfiguration {
@@ -8,23 +7,23 @@ export interface CheckConfiguration {
   options?: {};
 }
 
-export interface ConfigDefinition {
-  name?: string;
+export interface RuleSetConfiguration {
+  fileLocator: FileGlob;
   checks?: CheckConfiguration[];
-  extends?: string;
   exclude?: string[];
   include?: string[];
 }
 
-export interface Rule {
-  name: string;
-}
-export interface SourceFileRule extends Rule {
-  check(file: FileContext): Promise<Result[]>;
+export interface ConfigDefinition {
+  name?: string;
+  extends?: string;
+  exclude?: string[];
+  ruleSets?: RuleSetConfiguration[];
 }
 
-export interface PackageManifestRule extends Rule {
-  check(packageManifestContext: PackageManifestContext): Promise<Result[]>;
+export interface PackageRule {
+  name: string;
+  check(file: FileContext): Promise<Result[]>;
 }
 
 export enum ResultStatus {

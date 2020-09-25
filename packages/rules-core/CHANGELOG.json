@@ -1,0 +1,35 @@
+{
+  "name": "@boll/rules-core",
+  "entries": [
+    {
+      "date": "Fri, 25 Sep 2020 21:48:01 GMT",
+      "tag": "@boll/rules-core_v0.0.5",
+      "version": "0.0.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Adding internal testing package",
+            "author": "email not defined",
+            "commit": "007591284ed2a66240864c8452d086fd15be6b3e",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 25 Sep 2020 19:21:24 GMT",
+      "tag": "@boll/rules-core_v0.0.4",
+      "version": "0.0.4",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Introduce rule for package.json dependencies",
+            "author": "jdh@microsoft.com",
+            "commit": "39d50c71c53b4273870f1826202d413265d49d23",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,2 +1,2 @@
 export * from "./eslint-config";
-export * from "./rules/eslint-prefer-const-rule";
+export * from "./eslint-prefer-const-rule";
