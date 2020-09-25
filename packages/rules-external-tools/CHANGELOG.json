@@ -1,9 +1,4 @@
 {
-<<<<<<< HEAD
-  "name": "@boll/rules-typescript",
-  "entries": [
-    {
-=======
   "name": "@boll/rules-external-tools",
   "entries": [
     {
@@ -22,7 +17,6 @@
       }
     },
     {
->>>>>>> main
       "date": "Fri, 18 Sep 2020 17:10:21 GMT",
       "tag": "@boll/rules-typescript_v0.0.3",
       "version": "0.0.3",
