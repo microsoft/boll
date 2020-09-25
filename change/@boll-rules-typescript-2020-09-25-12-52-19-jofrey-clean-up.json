@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Remove unused fixtures",
+  "packageName": "@boll/rules-typescript",
+  "email": "email not defined",
+  "dependentChangeType": "patch",
+  "date": "2020-09-25T19:52:18.949Z"
+}
