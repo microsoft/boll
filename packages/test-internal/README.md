@@ -1,3 +1,3 @@
-# `@boll/rules-typescript`
+# `@boll/test-internal`
 
-Rules for the @boll linter that concern TypeScript source files.
+@boll package used internally for shared testing logic
