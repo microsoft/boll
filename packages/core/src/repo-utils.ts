@@ -16,16 +16,20 @@ export function getRepoRoot(): BollDirectory {
   return repoRoot;
 }
 
-export function isRoot(dirOrFile: BollFile | BollDirectory) {
-  const root = getRepoRoot();
-  return !dirOrFile.slice(root.length + 1).includes(path.sep);
+export function isRoot(dirOrFile: BollFile | BollDirectory, root?: BollDirectory) {
+  const rootDir = root || getRepoRoot();
+  return !dirOrFile.slice(rootDir.length + 1).includes(path.sep);
 }
 
 const fileCache: FileCache = {};
 export function getFileContentOnBranch(file: BollFile, branch: string) {
-  if (fileCache[branch][file]) return fileCache[branch][file];
+  if (fileCache[branch] && fileCache[branch][file]) return fileCache[branch][file];
   const normalizedFileName = file.slice(getRepoRoot().length).replace(/\\/g, "/");
   const fileContent = execSync(`git -P show ${branch}:${normalizedFileName}`).toString();
-  fileCache[branch][file] = fileContent;
+  if (fileCache[branch]) fileCache[branch][file] = fileContent;
+  else
+    fileCache[branch] = Object.defineProperty({}, branch, {
+      value: Object.defineProperty({}, file, { value: fileContent })
+    });
   return fileContent;
 }

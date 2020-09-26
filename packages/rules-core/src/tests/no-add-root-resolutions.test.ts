@@ -11,7 +11,7 @@ test("Should succeed since no changes are made to package.json", async () => {
   await inFixtureDir("package-json-resolutions", __dirname, async () => {
     const currentBranch = execSync("git branch --show-current").toString().trim();
     await inTmpBranch(async () => {
-      const sut = new NoAddRootResolutions(currentBranch);
+      const sut = new NoAddRootResolutions(currentBranch, asBollDirectory(process.cwd()));
       const results = await sut.check(await getSourceFile(asBollDirectory("."), "package.json", new Package({})));
       assert.strictEqual(results.length, 1);
       assert.strictEqual(results[0].status, ResultStatus.success);
@@ -24,7 +24,7 @@ test("Should succeed because changes that were made to a package.json file that 
     const currentBranch = execSync("git branch --show-current").toString().trim();
     await inTmpBranch(async () => {
       await tmpWriteToFile(asBollFile("copies/main-with-additions.json"), asBollFile("foo/package.json"), async () => {
-        const sut = new NoAddRootResolutions(currentBranch);
+        const sut = new NoAddRootResolutions(currentBranch, asBollDirectory(process.cwd()));
         const results = await sut.check(await getSourceFile(asBollDirectory("."), "foo/package.json", new Package({})));
         assert.strictEqual(results.length, 1);
         assert.strictEqual(results[0].status, ResultStatus.success);
@@ -38,7 +38,7 @@ test("Should fail because this adds dependencies to root package.json", async ()
     const currentBranch = execSync("git branch --show-current").toString().trim();
     await inTmpBranch(async () => {
       await tmpWriteToFile(asBollFile("copies/main-with-additions.json"), asBollFile("package.json"), async () => {
-        const sut = new NoAddRootResolutions(currentBranch);
+        const sut = new NoAddRootResolutions(currentBranch, asBollDirectory(process.cwd()));
         const results = await sut.check(await getSourceFile(asBollDirectory("."), "package.json", new Package({})));
         assert.strictEqual(results.length, 7);
         assert.strictEqual(
@@ -58,7 +58,7 @@ test("Should fail because it adds (as well as removes) dependencies from root pa
         asBollFile("copies/main-with-additions-and-removals.json"),
         asBollFile("package.json"),
         async () => {
-          const sut = new NoAddRootResolutions(currentBranch);
+          const sut = new NoAddRootResolutions(currentBranch, asBollDirectory(process.cwd()));
           const results = await sut.check(await getSourceFile(asBollDirectory("."), "package.json", new Package({})));
           assert.strictEqual(results.length, 2);
           assert.strictEqual(

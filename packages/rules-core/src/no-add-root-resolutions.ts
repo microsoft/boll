@@ -8,20 +8,26 @@ import {
   FileContext,
   isRoot,
   asPackageJson,
-  getFileContentOnBranch
+  getFileContentOnBranch,
+  BollDirectory
 } from "@boll/core";
 
 const ruleName = "NoAddRootResolutions";
 const success = [new Success(ruleName)];
+
+/**
+ * NoAddRootResolutions makes sure no new dependencies are added to
+ * the `resolutions` field in the root `package.json`.
+ */
 export class NoAddRootResolutions implements PackageRule {
-  constructor(private branch?: string) {}
+  constructor(private branch?: string, private root?: BollDirectory) {}
 
   get name(): string {
     return ruleName;
   }
 
   async check(file: FileContext): Promise<Result[]> {
-    if (isRoot(file.filename)) {
+    if (isRoot(file.filename, this.root)) {
       const packageManifest = asPackageJson(file);
       const mainBranchPackageManifest = asPackageJson(
         new FileContext(
