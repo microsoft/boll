@@ -4,7 +4,7 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.2.287",
+    "@boll/core": "1.2.288",
     "eslint": "^7.8.1"
   },
   "description": "@boll rules for typescript source files",
@@ -41,5 +41,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.293"
+  "version": "0.0.294"
 }
