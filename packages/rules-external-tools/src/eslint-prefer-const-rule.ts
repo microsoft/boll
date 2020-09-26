@@ -1,7 +1,12 @@
 import { PackageRule, FileContext, asBollFile, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
+<<<<<<< HEAD:packages/rules-external-tools/src/eslint-prefer-const-rule.ts
 import { ESLintRules } from "./eslint-config";
 
 const ruleName = "ESLintPreferConstRule";
+=======
+import { ESLint } from "eslint";
+import { ESLintRules } from "./eslint-config";
+>>>>>>> main:packages/rules-typescript/src/eslint-prefer-const-rule.ts
 
 /**
  * ESLintPreferConstRule will esnure that the prefer-const
