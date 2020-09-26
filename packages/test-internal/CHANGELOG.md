@@ -1,8 +1,16 @@
 # Change Log - @boll/test-internal
 
-This log was last generated on Sat, 26 Sep 2020 07:38:58 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Sep 2020 07:40:46 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.1
+
+Sat, 26 Sep 2020 07:40:46 GMT
+
+### Patches
+
+- Adding internal testing package (email not defined)
 
 ## 0.0.1
 
