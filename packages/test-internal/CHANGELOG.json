@@ -2,6 +2,21 @@
   "name": "@boll/test-internal",
   "entries": [
     {
+      "date": "Sat, 26 Sep 2020 14:20:57 GMT",
+      "tag": "@boll/test-internal_v0.0.1",
+      "version": "0.0.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Adding internal testing package",
+            "author": "email not defined",
+            "commit": "416048d07c8330e45c5f61a50d31ff13473d586b",
+            "package": "@boll/test-internal"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 26 Sep 2020 14:18:26 GMT",
       "tag": "@boll/test-internal_v0.0.1",
       "version": "0.0.1",
