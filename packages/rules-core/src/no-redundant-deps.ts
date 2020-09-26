@@ -1,5 +1,4 @@
 import { basename } from "path";
-<<<<<<< HEAD
 import {
   PackageRule,
   FileContext,
@@ -10,9 +9,6 @@ import {
   Logger,
   asPackageJson
 } from "@boll/core";
-=======
-import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
->>>>>>> main
 
 /**
  * NoRedundantDeps ensures that dependencies are not declared if they are already specified as peerDeps.
@@ -30,7 +26,6 @@ export class NoRedundantDepsRule implements PackageRule {
       return [new Success(ruleName)];
     }
 
-<<<<<<< HEAD
     const packageJson = asPackageJson(file);
 
     if (!packageJson.peerDependencies || !packageJson.dependencies) {
@@ -39,16 +34,6 @@ export class NoRedundantDepsRule implements PackageRule {
 
     const deps = Object.keys(packageJson.dependencies);
     const peerDeps = Object.keys(packageJson.peerDependencies);
-=======
-    const contents = JSON.parse(file.content);
-
-    if (!contents.peerDependencies || !contents.dependencies) {
-      return [new Success(ruleName)];
-    }
-
-    const deps = Object.keys(contents.dependencies);
-    const peerDeps = Object.keys(contents.peerDependencies);
->>>>>>> main
     const duplicates = peerDeps.filter(pd => deps.includes(pd));
     if (duplicates.length > 0) {
       return duplicates.map(
