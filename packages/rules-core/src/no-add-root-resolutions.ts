@@ -28,8 +28,8 @@ export class NoAddRootResolutions implements PackageRule {
 
   async check(file: FileContext): Promise<Result[]> {
     if (isRoot(file.filename, this.root)) {
-      const packageManifest = asPackageJson(file);
-      const mainBranchPackageManifest = asPackageJson(
+      const packageJson = asPackageJson(file);
+      const mainBranchPackageJson = asPackageJson(
         new FileContext(
           file.packageRoot,
           file.packageContext,
@@ -37,14 +37,11 @@ export class NoAddRootResolutions implements PackageRule {
           getFileContentOnBranch(asBollFile(file.filename), this.branch || "master")
         )
       );
-      if (
-        !mainBranchPackageManifest.resolutions ||
-        (mainBranchPackageManifest.resolutions && !packageManifest.resolutions)
-      )
+      if (!mainBranchPackageJson.resolutions || (mainBranchPackageJson.resolutions && !packageJson.resolutions))
         return success;
       const resolutions = new Set<string>();
-      Object.keys(mainBranchPackageManifest.resolutions).forEach(d => resolutions.add(d));
-      const addedDeps = Object.keys(packageManifest.resolutions!).filter(d => !resolutions.has(d));
+      Object.keys(mainBranchPackageJson.resolutions).forEach(d => resolutions.add(d));
+      const addedDeps = Object.keys(packageJson.resolutions!).filter(d => !resolutions.has(d));
       const failures = addedDeps.map(
         d =>
           new Failure(
