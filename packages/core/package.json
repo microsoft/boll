@@ -43,5 +43,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "1.2.418"
+  "version": "1.2.419"
 }
