@@ -7,7 +7,7 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.2.788",
+    "@boll/core": "1.2.789",
     "argparse": "^1.0.10",
     "glob": "^7.1.6",
     "typescript": "^3.9.7",
@@ -48,5 +48,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "1.1.790"
+  "version": "1.1.791"
 }
