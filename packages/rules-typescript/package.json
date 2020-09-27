@@ -4,7 +4,7 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.2.863",
+    "@boll/core": "1.2.864",
     "typescript": "^3.9.7"
   },
   "description": "@boll rules for typescript source files",
@@ -39,5 +39,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.869"
+  "version": "0.0.870"
 }
