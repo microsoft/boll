@@ -4,7 +4,7 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.2.1053"
+    "@boll/core": "1.2.1054"
   },
   "description": "@boll rules for project configuration and layout",
   "devDependencies": {
@@ -39,5 +39,5 @@
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.1057"
+  "version": "0.0.1058"
 }
