@@ -4,10 +4,10 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/core": "1.2.898",
-    "@boll/rules-external-tools": "0.0.904",
-    "@boll/rules-core": "0.0.902",
-    "@boll/rules-typescript": "0.0.904"
+    "@boll/core": "1.2.899",
+    "@boll/rules-external-tools": "0.0.905",
+    "@boll/rules-core": "0.0.903",
+    "@boll/rules-typescript": "0.0.905"
   },
   "description": "Recommended configuration for TypeScript monorepos ",
   "devDependencies": {
@@ -37,5 +37,5 @@
     "clean": "rimraf ./dist",
     "docs": "typedoc --mode file --out ./docs --theme markdown ./src"
   },
-  "version": "0.1.899"
+  "version": "0.1.900"
 }
