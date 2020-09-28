@@ -1,7 +1,7 @@
 {
   "author": "JD Huntington <jdh@microsoft.com>",
   "devDependencies": {
-    "beachball": "^1.35.3",
+    "beachball": "^1.36.2",
     "lerna": "^3.22.1"
   },
   "license": "MIT",
