@@ -19,15 +19,3 @@
   Catch usage of `src` in import paths, a clue that things are not being imported correctly.
 - [TransitiveDependencyDetector](../api/rules-typescript/classes/transitivedependencydetector)
   Find usage of dependencies of dependencies.
-
-
-
-
-
-
-
-
-
-
-
-
