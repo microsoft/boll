@@ -26,7 +26,7 @@
   "scripts": {
     "build": "vuepress build src --dest dist",
     "dev": "vuepress dev src",
-    "docs": "vuepress build src --dest dist",
+    "docs": "./bin/copy-docs && vuepress build src --dest dist",
     "release": "yarn build && yarn upload",
     "upload": "gh-pages --dist dist --dotfiles"
   },
