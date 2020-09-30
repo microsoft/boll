@@ -21,7 +21,7 @@
   },
   "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
   "homepage": "https://github.com/microsoft/boll#readme",
-  "license": "unlicensed",
+  "license": "MIT",
   "name": "@boll/integration",
   "private": true,
   "repository": {

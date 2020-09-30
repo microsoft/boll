@@ -22,7 +22,7 @@
   ],
   "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
   "homepage": "https://github.com/microsoft/boll#readme",
-  "license": "unlicensed",
+  "license": "MIT",
   "main": "dist/index.js",
   "name": "@boll/recommended",
   "publishConfig": {
@@ -35,7 +35,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "docs": "typedoc --mode file --out ./docs --theme markdown ./src"
+    "docs": "typedoc --mode file --out ./apidocs --theme markdown ./src"
   },
   "version": "0.1.1209"
 }
