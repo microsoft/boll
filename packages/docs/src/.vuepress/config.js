@@ -3,10 +3,13 @@ const glob = require("glob").sync;
 const path = require("path");
 
 const apiRoot = path.join(__dirname, "..", "api");
-const apiFiles = glob(path.join(apiRoot, "**", "*.md"))
+const apiFiles = []; glob(path.join(apiRoot, "**", "*.md"))
   .map(x => x.replace(apiRoot + "/", "").replace(".md", ""))
   .map(x => (x === "index" ? "" : x))
-  .sort();
+  .filter(x => !x.includes("README"))
+      .sort();
+
+console.log(apiFiles);
 
 module.exports = {
   /**

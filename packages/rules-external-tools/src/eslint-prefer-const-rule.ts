@@ -1,13 +1,13 @@
 import { PackageRule, FileContext, asBollFile, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
-import { ESLint } from "eslint";
 import { ESLintRules } from "./eslint-config";
+
+const ruleName = "ESLintPreferConstRule";
 
 /**
  * ESLintPreferConstRule will esnure that the prefer-const
  * ESLint rule is enabled on all source files and that the
  * rule is enabled as an error.
  */
-const ruleName = "ESLintPreferConstRule";
 export class ESLintPreferConstRule implements PackageRule {
   configLoader: ESLintRules;
   constructor(private logger: Logger) {

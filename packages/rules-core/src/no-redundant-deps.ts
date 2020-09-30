@@ -1,10 +1,11 @@
 import { basename } from "path";
 import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
 
+const ruleName = "NoRedundantDeps";
+
 /**
  * NoRedundantDeps ensures that dependencies are not declared if they are already specified as peerDeps.
  */
-const ruleName = "NoRedundantDeps";
 export class NoRedundantDepsRule implements PackageRule {
   constructor(private logger: Logger) {}
 

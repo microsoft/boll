@@ -1,14 +1,33 @@
 # Rules
 
+## Per-package rules
+
+- [NoRedundantDeps](../api/rules-core/classes/noredundantdepsrule)
+  Ensure that dependencies are not declared in both `dependencies` and `peerDependencies`
+- [ESLintPreferConstRule](../api/rules-external-tools/classes/eslintpreferconstrule)
+  Esnure that the prefer-const ESLint rule is enabled
+
 ## Per-source file rules
 
-- [CrossPackageDependencyDetector](../api/classes/crosspackagedependencydetector)
+- [CrossPackageDependencyDetector](../api/rules-typescript/classes/crosspackagedependencydetector)
   Find usage of imports across package boundaries
-- [NodeModulesReferenceDetector](../api/classes/nodemodulesreferencedetector)
+- [NodeModulesReferenceDetector](../api/rules-typescript/classes/nodemodulesreferencedetector)
   Catch errant usages of `node_modules` (instead of proper imports)
-- [RedundantImportsDetector](../api/classes/redundantimportsdetector)
+- [RedundantImportsDetector](../api/rules-typescript/classes/redundantimportsdetector)
   Find redunant imports
-- [SrcDetector](../api/classes/srcdetector)
+- [SrcDetector](../api/rules-typescript/classes/srcdetector)
   Catch usage of `src` in import paths, a clue that things are not being imported correctly.
-- [TransitiveDependencyDetector](../api/classes/transitivedependencydetector)
+- [TransitiveDependencyDetector](../api/rules-typescript/classes/transitivedependencydetector)
   Find usage of dependencies of dependencies.
+
+
+
+
+
+
+
+
+
+
+
+
