@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "docs": "typedoc --mode file --out ./docs --theme markdown ./src",
+    "docs": "typedoc --mode file --out ./apidocs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
   "version": "0.0.1212"
