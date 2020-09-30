@@ -6,3 +6,9 @@ mkdir -p src/api
 for x in $(find .. -type d -name apidocs); do
     cp -rv ${x} src/api/$(basename $(dirname ${x}))
 done
+
+# Update all titles so that vuepress can parse them
+for x in $(find src/api -type f -iname '*.md'); do
+  title=$(cat ${x} | grep '^#' | head -n1)
+  printf "${title}\n\n$(cat ${x})" > ${x}
+done
