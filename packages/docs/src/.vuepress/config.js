@@ -42,7 +42,7 @@ module.exports = {
     editLinkText: "",
     lastUpdated: false,
     displayAllHeaders: true,
-    sidebar: { "/docs/": ["", "configuration", "runner", "disabling", "rules"], "/api/": apiFiles, "/": "auto" },
+    sidebar: { "/docs/": ["", "configuration", "runner", "disabling", "rules", "custom-rule"], "/api/": apiFiles, "/": "auto" },
     nav: [
       {
         text: "Get started",
