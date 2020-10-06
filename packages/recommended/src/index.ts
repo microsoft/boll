@@ -14,7 +14,7 @@ import {
   TransitiveDependencyDetector
 } from "@boll/rules-typescript";
 import { ESLintPreferConstRule } from "@boll/rules-external-tools";
-import { NoRedundantDepsRule } from "@boll/rules-core";
+import { EnforceRationale, NoRedundantDepsRule } from "@boll/rules-core";
 
 let bootstrapRun = false;
 export const bootstrapRecommendedConfiguration = () => {
@@ -26,6 +26,7 @@ export const bootstrapRecommendedConfiguration = () => {
   RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
   RuleRegistryInstance.register("ESLintPreferConstRule", (l: Logger) => new ESLintPreferConstRule(l));
   RuleRegistryInstance.register("NoRedundantDepsRule", (l: Logger) => new NoRedundantDepsRule(l));
+  RuleRegistryInstance.register("EnforceRationale", (l: Logger, options?: any) => new EnforceRationale(l, options));
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;
 };

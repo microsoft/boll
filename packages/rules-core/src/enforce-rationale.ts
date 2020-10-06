@@ -1,69 +1,84 @@
-import { basename } from "path";
+import { extname } from "path";
 import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
+
+export interface EnforceRationaleRuleOptions {
+  [file: string]: string[];
+}
+
+const ruleName = "EnforceRationale";
 
 /**
  * EnforceRationale ensures specified fields in package.json require a rationale for
  * any additions.
  */
-const ruleName = "EnforceRationale";
 export class EnforceRationaleRule implements PackageRule {
-  constructor(private logger: Logger, private options?: any) {}
+  constructor(private logger: Logger, private options?: EnforceRationaleRuleOptions) {}
 
   get name(): string {
     return ruleName;
   }
 
   async check(file: FileContext): Promise<Result[]> {
-    if (basename(file.filename) !== "package.json") {
+    if (extname(file.filename) !== ".json") {
       return [new Success(ruleName)];
     }
 
-    if (!this.options || !this.options.fields) {
+    if (!this.options) {
       return [new Success(ruleName)];
     }
 
-    if (typeof this.options.fields !== "object") {
-      return [
-        new Failure(
-          ruleName,
-          file.filename,
-          asBollLineNumber(0),
-          `The "fields" option for rule ${ruleName} should be an array`
-        )
-      ];
-    }
+    const failures: Result[] = [];
+    const fileKey = file.filename.slice(process.cwd().length + 1);
 
-    const fields = this.options.fields as string[];
-    const contents = JSON.parse(file.content);
+    if (this.options[fileKey]) {
+      const fields = this.options[fileKey];
+      const contents = JSON.parse(file.content);
+      const rationale = contents.rationale;
 
-    if (fields.length && !contents.rationale) {
-      return [
-        new Failure(ruleName, file.filename, asBollLineNumber(0), `package.json does not contain a "rationale" field`)
-      ];
-    }
+      if (fields.some(f => contents[f] && Object.keys(contents[f])) && !rationale) {
+        failures.push(
+          new Failure(
+            ruleName,
+            file.filename,
+            asBollLineNumber(0),
+            `${file.filename} does not contain a "rationale" field`
+          )
+        );
+        return failures;
+      }
 
-    const failures: Failure[] = [];
-    const rationale: { [key: string]: { [key: string]: string } } = contents.rationale;
-    (this.options.fields as string[]).forEach(field => {
-      const values = contents[field];
-      Object.keys(values).forEach(value => {
-        if (!rationale[field] || !rationale[field][value]) {
-          failures.push(
-            new Failure(
-              ruleName,
-              file.filename,
-              asBollLineNumber(0),
-              `No rationale was provided for ${field}.${value}.`
-            )
-          );
+      fields.forEach(f => {
+        const entries = this.getEntriesForField(contents, f);
+        const rationaleEntries = this.getEntriesForField(rationale, f);
+        if (entries) {
+          Object.keys(entries).forEach(k => {
+            if (!rationaleEntries || !rationaleEntries[k]) {
+              failures.push(
+                new Failure(
+                  ruleName,
+                  file.filename,
+                  asBollLineNumber(0),
+                  `No rationale provided for ${f}.${k} in ${file.filename}`
+                )
+              );
+            }
+          });
         }
       });
-    });
-
-    if (failures.length) {
-      return failures;
+      return failures.length ? failures : [new Success(ruleName)];
     }
-
     return [new Success(ruleName)];
+  }
+
+  private getEntriesForField(contents: any, field: string) {
+    const fieldParts = field.split(".");
+    let entries = contents && contents[fieldParts[0]];
+    for (let i = 1; i < fieldParts.length; i++) {
+      if (!entries) {
+        break;
+      }
+      entries = entries[fieldParts[i]];
+    }
+    return entries;
   }
 }
