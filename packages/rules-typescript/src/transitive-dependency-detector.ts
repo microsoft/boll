@@ -38,7 +38,7 @@ export class TransitiveDependencyDetector implements PackageRule {
             ruleName,
             file.filename,
             asBollLineNumber(i.lineNumber),
-            `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
+            `"${i.path}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
           )
       );
   }
