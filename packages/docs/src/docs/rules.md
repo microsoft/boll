@@ -4,6 +4,8 @@
 
 - [NoRedundantDeps](../api/rules-core/classes/noredundantdepsrule)
   Ensure that dependencies are not declared in both `dependencies` and `peerDependencies`
+- [EnforceRationale](../api/rules-core/classes/enforcerationalerule)
+  Ensure that specified fields in JSON files have an entry in a `rationale` field in the same file explaining the addition.
 - [ESLintPreferConstRule](../api/rules-external-tools/classes/eslintpreferconstrule)
   Esnure that the prefer-const ESLint rule is enabled
 
