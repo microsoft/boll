@@ -1,7 +1,7 @@
 import { extname } from "path";
 import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
 
-export interface EnforceRationaleRuleOptions {
+export interface EnforceRationaleOptions {
   [file: string]: string[];
 }
 
@@ -11,8 +11,8 @@ const ruleName = "EnforceRationale";
  * EnforceRationale ensures specified fields in package.json require a rationale for
  * any additions.
  */
-export class EnforceRationaleRule implements PackageRule {
-  constructor(private logger: Logger, private options?: EnforceRationaleRuleOptions) {}
+export class EnforceRationale implements PackageRule {
+  constructor(private logger: Logger, private options?: EnforceRationaleOptions) {}
 
   get name(): string {
     return ruleName;
