@@ -28,10 +28,9 @@ export class EnforceRationale implements PackageRule {
     }
 
     const failures: Result[] = [];
-    const fileKey = file.filename.slice(process.cwd().length + 1);
 
-    if (this.options[fileKey]) {
-      const fields = this.options[fileKey];
+    if (this.options[file.relativeFilename]) {
+      const fields = this.options[file.relativeFilename];
       const contents = JSON.parse(file.content);
       const rationale = contents.rationale;
 
