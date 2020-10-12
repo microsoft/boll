@@ -2,6 +2,21 @@
   "name": "@boll/rules-typescript",
   "entries": [
     {
+      "date": "Mon, 12 Oct 2020 17:53:22 GMT",
+      "tag": "@boll/rules-typescript_v0.1.0",
+      "version": "0.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Allow-list for transitive dep detector",
+            "author": "jdh@microsoft.com",
+            "commit": "bcf3505f25ed36b2c687b02f9c8268fffb5d5412",
+            "package": "@boll/rules-typescript"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 06 Oct 2020 16:15:51 GMT",
       "tag": "@boll/rules-typescript_v0.0.1215",
       "version": "0.0.1215",
