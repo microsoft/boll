@@ -17,3 +17,9 @@ test("Should fail if any references to packages not referenced in package", asyn
     assert.ok(containsExpected, `Expected "${result[0].formattedMessage}" to contain "${expected}", but didn't.`);
   });
 });
+
+test("Should allow any modules given to the constructor", async () => {
+  const sut = new TransitiveDependencyDetector({ ignorePackages: ["util"] });
+  assert.ok(sut.isValidImport({}, "util"));
+  assert.ok(!sut.isValidImport({}, "fs"));
+});
