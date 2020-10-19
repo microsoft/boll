@@ -11,6 +11,14 @@ import { ImportDeclaration, isImportDeclaration, isStringLiteral, SourceFile } f
 
 const ruleName = "TransitiveDependencyDetector";
 
+export interface Options {
+  ignorePackages: string[];
+}
+
+const defaultOptions: Options = {
+  ignorePackages: []
+};
+
 /**
  * TransitiveDependencyDetector will detect usages of non direct dependencies
  * in import statements of typescript source files.
@@ -24,6 +32,8 @@ const ruleName = "TransitiveDependencyDetector";
  * files.
  */
 export class TransitiveDependencyDetector implements PackageRule {
+  constructor(private options: Options = defaultOptions) {}
+
   get name(): string {
     return ruleName;
   }
@@ -38,12 +48,13 @@ export class TransitiveDependencyDetector implements PackageRule {
             ruleName,
             file.filename,
             asBollLineNumber(i.lineNumber),
-            `"${i}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
+            `"${i.path}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
           )
       );
   }
+
   isValidImport(packageDependencies: DependencyMap, importPath: string): any {
-    const validImports = Object.keys(packageDependencies);
+    const validImports = Object.keys(packageDependencies).concat(this.options.ignorePackages);
     return validImports.some(moduleName => importPath === moduleName || importPath.startsWith(`${moduleName}/`));
   }
 

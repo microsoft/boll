@@ -1,8 +1,24 @@
 # Change Log - @boll/rules-typescript
 
-This log was last generated on Fri, 25 Sep 2020 21:48:01 GMT and should not be manually modified.
+This log was last generated on Mon, 12 Oct 2020 17:53:22 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.0
+
+Mon, 12 Oct 2020 17:53:22 GMT
+
+### Minor changes
+
+- Allow-list for transitive dep detector (jdh@microsoft.com)
+
+## 0.0.1215
+
+Tue, 06 Oct 2020 16:15:51 GMT
+
+### Patches
+
+- Improve output for TransitiveDependencyDetector (jdh@microsoft.com)
 
 ## 0.0.7
 

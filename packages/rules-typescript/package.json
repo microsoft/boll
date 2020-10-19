@@ -39,5 +39,5 @@
     "docs": "typedoc --mode file --out ./apidocs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "0.0.1214"
+  "version": "0.1.0"
 }
