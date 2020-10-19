@@ -10,7 +10,7 @@ const emptyPackageContentsStub = { dependencies: {} };
 
 test("Passes when valid rationale is provided", async () => {
   await inFixtureDir("rationale", __dirname, async () => {
-    const sut = new EnforceRationale(NullLogger, { "valid-rationale.json": ["a", "b", "c"] });
+    const sut = new EnforceRationale({ "valid-rationale.json": ["a", "b", "c"] });
     const source = await getSourceFile(asBollDirectory("."), "valid-rationale.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 1);
@@ -20,7 +20,7 @@ test("Passes when valid rationale is provided", async () => {
 
 test("Fails when a rationale not provided for certain fields", async () => {
   await inFixtureDir("rationale", __dirname, async () => {
-    const sut = new EnforceRationale(NullLogger, { "invalid-rationale.json": ["a", "b", "c"] });
+    const sut = new EnforceRationale({ "invalid-rationale.json": ["a", "b", "c"] });
     const source = await getSourceFile(asBollDirectory("."), "invalid-rationale.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 5);
@@ -30,7 +30,7 @@ test("Fails when a rationale not provided for certain fields", async () => {
 
 test("Fails if no rationale field exists", async () => {
   await inFixtureDir("rationale", __dirname, async () => {
-    const sut = new EnforceRationale(NullLogger, { "no-rationale.json": ["a", "b", "c"] });
+    const sut = new EnforceRationale({ "no-rationale.json": ["a", "b", "c"] });
     const source = await getSourceFile(asBollDirectory("."), "no-rationale.json", emptyPackageContentsStub);
     const result = await sut.check(source);
     assert.strictEqual(result.length, 1);
@@ -46,7 +46,7 @@ test("Comprehensive test with multiple checked files", async () => {
       "3.json": ["a", "b", "c"],
       "4.json": ["a", "b", "c"]
     };
-    const sut = new EnforceRationale(NullLogger, options);
+    const sut = new EnforceRationale(options);
     const files = [...Object.keys(options), "5.json"];
     const successes: Result[] = [];
     const failures: Result[] = [];
