@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Add rule for enforcing rationale for certain fields in package.json",
+  "packageName": "@boll/rules-core",
+  "email": "email not defined",
+  "dependentChangeType": "patch",
+  "date": "2020-10-05T23:22:07.235Z"
+}

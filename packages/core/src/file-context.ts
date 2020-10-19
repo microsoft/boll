@@ -48,6 +48,10 @@ export class FileContext {
     return this._ignoredChecks;
   }
 
+  get relativeFilename(): string {
+    return this.filename.slice(process.cwd().length + 1);
+  }
+
   shouldSkip(r: PackageRule) {
     return this.ignoredChecks.includes(r.name);
   }
