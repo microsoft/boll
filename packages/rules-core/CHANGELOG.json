@@ -2,6 +2,21 @@
   "name": "@boll/rules-core",
   "entries": [
     {
+      "date": "Mon, 19 Oct 2020 23:05:43 GMT",
+      "tag": "@boll/rules-core_v0.0.1213",
+      "version": "0.0.1213",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Add rule for enforcing rationale for certain fields in package.json",
+            "author": "email not defined",
+            "commit": "a2e0e85fb66a7d95ce02b24caa9fce889b70008f",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Sep 2020 21:48:01 GMT",
       "tag": "@boll/rules-core_v0.0.5",
       "version": "0.0.5",

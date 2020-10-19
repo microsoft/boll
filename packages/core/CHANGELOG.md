@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Fri, 25 Sep 2020 21:48:01 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Oct 2020 23:05:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.1209
+
+Mon, 19 Oct 2020 23:05:43 GMT
+
+### Patches
+
+- Add rule for enforcing package.json rationale (email not defined)
 
 ## 1.2.1
 

@@ -2,6 +2,21 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Mon, 19 Oct 2020 23:05:43 GMT",
+      "tag": "@boll/recommended_v0.1.1212",
+      "version": "0.1.1212",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Adding enforce rationale rule",
+            "author": "email not defined",
+            "commit": "a2e0e85fb66a7d95ce02b24caa9fce889b70008f",
+            "package": "@boll/recommended"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Sep 2020 19:21:24 GMT",
       "tag": "@boll/recommended_v0.1.0",
       "version": "0.1.0",

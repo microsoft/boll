@@ -1,8 +1,16 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Fri, 25 Sep 2020 19:21:24 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Oct 2020 23:05:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.1212
+
+Mon, 19 Oct 2020 23:05:43 GMT
+
+### Patches
+
+- Adding enforce rationale rule (email not defined)
 
 ## 0.1.0
 

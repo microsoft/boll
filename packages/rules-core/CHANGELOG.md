@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-core
 
-This log was last generated on Fri, 25 Sep 2020 21:48:01 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Oct 2020 23:05:43 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.1213
+
+Mon, 19 Oct 2020 23:05:43 GMT
+
+### Patches
+
+- Add rule for enforcing rationale for certain fields in package.json (email not defined)
 
 ## 0.0.5
 
