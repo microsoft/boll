@@ -19,17 +19,21 @@ import { EnforceRationale, EnforceRationaleOptions, NoRedundantDepsRule } from "
 let bootstrapRun = false;
 export const bootstrapRecommendedConfiguration = () => {
   if (bootstrapRun) return;
-  RuleRegistryInstance.register("SrcDetector", () => new SrcDetector());
+
+  // TypeScript rules
   RuleRegistryInstance.register("CrossPackageDependencyDetector", () => new CrossPackageDependencyDetector());
-  RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
   RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
+  RuleRegistryInstance.register("SrcDetector", () => new SrcDetector());
+  RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
+
+  // External tools rules
   RuleRegistryInstance.register("ESLintPreferConstRule", (l: Logger) => new ESLintPreferConstRule(l));
+
+  // Core rules
   RuleRegistryInstance.register("NoRedundantDepsRule", (l: Logger) => new NoRedundantDepsRule(l));
-  RuleRegistryInstance.register(
-    "EnforceRationale",
-    (l: Logger, options?: EnforceRationaleOptions) => new EnforceRationale(l, options)
-  );
+  RuleRegistryInstance.register("EnforceRationale", () => new EnforceRationale());
+
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;
 };

@@ -1,9 +1,11 @@
 import { extname } from "path";
-import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure, Logger } from "@boll/core";
+import { PackageRule, FileContext, asBollLineNumber, Result, Success, Failure } from "@boll/core";
 
 export interface EnforceRationaleOptions {
   [file: string]: string[];
 }
+
+const defaultOptions: EnforceRationaleOptions = {};
 
 const ruleName = "EnforceRationale";
 
@@ -12,7 +14,7 @@ const ruleName = "EnforceRationale";
  * any additions.
  */
 export class EnforceRationale implements PackageRule {
-  constructor(private logger: Logger, private options?: EnforceRationaleOptions) {}
+  constructor(private options: EnforceRationaleOptions = defaultOptions) {}
 
   get name(): string {
     return ruleName;
@@ -23,7 +25,7 @@ export class EnforceRationale implements PackageRule {
       return [new Success(ruleName)];
     }
 
-    if (!this.options) {
+    if (!Object.keys(this.options).length) {
       return [new Success(ruleName)];
     }
 
