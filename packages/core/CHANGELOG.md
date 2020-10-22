@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Mon, 19 Oct 2020 23:05:43 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Oct 2020 18:26:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.3.0
+
+Thu, 22 Oct 2020 18:26:52 GMT
+
+### Minor changes
+
+- in-config options for rules (jdh@microsoft.com)
 
 ## 1.2.1209
 

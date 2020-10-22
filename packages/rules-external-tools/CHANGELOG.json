@@ -2,6 +2,21 @@
   "name": "@boll/rules-external-tools",
   "entries": [
     {
+      "date": "Thu, 22 Oct 2020 18:26:52 GMT",
+      "tag": "@boll/rules-external-tools_v0.1.0",
+      "version": "0.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "TransitiveDependencyDetector option to allow devDependencies",
+            "author": "jdh@microsoft.com",
+            "commit": "80d8e1afc955fded3442cd7cf3aa62a542e92232",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 25 Sep 2020 21:48:01 GMT",
       "tag": "@boll/rules-external-tools_v0.0.7",
       "version": "0.0.7",

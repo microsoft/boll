@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-typescript
 
-This log was last generated on Mon, 12 Oct 2020 17:53:22 GMT and should not be manually modified.
+This log was last generated on Thu, 22 Oct 2020 18:26:52 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.2.0
+
+Thu, 22 Oct 2020 18:26:52 GMT
+
+### Minor changes
+
+- TransitiveDependencyDetector option to allow devDependencies (jdh@microsoft.com)
 
 ## 0.1.0
 

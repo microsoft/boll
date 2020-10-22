@@ -2,6 +2,21 @@
   "name": "@boll/rules-core",
   "entries": [
     {
+      "date": "Thu, 22 Oct 2020 18:26:52 GMT",
+      "tag": "@boll/rules-core_v0.0.1214",
+      "version": "0.0.1214",
+      "comments": {
+        "patch": [
+          {
+            "comment": "TransitiveDependencyDetector option to allow devDependencies",
+            "author": "jdh@microsoft.com",
+            "commit": "80d8e1afc955fded3442cd7cf3aa62a542e92232",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 19 Oct 2020 23:05:43 GMT",
       "tag": "@boll/rules-core_v0.0.1213",
       "version": "0.0.1213",

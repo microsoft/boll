@@ -2,6 +2,21 @@
   "name": "@boll/rules-typescript",
   "entries": [
     {
+      "date": "Thu, 22 Oct 2020 18:26:52 GMT",
+      "tag": "@boll/rules-typescript_v0.2.0",
+      "version": "0.2.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "TransitiveDependencyDetector option to allow devDependencies",
+            "author": "jdh@microsoft.com",
+            "commit": "80d8e1afc955fded3442cd7cf3aa62a542e92232",
+            "package": "@boll/rules-typescript"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 12 Oct 2020 17:53:22 GMT",
       "tag": "@boll/rules-typescript_v0.1.0",
       "version": "0.1.0",
