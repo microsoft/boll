@@ -50,7 +50,7 @@ export class Suite {
     try {
       const packageBuffer = await readFileAsync(filename);
       const packageJson = JSON.parse(packageBuffer.toString("utf-8"));
-      const packageContext = new Package(packageJson.dependencies || {});
+      const packageContext = new Package(packageJson.dependencies || {}, packageJson.devDependencies || {});
       return packageContext;
     } catch (e) {
       logger.error(`Error loading ${filename}`);

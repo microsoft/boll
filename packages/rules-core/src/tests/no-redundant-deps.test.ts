@@ -7,7 +7,7 @@ import { inFixtureDir } from "@boll/test-internal";
 export const test: any = baretest("NoRedundantDepsTest");
 
 const sut = new NoRedundantDepsRule(NullLogger);
-const emptyPackageContentsStub = { dependencies: {} };
+const emptyPackageContentsStub = { dependencies: {}, devDependencies: {} };
 
 test("passes when no peerDeps present", async () => {
   await inFixtureDir("simple", __dirname, async () => {

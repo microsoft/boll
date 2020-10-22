@@ -6,7 +6,7 @@ import { inFixtureDir } from "@boll/test-internal";
 
 export const test: any = baretest("Enforce Rationale");
 
-const emptyPackageContentsStub = { dependencies: {} };
+const emptyPackageContentsStub = { dependencies: {}, devDependencies: {} };
 
 test("Passes when valid rationale is provided", async () => {
   await inFixtureDir("rationale", __dirname, async () => {

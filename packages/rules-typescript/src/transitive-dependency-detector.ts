@@ -13,10 +13,12 @@ const ruleName = "TransitiveDependencyDetector";
 
 export interface Options {
   ignorePackages: string[];
+  allowDevDependencies: boolean;
 }
 
 const defaultOptions: Options = {
-  ignorePackages: []
+  ignorePackages: [],
+  allowDevDependencies: false
 };
 
 /**
@@ -32,7 +34,16 @@ const defaultOptions: Options = {
  * files.
  */
 export class TransitiveDependencyDetector implements PackageRule {
-  constructor(private options: Options = defaultOptions) {}
+  private options: Options = { ...defaultOptions };
+
+  constructor(...options: Partial<Options>[]) {
+    options.forEach(o => {
+      this.options = {
+        ...this.options,
+        ...o
+      };
+    });
+  }
 
   get name(): string {
     return ruleName;
@@ -41,7 +52,7 @@ export class TransitiveDependencyDetector implements PackageRule {
   async check(file: FileContext): Promise<Result[]> {
     const imports = this.getModuleImports(file.source);
     return imports
-      .filter(i => !this.isValidImport(file.packageDependencies, i.path))
+      .filter(i => !this.isValidImport(file.packageDependencies, file.packageDevDependencies, i.path))
       .map(
         i =>
           new Failure(
@@ -53,8 +64,11 @@ export class TransitiveDependencyDetector implements PackageRule {
       );
   }
 
-  isValidImport(packageDependencies: DependencyMap, importPath: string): any {
-    const validImports = Object.keys(packageDependencies).concat(this.options.ignorePackages);
+  isValidImport(packageDependencies: DependencyMap, packageDevDependencies: DependencyMap, importPath: string): any {
+    let validImports = Object.keys(packageDependencies).concat(this.options.ignorePackages);
+    if (this.options.allowDevDependencies) {
+      validImports = validImports.concat(Object.keys(packageDevDependencies));
+    }
     return validImports.some(moduleName => importPath === moduleName || importPath.startsWith(`${moduleName}/`));
   }
 
