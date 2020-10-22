@@ -31,6 +31,10 @@ export class FileContext {
     return this.packageContext.dependencies;
   }
 
+  get packageDevDependencies(): DependencyMap {
+    return this.packageContext.devDependencies;
+  }
+
   get ignoredChecks(): string[] {
     if (this._parsedIgnoreChecks) return this._ignoredChecks;
 
