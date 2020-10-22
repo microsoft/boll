@@ -23,7 +23,9 @@ export class Config {
       const glob = ruleSetConfig.fileLocator;
       glob.exclude = exclude;
       glob.include = ruleSetConfig.include || [];
-      const checks = (ruleSetConfig.checks || []).map(check => this.ruleRegistry.get(check.rule)(this.logger));
+      const checks = (ruleSetConfig.checks || []).map(check =>
+        this.ruleRegistry.get(check.rule)(this.logger, check.options)
+      );
       return new RuleSet(glob, checks);
     });
   }

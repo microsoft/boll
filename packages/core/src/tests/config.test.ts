@@ -52,3 +52,19 @@ test("should apply exclude/include across extended config", () => {
   const suite = config.buildSuite();
   assert.deepStrictEqual(suite.ruleSets[0].fileGlob.exclude, ["testme"]);
 });
+
+test("gives options to factory function", () => {
+  const configRegistry = new ConfigRegistry();
+  const ruleRegistry = new RuleRegistry();
+  let calledWithCorrectArgs = false;
+  ruleRegistry.register("foo", (l: any, options: any) => {
+    if (options && options.bar === "baz") {
+      calledWithCorrectArgs = true;
+    }
+    return new FakeRule();
+  });
+  const config = new Config(configRegistry, ruleRegistry, NullLogger);
+  config.load({ ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }] });
+  config.buildSuite();
+  assert.ok(calledWithCorrectArgs, "Rule factory should have been invoked with correct args when creating suite.");
+});
