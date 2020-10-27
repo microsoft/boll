@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "Allow downstream configuration more control over globs and options.",
+  "packageName": "@boll/core",
+  "email": "jdh@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2020-10-27T19:34:55.408Z"
+}

@@ -12,6 +12,9 @@ export const test: any = baretest("Config");
 
 class FakeRule implements PackageRule {
   name: string = "fakerule";
+
+  constructor(public options: {} = {}) {}
+
   async check(file: any): Promise<Result[]> {
     throw new Error("Method not implemented.");
   }
@@ -67,4 +70,72 @@ test("gives options to factory function", () => {
   config.load({ ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }] });
   config.buildSuite();
   assert.ok(calledWithCorrectArgs, "Rule factory should have been invoked with correct args when creating suite.");
+});
+
+test("downstream rules configuration applies to rules", () => {
+  const configRegistry = new ConfigRegistry();
+  configRegistry.register({
+    name: "base",
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }]
+  });
+  const ruleRegistry = new RuleRegistry();
+  ruleRegistry.register("foo", (l: any, options: any) => {
+    return new FakeRule(options);
+  });
+  const config = new Config(configRegistry, ruleRegistry, NullLogger);
+  const myConfig = {
+    extends: "base",
+    configuration: {
+      rules: {
+        foo: { some: "rule" }
+      }
+    }
+  };
+  config.load(myConfig);
+  const suite = config.buildSuite();
+  const fakeRuleInstance = suite.ruleSets[0].checks[0] as FakeRule;
+  assert.deepStrictEqual(fakeRuleInstance.options, { bar: "baz", some: "rule" });
+});
+
+test("downstream ruleSet configuration applies to ruleSets", () => {
+  const configRegistry = new ConfigRegistry();
+  configRegistry.register({
+    name: "base",
+    ruleSets: [{ fileLocator: new FakeGlob(), name: "fake", exclude: ["bar"] }],
+    exclude: ["baz"]
+  });
+
+  const config = new Config(configRegistry, new RuleRegistry(), NullLogger);
+  const myConfig = {
+    extends: "base",
+    exclude: ["foo2"],
+    configuration: {
+      ruleSets: {
+        fake: {
+          exclude: ["foo"]
+        }
+      }
+    }
+  };
+  config.load(myConfig);
+  const suite = config.buildSuite();
+  const ruleSet = suite.ruleSets[0];
+  assert.deepStrictEqual(ruleSet.fileGlob.exclude, ["bar", "foo2", "baz", "foo"]);
+});
+
+test("resolveConfiguration merges exclude", () => {
+  const configRegistry = new ConfigRegistry();
+  configRegistry.register({
+    name: "base",
+    exclude: ["baz"]
+  });
+  configRegistry.register({
+    name: "child",
+    exclude: ["foo"],
+    extends: "base"
+  });
+  const config = new Config(configRegistry, new RuleRegistry(), NullLogger);
+  config.load({ extends: "child" });
+  const result = config.resolvedConfiguration();
+  assert.deepStrictEqual(result.exclude, ["baz", "foo"]);
 });
