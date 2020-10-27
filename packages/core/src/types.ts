@@ -12,6 +12,7 @@ export interface RuleSetConfiguration {
   checks?: CheckConfiguration[];
   exclude?: string[];
   include?: string[];
+  name?: string;
 }
 
 export interface ConfigDefinition {
@@ -19,6 +20,10 @@ export interface ConfigDefinition {
   extends?: string;
   exclude?: string[];
   ruleSets?: RuleSetConfiguration[];
+  configuration?: {
+    rules?: {};
+    ruleSets?: {};
+  };
 }
 
 export interface PackageRule {
