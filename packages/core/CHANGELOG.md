@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Thu, 22 Oct 2020 18:26:52 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Oct 2020 20:21:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.4.0
+
+Tue, 27 Oct 2020 20:21:24 GMT
+
+### Minor changes
+
+- Allow downstream configuration more control over globs and options. (jdh@microsoft.com)
 
 ## 1.3.0
 

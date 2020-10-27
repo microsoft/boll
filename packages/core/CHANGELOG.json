@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Tue, 27 Oct 2020 20:21:24 GMT",
+      "tag": "@boll/core_v1.4.0",
+      "version": "1.4.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Allow downstream configuration more control over globs and options.",
+            "author": "jdh@microsoft.com",
+            "commit": "520017ec2b79b581f322ab88207f1c058bef7758",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Oct 2020 18:26:52 GMT",
       "tag": "@boll/core_v1.3.0",
       "version": "1.3.0",
