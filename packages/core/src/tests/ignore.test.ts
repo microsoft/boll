@@ -64,7 +64,7 @@ test("Should match all files inside any directory b or files named b nested in d
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [path.resolve("./a/a"), path.resolve("./a/b"), path.resolve("./a/c")]);
   });
@@ -72,7 +72,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-or-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a"),
@@ -108,7 +108,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./.js/a"),
@@ -128,7 +128,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type-in-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [path.resolve("./a/a.js"), path.resolve("./a/b.js"), path.resolve("./a/c.js")]);
   });
@@ -136,7 +136,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type-in-nested-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/b/a.js"),
@@ -151,7 +151,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-nested-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/b/a"),
@@ -166,7 +166,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-nested-file-or-directory", __dirname, async () => {
-    const sut = new IgnoredFiles();
+    const sut = new IgnoredFiles({ ignoreFileName: "./.gitignored" });
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/a/b"),

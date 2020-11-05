@@ -6,8 +6,14 @@ import { promisify } from "util";
 import { asBollFile, BollFile } from "./boll-file";
 const globAsync = promisify(glob);
 
+export interface IgnoredFilesOptions {
+  ignoreFileName?: string;
+}
+
 export class IgnoredFiles {
-  constructor() {}
+  private gitIgnoreFileName = "./gitignore";
+
+  constructor(private options?: IgnoredFilesOptions) {}
 
   async getIgnoredFiles(): Promise<BollFile[]> {
     // TODO: This returns an array but to start it will only ever
@@ -33,7 +39,8 @@ export class IgnoredFiles {
   }
 
   async getIgnoreFiles(): Promise<string[]> {
-    return fs.existsSync(path.resolve("./.gitignore")) ? [path.resolve("./.gitignore")] : [];
+    const ignoreFileName = (this.options && this.options.ignoreFileName) ?? this.gitIgnoreFileName;
+    return fs.existsSync(path.resolve(ignoreFileName)) ? [path.resolve(ignoreFileName)] : [];
 
     // TODO: Right now just starting by finding a root level `.gitignore`,
     // eventually want to make it possible to find package level `.gitignore`
