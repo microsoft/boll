@@ -54,6 +54,6 @@ export class Cli {
     }
     const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, this.logger);
     config.load(require(fullConfigPath));
-    return config.buildSuite();
+    return await config.buildSuite();
   }
 }
