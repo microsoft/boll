@@ -2,7 +2,7 @@ import { inFixtureDir } from "@boll/test-internal";
 import * as assert from "assert";
 import baretest from "baretest";
 import * as path from "path";
-import { IgnoreFiles } from "../ignore";
+import { IgnoredFiles } from "../ignore";
 
 export const test: any = baretest("Ignore files");
 
@@ -21,50 +21,50 @@ function assertArrayContentsEqual(actual: string[], expected: string[]) {
 }
 
 test("Should produce a glob matching all files in ./a/b/ (relative to .gitignore)", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("a/b/");
   assert.deepStrictEqual(result, ["./a/b/**/*"]);
 });
 
 test("Should produce a glob matching all files with a path containing a/", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("a/");
   assert.deepStrictEqual(result, ["./**/a/**/*"]);
 });
 
 test("Should produce a glob matching all files in directory /a or files named a (relative to .gitignore)", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("/a");
   assert.deepStrictEqual(result, ["./a/**/*", "./a"]);
 });
 
 test("Should produce a glob matching all directories and files matching a", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("a");
   assert.deepStrictEqual(result, ["./**/a/**/*", "./**/a"]);
 });
 
 test("Should produce a glob matching all files matching pattern *.js and all files nested in a directory ending in the characters .js", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("*.js");
   assert.deepStrictEqual(result, ["./**/*.js/**/*", "./**/*.js"]);
 });
 
 test("Should produce a glob matching all files in directory abc (relative to .gitignore file)", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("abc/**");
   assert.deepStrictEqual(result, ["./abc/**"]);
 });
 
 test("Should match all files inside any directory b or files named b nested in directory a", async () => {
-  const sut = new IgnoreFiles();
+  const sut = new IgnoredFiles();
   const result = await sut.getGlobFromIgnorePattern("a/**/b");
   assert.deepStrictEqual(result, ["./a/**/b/**/*", "./a/**/b"]);
 });
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [path.resolve("./a/a"), path.resolve("./a/b"), path.resolve("./a/c")]);
   });
@@ -72,7 +72,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-or-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a"),
@@ -108,7 +108,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./.js/a"),
@@ -128,7 +128,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type-in-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [path.resolve("./a/a.js"), path.resolve("./a/b.js"), path.resolve("./a/c.js")]);
   });
@@ -136,7 +136,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-file-type-in-nested-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/b/a.js"),
@@ -151,7 +151,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-nested-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/b/a"),
@@ -166,7 +166,7 @@ test("", async () => {
 
 test("", async () => {
   await inFixtureDir("ignore/ignore-nested-file-or-directory", __dirname, async () => {
-    const sut = new IgnoreFiles();
+    const sut = new IgnoredFiles();
     const result = await sut.getIgnoredFiles();
     assertArrayContentsEqual(result, [
       path.resolve("./a/a/a/b"),

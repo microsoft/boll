@@ -46,13 +46,13 @@ test("should allow multi-level inheritance of configs", () => {
   assert.ok(called, "Rule factory should have been invoked when creating suite.");
 });
 
-test("should apply exclude/include across extended config", () => {
+test("should apply exclude/include across extended config", async () => {
   const configRegistry = new ConfigRegistry();
   const ruleSets: RuleSetConfiguration[] = [{ exclude: ["testme"], fileLocator: new FakeGlob() }];
   configRegistry.register({ name: "base", ruleSets });
   const config = new Config(configRegistry, new RuleRegistry(), NullLogger);
   config.load({ extends: "base" });
-  const suite = config.buildSuite();
+  const suite = await config.buildSuite();
   assert.deepStrictEqual(suite.ruleSets[0].fileGlob.exclude, ["testme"]);
 });
 
@@ -72,7 +72,7 @@ test("gives options to factory function", () => {
   assert.ok(calledWithCorrectArgs, "Rule factory should have been invoked with correct args when creating suite.");
 });
 
-test("downstream rules configuration applies to rules", () => {
+test("downstream rules configuration applies to rules", async () => {
   const configRegistry = new ConfigRegistry();
   configRegistry.register({
     name: "base",
@@ -92,12 +92,12 @@ test("downstream rules configuration applies to rules", () => {
     }
   };
   config.load(myConfig);
-  const suite = config.buildSuite();
+  const suite = await config.buildSuite();
   const fakeRuleInstance = suite.ruleSets[0].checks[0] as FakeRule;
   assert.deepStrictEqual(fakeRuleInstance.options, { bar: "baz", some: "rule" });
 });
 
-test("downstream ruleSet configuration applies to ruleSets", () => {
+test("downstream ruleSet configuration applies to ruleSets", async () => {
   const configRegistry = new ConfigRegistry();
   configRegistry.register({
     name: "base",
@@ -118,7 +118,7 @@ test("downstream ruleSet configuration applies to ruleSets", () => {
     }
   };
   config.load(myConfig);
-  const suite = config.buildSuite();
+  const suite = await config.buildSuite();
   const ruleSet = suite.ruleSets[0];
   assert.deepStrictEqual(ruleSet.fileGlob.exclude, ["bar", "foo2", "baz", "foo"]);
 });
