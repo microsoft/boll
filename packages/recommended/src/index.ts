@@ -14,7 +14,7 @@ import {
   TransitiveDependencyDetector
 } from "@boll/rules-typescript";
 import { ESLintPreferConstRule } from "@boll/rules-external-tools";
-import { EnforceRationale, EnforceRationaleOptions, NoRedundantDepsRule } from "@boll/rules-core";
+import { EnforceRationale, NoRedundantDepsRule, PackageConsistency } from "@boll/rules-core";
 
 let bootstrapRun = false;
 export const bootstrapRecommendedConfiguration = () => {
@@ -33,6 +33,7 @@ export const bootstrapRecommendedConfiguration = () => {
   // Core rules
   RuleRegistryInstance.register("NoRedundantDepsRule", (l: Logger) => new NoRedundantDepsRule(l));
   RuleRegistryInstance.register("EnforceRationale", () => new EnforceRationale());
+  RuleRegistryInstance.register("PackageConsistency", (l: Logger, options: any) => new EnforceRationale(options));
 
   ConfigRegistryInstance.register(RecommendedConfig);
   bootstrapRun = true;
@@ -53,7 +54,7 @@ export const RecommendedConfig: ConfigDefinition = {
     },
     {
       fileLocator: new PackageJsonGlob(),
-      checks: [{ rule: "NoRedundantDepsRule" }]
+      checks: [{ rule: "NoRedundantDepsRule" }, { rule: "PackageConsistency" }]
     }
   ]
 };
