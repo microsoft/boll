@@ -4,94 +4,172 @@ import { glob } from "glob";
 import parseGitignore from "parse-gitignore";
 import { promisify } from "util";
 import { asBollFile, BollFile } from "./boll-file";
+import { getIgnoreFiles } from "./git-utils";
 const globAsync = promisify(glob);
 
 export interface IgnoredFilesOptions {
   ignoreFileName?: string;
+  root?: string;
+}
+
+interface IgnoreFileToIgnorePatterns {
+  [file: string]: IgnorePattern[];
+}
+
+interface IgnoreFileToGlobs {
+  [file: string]: GlobsForIgnorePattern[];
 }
 
 export class IgnoredFiles {
-  private gitIgnoreFileName = "./gitignore";
+  private ignoreFileName: string;
+  private root: string;
 
-  constructor(private options?: IgnoredFilesOptions) {}
+  constructor(private options?: IgnoredFilesOptions) {
+    // Allow an option to specify ignore file name (used in testing), otherwise default to git ignore file name
+    this.ignoreFileName = (this.options && this.options.ignoreFileName) ?? ".gitignore";
+    // Allow an option to specify the root where it will look for ignore files,
+    // otherwise just search in the current working directory
+    this.root = (this.options && this.options.root) ?? process.cwd();
+  }
 
   async getIgnoredFiles(): Promise<BollFile[]> {
-    // TODO: This returns an array but to start it will only ever
-    // have one or zero elements since `getIgnoreFiles` only searches
-    // for a root level `.gitignore`
     const ignoreFiles = await this.getIgnoreFiles();
 
     if (!ignoreFiles.length) {
       return [];
     }
 
-    const ignorePatterns = this.getIgnorePatternsFromFile(ignoreFiles[0]);
-    const globs = this.getGlobsFromIgnorePatterns(ignorePatterns);
+    const ignoreFileToIgnorePatterns = this.getIgnorePatternsFromFiles(ignoreFiles);
+    const ignoreFileToGlobs = this.getGlobsFromIgnorePatterns(ignoreFileToIgnorePatterns);
     const ignoredFiles = [];
 
-    for (const glob of globs) {
-      const files = await globAsync(glob, { dot: true, nodir: true });
-      const filesAsBollFiles = files.map(f => asBollFile(f));
-      ignoredFiles.push(...filesAsBollFiles);
-    }
+    for (const ignoreFiles of Object.keys(ignoreFileToGlobs))
+      for (const globsForIgnoreFile of ignoreFileToGlobs[ignoreFiles]) {
+        for (const glob of globsForIgnoreFile.globs) {
+          const files = await globAsync(glob, { dot: true, nodir: true, cwd: globsForIgnoreFile.cwd });
+          const filesAsBollFiles = files.map(f => asBollFile(path.resolve(globsForIgnoreFile.cwd, f)));
+          const filesInCwd = filesAsBollFiles.filter(f => path.dirname(f).startsWith(process.cwd()));
+
+          ignoredFiles.push(...filesInCwd);
+        }
+      }
 
     return Array.from(new Set(ignoredFiles));
   }
 
-  async getIgnoreFiles(): Promise<string[]> {
-    const ignoreFileName = (this.options && this.options.ignoreFileName) ?? this.gitIgnoreFileName;
-    return fs.existsSync(path.resolve(ignoreFileName)) ? [path.resolve(ignoreFileName)] : [];
-
-    // TODO: Right now just starting by finding a root level `.gitignore`,
-    // eventually want to make it possible to find package level `.gitignore`
-    // files and merge them with ones found at the root.
-
-    // return await globAsync("./**/{.gitignore}/**/*");
+  private async getIgnoreFiles(): Promise<string[]> {
+    return (
+      (await getIgnoreFiles(this.root, this.ignoreFileName))
+        // Only want ignore files that apply to the current working directory
+        .filter(p => process.cwd().startsWith(path.dirname(p)))
+        // Sanity check to make sure it only returns files that exist
+        .filter(p => fs.existsSync(p))
+    );
   }
 
-  getIgnorePatternsFromFile(ignoreFile: string) {
-    return parseGitignore(fs.readFileSync(ignoreFile));
+  private getIgnorePatternsFromFiles(ignoreFiles: string[]): IgnoreFileToIgnorePatterns {
+    return ignoreFiles.reduce<IgnoreFileToIgnorePatterns>((ignoreFileToIgnorePatterns, ignoreFile) => {
+      ignoreFileToIgnorePatterns[ignoreFile] = parseGitignore(fs.readFileSync(ignoreFile)).map(
+        p => new IgnorePattern(p, ignoreFile)
+      );
+      return ignoreFileToIgnorePatterns;
+    }, {});
   }
 
-  getGlobsFromIgnorePatterns(ignorePatterns: string[]) {
-    return ignorePatterns.reduce<string[]>((patterns, pattern) => {
-      patterns.push(...this.getGlobFromIgnorePattern(pattern));
-      return patterns;
-    }, []);
+  private getGlobsFromIgnorePatterns(ignoreFileToIgnorePatterns: IgnoreFileToIgnorePatterns): IgnoreFileToGlobs {
+    return Object.keys(ignoreFileToIgnorePatterns).reduce<IgnoreFileToGlobs>((ignoreFileToGlobs, file) => {
+      const ignorePatterns = ignoreFileToIgnorePatterns[file];
+      ignoreFileToGlobs[file] = ignorePatterns.map(p => new GlobsForIgnorePattern(p));
+      return ignoreFileToGlobs;
+    }, {});
   }
 
-  getGlobFromIgnorePattern(ignorePattern: string): string[] {
-    const isNegated = ignorePattern.startsWith("!");
-    const isRelative = ignorePattern.substring(0, ignorePattern.length - 1).includes("/");
-    const isDir = ignorePattern.endsWith("/");
-    const endsWithAsterisk = ignorePattern.endsWith("*");
-    const pattern = isNegated ? ignorePattern.substring(1).replace("\\", "") : ignorePattern.replace("\\", "");
+  // private sortIgnorePatternsFromLeastToMostApplicable(ignorePatterns: IgnoreFileToIgnorePatterns): string[][] {
+  //   const orderedKeys = Object.keys(ignorePatterns).sort((a, b) => {
+  //     const aParts = a.split("/"),
+  //       bParts = b.split("/");
+  //     return aParts.length > bParts.length ? -1 : bParts.length > aParts.length ? 1 : 0;
+  //   });
+  //   return orderedKeys.reduce<string[][]>((p, c) => {
+  //     p.push(ignorePatterns[c]);
+  //     return p;
+  //   }, []);
+  // }
 
+  // private mergeIgnorePatternsFromMultipleFiles(ignorePatterns: IgnoreFileToIgnorePatterns): IgnorePattern[] {
+  //   const mergedIgnorePatterns = [];
+  //   const orderedFiles = Object.keys(ignorePatterns).sort((a, b) => {
+  //     const aParts = path.dirname(a).split("/"),
+  //       bParts = path.dirname(b).split("/");
+  //     return aParts.length > bParts.length ? -1 : bParts.length > aParts.length ? 1 : 0;
+  //   });
+  //   orderedFiles.forEach(f => {
+  //     const isRelativeToCwd =
+  //   });
+  // }
+}
+
+export class IgnorePattern {
+  public pattern: string;
+  public isNegated: boolean;
+  public isRelative: boolean;
+  public isDir: boolean;
+  public endsWithAsterisk: boolean;
+
+  constructor(private initialPattern: string, public ignoreFile: string) {
+    this.isNegated = this.initialPattern.startsWith("!");
+    this.isRelative = this.initialPattern.substring(0, this.initialPattern.length - 1).includes("/");
+    this.isDir = this.initialPattern.endsWith("/");
+    this.endsWithAsterisk = this.initialPattern.endsWith("*");
+    this.pattern = this.isNegated
+      ? this.initialPattern.substring(1).replace("\\", "")
+      : this.initialPattern.replace("\\", "");
+  }
+}
+
+export class GlobsForIgnorePattern {
+  public globs: string[];
+  public cwd: string;
+
+  constructor(public ignorePattern: IgnorePattern) {
+    this.globs = this.getGlobFromIgnorePattern(this.ignorePattern);
+    // Current working directory for the glob is whatever directory the ignore file is located in;
+    // this is necessary because some ignore patterns are relative to where the ignore file is located
+    this.cwd = path.dirname(this.ignorePattern.ignoreFile);
+  }
+
+  private getGlobFromIgnorePattern(ignorePattern: IgnorePattern): string[] {
     // TODO: Need to figure out how to deal with patterns starting with `!`
-    if (isNegated) {
+    if (ignorePattern.isNegated) {
       return [];
     }
 
-    if (isRelative && isDir) {
-      return pattern.startsWith("/")
-        ? [`.${pattern}**/*`]
-        : pattern.startsWith("./")
-        ? [`${pattern}**/*`]
-        : [`./${pattern}**/*`];
-    } else if (isRelative && !isDir) {
-      if (endsWithAsterisk) {
-        return pattern.startsWith("/") ? [`.${pattern}`] : pattern.startsWith("./") ? [`${pattern}`] : [`./${pattern}`];
+    if (ignorePattern.isRelative && ignorePattern.isDir) {
+      return ignorePattern.pattern.startsWith("/")
+        ? [`.${ignorePattern.pattern}**/*`]
+        : ignorePattern.pattern.startsWith("./")
+        ? [`${ignorePattern.pattern}**/*`]
+        : [`./${ignorePattern.pattern}**/*`];
+    } else if (ignorePattern.isRelative && !ignorePattern.isDir) {
+      if (ignorePattern.endsWithAsterisk) {
+        return ignorePattern.pattern.startsWith("/")
+          ? [`.${ignorePattern.pattern}`]
+          : ignorePattern.pattern.startsWith("./")
+          ? [`${ignorePattern.pattern}`]
+          : [`./${ignorePattern.pattern}`];
       } else {
-        return pattern.startsWith("/")
-          ? [`.${pattern}/**/*`, `.${pattern}`]
-          : pattern.startsWith("./")
-          ? [`${pattern}/**/*`, `${pattern}`]
-          : [`./${pattern}/**/*`, `./${pattern}`];
+        return ignorePattern.pattern.startsWith("/")
+          ? [`.${ignorePattern.pattern}/**/*`, `.${ignorePattern.pattern}`]
+          : ignorePattern.pattern.startsWith("./")
+          ? [`${ignorePattern.pattern}/**/*`, `${ignorePattern.pattern}`]
+          : [`./${ignorePattern.pattern}/**/*`, `./${ignorePattern.pattern}`];
       }
-    } else if (!isRelative && isDir) {
-      return [`./**/${pattern}**/*`];
+    } else if (!ignorePattern.isRelative && ignorePattern.isDir) {
+      return [`./**/${ignorePattern.pattern}**/*`];
     } else {
-      return endsWithAsterisk ? [`./**/${pattern}`] : [`./**/${pattern}/**/*`, `./**/${pattern}`];
+      return ignorePattern.endsWithAsterisk
+        ? [`./**/${ignorePattern.pattern}`]
+        : [`./**/${ignorePattern.pattern}/**/*`, `./**/${ignorePattern.pattern}`];
     }
   }
 }
