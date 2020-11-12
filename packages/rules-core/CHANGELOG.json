@@ -2,6 +2,21 @@
   "name": "@boll/rules-core",
   "entries": [
     {
+      "date": "Thu, 12 Nov 2020 00:14:02 GMT",
+      "tag": "@boll/rules-core_v0.1.0",
+      "version": "0.1.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "PackageConsistency verifies best practices for package.json settings. Fixes #46",
+            "author": "jdh@microsoft.com",
+            "commit": "8664c235056be3b76f880dbc49468e14e6d228eb",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Oct 2020 18:26:52 GMT",
       "tag": "@boll/rules-core_v0.0.1214",
       "version": "0.0.1214",

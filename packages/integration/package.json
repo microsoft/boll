@@ -6,7 +6,7 @@
   "dependencies": {
     "@boll/cli": "1.1.1213",
     "@boll/core": "1.4.0",
-    "@boll/recommended": "0.1.1214",
+    "@boll/recommended": "0.2.0",
     "@boll/rules-typescript": "0.2.1"
   },
   "devDependencies": {

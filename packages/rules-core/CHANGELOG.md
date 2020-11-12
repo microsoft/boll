@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-core
 
-This log was last generated on Thu, 22 Oct 2020 18:26:52 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Nov 2020 00:14:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.0
+
+Thu, 12 Nov 2020 00:14:02 GMT
+
+### Minor changes
+
+- PackageConsistency verifies best practices for package.json settings. Fixes #46 (jdh@microsoft.com)
 
 ## 0.0.1214
 

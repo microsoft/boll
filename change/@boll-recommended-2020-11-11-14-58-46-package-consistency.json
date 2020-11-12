@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "PackageConsistency verifies best practices for package.json settings. Fixes #46",
-  "packageName": "@boll/recommended",
-  "email": "jdh@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2020-11-11T22:58:43.808Z"
-}

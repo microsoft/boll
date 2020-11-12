@@ -1,8 +1,16 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Mon, 19 Oct 2020 23:05:43 GMT and should not be manually modified.
+This log was last generated on Thu, 12 Nov 2020 00:14:02 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.2.0
+
+Thu, 12 Nov 2020 00:14:02 GMT
+
+### Minor changes
+
+- PackageConsistency verifies best practices for package.json settings. Fixes #46 (jdh@microsoft.com)
 
 ## 0.1.1212
 
