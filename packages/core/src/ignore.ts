@@ -83,30 +83,6 @@ export class IgnoredFiles {
       return ignoreFileToGlobs;
     }, {});
   }
-
-  // private sortIgnorePatternsFromLeastToMostApplicable(ignorePatterns: IgnoreFileToIgnorePatterns): string[][] {
-  //   const orderedKeys = Object.keys(ignorePatterns).sort((a, b) => {
-  //     const aParts = a.split("/"),
-  //       bParts = b.split("/");
-  //     return aParts.length > bParts.length ? -1 : bParts.length > aParts.length ? 1 : 0;
-  //   });
-  //   return orderedKeys.reduce<string[][]>((p, c) => {
-  //     p.push(ignorePatterns[c]);
-  //     return p;
-  //   }, []);
-  // }
-
-  // private mergeIgnorePatternsFromMultipleFiles(ignorePatterns: IgnoreFileToIgnorePatterns): IgnorePattern[] {
-  //   const mergedIgnorePatterns = [];
-  //   const orderedFiles = Object.keys(ignorePatterns).sort((a, b) => {
-  //     const aParts = path.dirname(a).split("/"),
-  //       bParts = path.dirname(b).split("/");
-  //     return aParts.length > bParts.length ? -1 : bParts.length > aParts.length ? 1 : 0;
-  //   });
-  //   orderedFiles.forEach(f => {
-  //     const isRelativeToCwd =
-  //   });
-  // }
 }
 
 export class IgnorePattern {
