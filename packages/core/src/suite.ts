@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { ConfigDefinition } from "./types";
 import { getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";

@@ -20,6 +20,7 @@ export interface ConfigDefinition {
   extends?: string;
   exclude?: string[];
   ruleSets?: RuleSetConfiguration[];
+  excludeGitControlledFiles?: boolean;
   configuration?: {
     rules?: {};
     ruleSets?: {};

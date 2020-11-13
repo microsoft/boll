@@ -20,7 +20,7 @@ export async function buildSuite(logger: Logger): Promise<Suite> {
   }
   const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, logger);
   config.load(require(fullConfigPath));
-  return config.buildSuite();
+  return await config.buildSuite();
 }
 
 /**

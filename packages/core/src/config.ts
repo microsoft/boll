@@ -4,22 +4,26 @@ import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
 import { RuleSet } from "./rule-set";
 import { Suite } from "./suite";
+import { IgnoredFiles } from "./ignore";
+import { getRepoRoot } from "./git-utils";
 
 export class Config {
   private configuration: ConfigDefinition = {};
+  private ignoredFiles: IgnoredFiles = new IgnoredFiles({ root: getRepoRoot() });
 
   constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry, private logger: Logger) {}
 
-  buildSuite(): Suite {
+  async buildSuite(): Promise<Suite> {
     const suite = new Suite();
-    suite.ruleSets = this.loadRuleSets();
+    suite.ruleSets = await this.loadRuleSets();
     return suite;
   }
 
-  loadRuleSets(): RuleSet[] {
+  async loadRuleSets(): Promise<RuleSet[]> {
     const config = this.resolvedConfiguration();
+    const gitIgnoredFiles = config.excludeGitControlledFiles ? await this.ignoredFiles.getIgnoredFiles() : [];
     return (config.ruleSets || []).map(ruleSetConfig => {
-      let exclude = [...(ruleSetConfig.exclude || []), ...(config.exclude || [])];
+      let exclude = [...(ruleSetConfig.exclude || []), ...(config.exclude || []), ...gitIgnoredFiles];
       if (
         ruleSetConfig.name &&
         config.configuration &&
