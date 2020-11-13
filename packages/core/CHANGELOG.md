@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Tue, 27 Oct 2020 20:21:24 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Nov 2020 22:25:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.4.1
+
+Fri, 13 Nov 2020 22:25:19 GMT
+
+### Patches
+
+- Allow boll to exclude git ignored files (email not defined)
 
 ## 1.4.0
 

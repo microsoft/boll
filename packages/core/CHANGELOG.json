@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Fri, 13 Nov 2020 22:25:19 GMT",
+      "tag": "@boll/core_v1.4.1",
+      "version": "1.4.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Allow boll to exclude git ignored files",
+            "author": "email not defined",
+            "commit": "368e8332d8350c3fed57f35fb132a528262e8825",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 27 Oct 2020 20:21:24 GMT",
       "tag": "@boll/core_v1.4.0",
       "version": "1.4.0",

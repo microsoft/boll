@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Fri, 25 Sep 2020 21:48:01 GMT and should not be manually modified.
+This log was last generated on Fri, 13 Nov 2020 22:25:19 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.1214
+
+Fri, 13 Nov 2020 22:25:19 GMT
+
+### Patches
+
+- Allow boll to exclude git ignored files (email not defined)
 
 ## 1.1.3
 

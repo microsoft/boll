@@ -1,8 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Allow boll to exclude git ignored files",
-  "packageName": "@boll/cli",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-11-12T22:40:59.865Z"
-}
