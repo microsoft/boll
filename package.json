@@ -15,6 +15,7 @@
     "checkchange": "beachball check -b origin/main",
     "clean": "lerna run clean --stream",
     "docs": "lerna run docs --stream",
+    "format": "./node_modules/.bin/prettier --write './**/src/**/*'",
     "lint": "./node_modules/.bin/prettier --check './**/src/**/*'",
     "release": "beachball publish -b origin/main",
     "test": "lerna run test --stream"
