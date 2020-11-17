@@ -19,7 +19,7 @@ export class TypescriptSourceGlob implements FileGlob {
 
   async findFiles(): Promise<BollFile[]> {
     let paths = await globAsync("./{,!(node_modules)/**}/*.ts?(x)");
-    paths = paths.filter(path => !path.includes("node_modules"));
+    paths = paths.filter(path => !path.includes("node_modules") && !path.endsWith(".d.ts"));
 
     for (const excludeGlob of this.exclude) {
       const exclusions = await globAsync(excludeGlob);

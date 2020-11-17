@@ -29,6 +29,17 @@ test("should find .tsx source", async () => {
   });
 });
 
+test("should not include .d.ts files", async () => {
+  await inFixtureDir("project-a", __dirname, async () => {
+    const glob: FileGlob = new TypescriptSourceGlob();
+    const results = await glob.findFiles();
+    assert.ok(
+      !results.includes(asBollFile("src/some-thing.d.ts")),
+      `expected results not to include some-thing.d.ts, but was ${results.join(", ")}`
+    );
+  });
+});
+
 test("should not return files explicitly excluded", async () => {
   await inFixtureDir("glob", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob({ exclude: ["./**/b.ts"] });
