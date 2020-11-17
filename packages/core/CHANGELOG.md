@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Fri, 13 Nov 2020 22:25:19 GMT and should not be manually modified.
+This log was last generated on Tue, 17 Nov 2020 19:29:14 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.0
+
+Tue, 17 Nov 2020 19:29:14 GMT
+
+### Minor changes
+
+- Typescript glob ignores .d.ts files. (jdh@microsoft.com)
 
 ## 1.4.1
 

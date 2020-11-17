@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Tue, 17 Nov 2020 19:29:14 GMT",
+      "tag": "@boll/core_v1.5.0",
+      "version": "1.5.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Typescript glob ignores .d.ts files.",
+            "author": "jdh@microsoft.com",
+            "commit": "3a0e3b2289410fdbe2c4204effd82be54558c2f0",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 13 Nov 2020 22:25:19 GMT",
       "tag": "@boll/core_v1.4.1",
       "version": "1.4.1",

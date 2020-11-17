@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Typescript glob ignores .d.ts files.",
-  "packageName": "@boll/core",
-  "email": "jdh@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2020-11-17T19:01:32.714Z"
-}

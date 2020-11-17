@@ -5,11 +5,11 @@
   },
   "description": "> TODO: description",
   "devDependencies": {
-    "@boll/cli": "1.1.1214",
-    "@boll/core": "1.4.1",
-    "@boll/rules-core": "0.1.1",
-    "@boll/rules-external-tools": "0.1.2",
-    "@boll/rules-typescript": "0.2.2",
+    "@boll/cli": "1.1.1215",
+    "@boll/core": "1.5.0",
+    "@boll/rules-core": "0.1.2",
+    "@boll/rules-external-tools": "0.1.3",
+    "@boll/rules-typescript": "0.2.3",
     "gh-pages": "^3.1.0",
     "glob": "^7.1.6",
     "vuepress": "1.5.4"
