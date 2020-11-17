@@ -2,6 +2,21 @@
   "name": "@boll/rules-typescript",
   "entries": [
     {
+      "date": "Tue, 17 Nov 2020 20:16:43 GMT",
+      "tag": "@boll/rules-typescript_v0.2.3",
+      "version": "0.2.3",
+      "comments": {
+        "none": [
+          {
+            "comment": ".",
+            "author": "jdh@microsoft.com",
+            "commit": "91d6a97b6510e123f926fe3a05493603bff55bb2",
+            "package": "@boll/rules-typescript"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 22 Oct 2020 18:26:52 GMT",
       "tag": "@boll/rules-typescript_v0.2.0",
       "version": "0.2.0",
