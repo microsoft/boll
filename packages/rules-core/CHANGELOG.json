@@ -2,6 +2,21 @@
   "name": "@boll/rules-core",
   "entries": [
     {
+      "date": "Wed, 18 Nov 2020 01:19:24 GMT",
+      "tag": "@boll/rules-core_v0.1.3",
+      "version": "0.1.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Update enforce rationale rule",
+            "author": "email not defined",
+            "commit": "d8730c1297f75cfdd10ad1196a27042f516c5a5d",
+            "package": "@boll/rules-core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 Nov 2020 20:16:43 GMT",
       "tag": "@boll/rules-core_v0.1.2",
       "version": "0.1.2",
