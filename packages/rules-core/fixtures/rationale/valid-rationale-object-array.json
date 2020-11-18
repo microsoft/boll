@@ -1,0 +1,17 @@
+{
+    "foo": {
+        "bar": {
+            "baz": [
+                {
+                    "a": "a",
+                    "rationale": "a"
+                }, {
+                    "b": "b",
+                    "rationale": "b"
+                }, {
+                    "c": "c",
+                    "rationale": "c"
+                }]
+        }
+    }
+}

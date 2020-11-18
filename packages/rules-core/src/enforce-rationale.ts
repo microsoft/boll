@@ -51,19 +51,49 @@ export class EnforceRationale implements PackageRule {
       fields.forEach(f => {
         const entries = this.getEntriesForField(contents, f);
         const rationaleEntries = this.getEntriesForField(rationale, f);
+        const isPrimitiveArray = Array.isArray(entries) && entries.every(v => typeof v !== "object");
+        const isObjectArray = Array.isArray(entries) && entries.every(v => typeof v === "object");
         if (entries) {
-          Object.keys(entries).forEach(k => {
-            if (!rationaleEntries || !rationaleEntries[k]) {
-              failures.push(
-                new Failure(
-                  ruleName,
-                  file.filename,
-                  asBollLineNumber(0),
-                  `No rationale provided for ${f}.${k} in ${file.filename}`
-                )
-              );
-            }
-          });
+          if (isPrimitiveArray) {
+            (entries as any[]).forEach(v => {
+              if (!rationaleEntries || !rationaleEntries[v]) {
+                failures.push(
+                  new Failure(
+                    ruleName,
+                    file.filename,
+                    asBollLineNumber(0),
+                    `No rationale provided for ${f} entry "${v}" in ${file.filename}`
+                  )
+                );
+              }
+            });
+          } else if (isObjectArray) {
+            (entries as any[]).forEach((v, i) => {
+              if (!v["rationale"]) {
+                failures.push(
+                  new Failure(
+                    ruleName,
+                    file.filename,
+                    asBollLineNumber(0),
+                    `No rationale provided for ${f} entry at index ${i}" in ${file.filename}`
+                  )
+                );
+              }
+            });
+          } else {
+            Object.keys(entries).forEach(k => {
+              if (!rationaleEntries || !rationaleEntries[k]) {
+                failures.push(
+                  new Failure(
+                    ruleName,
+                    file.filename,
+                    asBollLineNumber(0),
+                    `No rationale provided for ${f}.${k} in ${file.filename}`
+                  )
+                );
+              }
+            });
+          }
         }
       });
       return failures.length ? failures : [new Success(ruleName)];
@@ -74,12 +104,20 @@ export class EnforceRationale implements PackageRule {
   private getEntriesForField(contents: any, field: string) {
     const fieldParts = field.split(".");
     let entries = contents && contents[fieldParts[0]];
+
+    // Try to deference the field first
     for (let i = 1; i < fieldParts.length; i++) {
       if (!entries) {
         break;
       }
       entries = entries[fieldParts[i]];
     }
+
+    // If no entries found, try seeing if contents contains the whole field name
+    if (!entries) {
+      entries = contents && contents[field];
+    }
+
     return entries;
   }
 }
