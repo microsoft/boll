@@ -2,17 +2,17 @@
     "foo": {
         "bar": {
             "baz": {
-                "foo": "foo",
-                "bar": "bar",
-                "baz": "baz"
+                "foo": "1",
+                "bar": "2",
+                "baz": "3"
             }
         }
     },
     "rationale": {
         "foo.bar.baz": {
-            "foo": "foo",
-            "bar": "bar",
-            "baz": "baz"
+            "foo": "a",
+            "bar": "b",
+            "baz": "c"
         }
     }
 }

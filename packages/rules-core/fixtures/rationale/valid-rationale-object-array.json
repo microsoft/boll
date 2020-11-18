@@ -3,14 +3,14 @@
         "bar": {
             "baz": [
                 {
-                    "a": "a",
-                    "rationale": "a"
+                    "a": "1",
+                    "rationale": "1"
                 }, {
-                    "b": "b",
-                    "rationale": "b"
+                    "b": "2",
+                    "rationale": "2"
                 }, {
-                    "c": "c",
-                    "rationale": "c"
+                    "c": "3",
+                    "rationale": "3"
                 }]
         }
     }
