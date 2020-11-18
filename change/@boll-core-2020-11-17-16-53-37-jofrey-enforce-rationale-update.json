@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Update enforce rationale rule",
+  "packageName": "@boll/core",
+  "email": "email not defined",
+  "dependentChangeType": "patch",
+  "date": "2020-11-18T00:53:35.346Z"
+}
