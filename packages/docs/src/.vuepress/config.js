@@ -1,5 +1,5 @@
 const { description } = require("../../package");
-const glob = require("glob").sync;
+const glob = require("fast-glob").sync;
 const path = require("path");
 
 const apiRoot = path.join(__dirname, "..", "api");

@@ -1,8 +1,6 @@
 import { execSync } from "child_process";
-import { glob } from "glob";
+import fg from "fast-glob";
 import { resolve } from "path";
-import { promisify } from "util";
-const globAsync = promisify(glob);
 
 const defaultIgnoreFileName = ".gitignore";
 
@@ -14,11 +12,7 @@ export function getRepoRoot(): string {
     return repoRoot;
   }
   try {
-    repoRoot = resolve(
-      execSync("git rev-parse --show-toplevel")
-        .toString()
-        .trim()
-    );
+    repoRoot = resolve(execSync("git rev-parse --show-toplevel").toString().trim());
     return repoRoot;
   } catch (e) {
     console.warn(e);
@@ -34,8 +28,9 @@ export async function getIgnoreFiles(cwd?: string, ignoreFileName?: string): Pro
   }
   !ignoreFiles[cwdOrDefault] && (ignoreFiles[cwdOrDefault] = {});
   ignoreFiles[cwdOrDefault][ignoreFileNameOrDefault] = (
-    await globAsync(`./{!(node_modules)/**/${ignoreFileNameOrDefault},${ignoreFileNameOrDefault}}`, {
-      cwd: cwdOrDefault
+    await fg(`./**/${ignoreFileNameOrDefault}`, {
+      cwd: cwdOrDefault,
+      ignore: ["./**/node_modules/**"]
     })
   ).map(p => resolve(cwdOrDefault, p));
   return ignoreFiles[cwdOrDefault][ignoreFileNameOrDefault];

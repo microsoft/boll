@@ -33,7 +33,7 @@ test("should not return files explicitly excluded", async () => {
   await inFixtureDir("glob", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob({ exclude: ["./**/b.ts"] });
     const results = await glob.findFiles();
-    assert.deepStrictEqual(results, [asBollFile("a/a.ts")]);
+    assert.deepStrictEqual(results.sort(), [asBollFile("a/a.ts")].sort());
   });
 });
 
@@ -41,6 +41,9 @@ test("should return files explicitly included", async () => {
   await inFixtureDir("glob", __dirname, async () => {
     const glob: FileGlob = new TypescriptSourceGlob({ include: ["./c/*"] });
     const results = await glob.findFiles();
-    assert.deepStrictEqual(results, [asBollFile("a/a.ts"), asBollFile("b/b.ts"), asBollFile("c/c.someextension")]);
+    assert.deepStrictEqual(
+      results.sort(),
+      [asBollFile("a/a.ts"), asBollFile("b/b.ts"), asBollFile("c/c.someextension")].sort()
+    );
   });
 });

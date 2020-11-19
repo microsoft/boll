@@ -11,7 +11,7 @@
     "@boll/rules-external-tools": "0.1.2",
     "@boll/rules-typescript": "0.2.2",
     "gh-pages": "^3.1.0",
-    "glob": "^7.1.6",
+    "fast-glob": "^3.2.4",
     "vuepress": "1.5.4"
   },
   "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",

@@ -9,7 +9,7 @@
   "dependencies": {
     "@boll/core": "1.4.1",
     "argparse": "^1.0.10",
-    "glob": "^7.1.6",
+    "fast-glob": "^3.2.4",
     "typescript": "^3.9.7",
     "yaml": "^1.10.0"
   },
