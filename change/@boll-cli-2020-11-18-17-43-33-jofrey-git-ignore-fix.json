@@ -1,0 +1,8 @@
+{
+  "type": "patch",
+  "comment": "Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance",
+  "packageName": "@boll/cli",
+  "email": "email not defined",
+  "dependentChangeType": "patch",
+  "date": "2020-11-19T01:43:31.462Z"
+}
