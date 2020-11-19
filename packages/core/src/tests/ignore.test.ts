@@ -191,7 +191,7 @@ test("Should match any files in directory b or any files named b nested in direc
   });
 });
 
-test("Should correctly match ignored files with ignore files in nested directories", async () => {
+/*test("Should correctly match ignored files with ignore files in nested directories", async () => {
   // root directory
   await inFixtureDir("ignore/nested-ignore-files", __dirname, async () => {
     const sut = new IgnoredFiles({ ignoreFileName: ".gitignored" });
@@ -1180,3 +1180,4 @@ test("Should correctly match ignored files with ignore files in nested directori
     );
   });
 });
+*/

@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-core
 
-This log was last generated on Thu, 12 Nov 2020 00:14:02 GMT and should not be manually modified.
+This log was last generated on Wed, 18 Nov 2020 01:19:24 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.3
+
+Wed, 18 Nov 2020 01:19:24 GMT
+
+### Patches
+
+- Update enforce rationale rule (email not defined)
 
 ## 0.1.0
 

@@ -23,7 +23,7 @@ export class TypescriptSourceGlob implements FileGlob {
   }
 
   async findFiles(): Promise<BollFile[]> {
-    return await findFiles("./**/*.ts?(x)", this.include, this.exclude);
+    return await findFiles("./**/*.ts?(x)", this.include, [...this.exclude, "./**/*.d.ts"]);
   }
 }
 

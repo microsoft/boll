@@ -1,9 +1,6 @@
-import { test as EslintRulesTest } from "./eslint-rules.test";
+import { suite } from "@boll/test-internal";
+
 import { test as EslintPreferConstTest } from "./eslint-prefer-const-rule.test";
+import { test as EslintRulesTest } from "./eslint-rules.test";
 
-async function suite() {
-  await EslintPreferConstTest.run();
-  await EslintRulesTest.run();
-}
-
-suite();
+suite(EslintPreferConstTest, EslintRulesTest);
