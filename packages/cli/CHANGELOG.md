@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Fri, 13 Nov 2020 22:25:19 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Nov 2020 22:01:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.1.1216
+
+Fri, 20 Nov 2020 22:01:01 GMT
+
+### Patches
+
+- Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance (email not defined)
 
 ## 1.1.1214
 

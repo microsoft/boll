@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Tue, 17 Nov 2020 19:29:14 GMT and should not be manually modified.
+This log was last generated on Fri, 20 Nov 2020 22:01:01 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.5.1
+
+Fri, 20 Nov 2020 22:01:01 GMT
+
+### Patches
+
+- Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance (email not defined)
 
 ## 1.5.0
 

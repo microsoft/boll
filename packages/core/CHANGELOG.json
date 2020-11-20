@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Fri, 20 Nov 2020 22:01:01 GMT",
+      "tag": "@boll/core_v1.5.1",
+      "version": "1.5.1",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance",
+            "author": "email not defined",
+            "commit": "3b49b3757845efe888e2e3f0a17bb6c449cdb502",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 Nov 2020 20:16:43 GMT",
       "tag": "@boll/core_v1.5.0",
       "version": "1.5.0",
