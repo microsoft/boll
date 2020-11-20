@@ -1,8 +1,13 @@
-import glob from "glob";
+import fg from "fast-glob";
 import { asBollFile, BollFile } from "./boll-file";
 import { FileGlob, FileGlobOptions } from "./types";
-import { promisify } from "util";
-const globAsync = promisify(glob);
+
+async function findFiles(pattern: string | string[], include: string[], exclude: string[]): Promise<BollFile[]> {
+  let paths = await fg(pattern, { ignore: [...exclude, "./**/node_modules/**"] });
+  const inclusions = await fg(include);
+  paths.push(...inclusions.filter(i => !paths.includes(i)));
+  return paths.map(asBollFile);
+}
 
 export class TypescriptSourceGlob implements FileGlob {
   public include: string[] = [];
@@ -18,25 +23,7 @@ export class TypescriptSourceGlob implements FileGlob {
   }
 
   async findFiles(): Promise<BollFile[]> {
-    let paths = await globAsync("./{,!(node_modules)/**}/*.ts?(x)");
-    paths = paths.filter(path => !path.includes("node_modules") && !path.endsWith(".d.ts"));
-
-    for (const excludeGlob of this.exclude) {
-      const exclusions = await globAsync(excludeGlob);
-      const filteredPaths = paths.filter(p => !exclusions.includes(p));
-      paths = filteredPaths;
-    }
-
-    for (const includeGlob of this.include) {
-      const inclusions = await globAsync(includeGlob);
-      inclusions.forEach(i => {
-        if (!paths.includes(i)) {
-          paths.push(i);
-        }
-      });
-    }
-
-    return paths.map(asBollFile);
+    return await findFiles("./**/*.ts?(x)", this.include, [...this.exclude, "./**/*.d.ts"]);
   }
 }
 
@@ -54,24 +41,6 @@ export class PackageJsonGlob implements FileGlob {
   }
 
   async findFiles(): Promise<BollFile[]> {
-    let paths = await globAsync("./package.json");
-    paths = paths.filter(path => !path.includes("node_modules"));
-
-    for (const excludeGlob of this.exclude) {
-      const exclusions = await globAsync(excludeGlob);
-      const filteredPaths = paths.filter(p => !exclusions.includes(p));
-      paths = filteredPaths;
-    }
-
-    for (const includeGlob of this.include) {
-      const inclusions = await globAsync(includeGlob);
-      inclusions.forEach(i => {
-        if (!paths.includes(i)) {
-          paths.push(i);
-        }
-      });
-    }
-
-    return paths.map(asBollFile);
+    return await findFiles("./package.json", this.include, this.exclude);
   }
 }

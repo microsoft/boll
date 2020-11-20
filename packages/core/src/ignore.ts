@@ -1,11 +1,9 @@
 import fs from "fs";
 import * as path from "path";
-import { glob } from "glob";
+import fg from "fast-glob";
 import parseGitignore from "parse-gitignore";
-import { promisify } from "util";
 import { asBollFile, BollFile } from "./boll-file";
 import { getIgnoreFiles } from "./git-utils";
-const globAsync = promisify(glob);
 
 export interface IgnoredFilesOptions {
   ignoreFileName?: string;
@@ -41,19 +39,30 @@ export class IgnoredFiles {
 
     const ignoreFileToIgnorePatterns = this.getIgnorePatternsFromFiles(ignoreFiles);
     const ignoreFileToGlobs = this.getGlobsFromIgnorePatterns(ignoreFileToIgnorePatterns);
-    const ignoredFiles = [];
+    const ignoredFiles: BollFile[] = [];
+    const ignoredFilesPromises: Promise<void>[] = [];
 
     for (const ignoreFiles of Object.keys(ignoreFileToGlobs))
       for (const globsForIgnoreFile of ignoreFileToGlobs[ignoreFiles]) {
+        const ignore =
+          process.cwd().startsWith(globsForIgnoreFile.cwd) && process.cwd().length !== globsForIgnoreFile.cwd.length
+            ? process
+                .cwd()
+                .substring(globsForIgnoreFile.cwd.length + 1)
+                .split(path.sep)
+                .map((v, i, a) => `./${a.slice(0, i).join("/")}${i > 0 ? "/" : ""}!(${v})/**`)
+            : [];
         for (const glob of globsForIgnoreFile.globs) {
-          const files = await globAsync(glob, { dot: true, nodir: true, cwd: globsForIgnoreFile.cwd });
-          const filesAsBollFiles = files.map(f => asBollFile(path.resolve(globsForIgnoreFile.cwd, f)));
-          const filesInCwd = filesAsBollFiles.filter(f => path.dirname(f).startsWith(process.cwd()));
-
-          ignoredFiles.push(...filesInCwd);
+          ignoredFilesPromises.push(
+            fg(glob, { dot: true, cwd: globsForIgnoreFile.cwd, ignore }).then(files => {
+              const filesAsBollFiles = files.map(f => asBollFile(path.resolve(globsForIgnoreFile.cwd, f)));
+              ignoredFiles.push(...filesAsBollFiles);
+            })
+          );
         }
       }
 
+    await Promise.all(ignoredFilesPromises);
     return Array.from(new Set(ignoredFiles));
   }
 
