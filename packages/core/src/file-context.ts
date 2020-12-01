@@ -12,6 +12,7 @@ export class FileContext {
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
+  private _ignoredChecksByLine: Map<number, string[]> = new Map();
 
   constructor(
     public packageRoot: BollDirectory,
@@ -50,6 +51,32 @@ export class FileContext {
 
     this._parsedIgnoreChecks = true;
     return this._ignoredChecks;
+  }
+
+  get ignoredChecksByLine(): Map<number, string[]> {
+    const sourceFile =  ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
+
+    if (!sourceFile) return this._ignoredChecksByLine;
+    
+    sourceFile.forEachChild(n => {
+      const lineNumber = sourceFile.getLineAndCharacterOfPosition(n.pos).line;
+      const trimmedNodeText = n.getFullText().trim();
+      let ignoredChecks: string[] = [];
+
+      trimmedNodeText.match(/boll-disable-next-line.*/g)?.forEach(line => {
+        const capture = line.match(/boll-disable-next-line\s([\w,\s-]*)/);
+        if (capture && capture.length > 0 && capture[1]) {
+          capture[1]
+            .split(",")
+            .map(x => x.trim())
+            .forEach(rule => ignoredChecks.push(rule));
+        }
+      });
+      if (ignoredChecks.length > 0)
+        this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
+    });
+
+    return this._ignoredChecksByLine;
   }
 
   get relativeFilename(): string {
