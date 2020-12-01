@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Tue, 01 Dec 2020 22:04:49 GMT",
+      "tag": "@boll/core_v1.5.2",
+      "version": "1.5.2",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Adding boll disable next line rule",
+            "author": "vipati@microsoft.com",
+            "commit": "6dae75cd502b8982086bf0a38fca8a87966817f2",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Fri, 20 Nov 2020 22:01:01 GMT",
       "tag": "@boll/core_v1.5.1",
       "version": "1.5.1",
