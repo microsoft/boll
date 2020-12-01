@@ -54,10 +54,10 @@ export class FileContext {
   }
 
   get ignoredChecksByLine(): Map<number, string[]> {
-    const sourceFile =  ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
+    const sourceFile = ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
 
     if (!sourceFile) return this._ignoredChecksByLine;
-    
+
     sourceFile.forEachChild(n => {
       const lineNumber = sourceFile.getLineAndCharacterOfPosition(n.pos).line;
       const trimmedNodeText = n.getFullText().trim();
@@ -72,8 +72,7 @@ export class FileContext {
             .forEach(rule => ignoredChecks.push(rule));
         }
       });
-      if (ignoredChecks.length > 0)
-        this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
+      if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
     });
 
     return this._ignoredChecksByLine;
