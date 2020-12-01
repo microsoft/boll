@@ -9,6 +9,7 @@ const readFileAsync = promisify(fs.readFile);
 
 export class FileContext {
   private _parsedIgnoreChecks = false;
+  private _parsedIgnoreChecksByLine = false;
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
@@ -54,12 +55,10 @@ export class FileContext {
   }
 
   get ignoredChecksByLine(): Map<number, string[]> {
-    const sourceFile = ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
+    if (this._parsedIgnoreChecksByLine) return this._ignoredChecksByLine;
 
-    if (!sourceFile) return this._ignoredChecksByLine;
-
-    sourceFile.forEachChild(n => {
-      const lineNumber = sourceFile.getLineAndCharacterOfPosition(n.pos).line;
+    this.source.forEachChild(n => {
+      const lineNumber = this.source.getLineAndCharacterOfPosition(n.pos).line;
       const trimmedNodeText = n.getFullText().trim();
       let ignoredChecks: string[] = [];
 
@@ -75,6 +74,7 @@ export class FileContext {
       if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
     });
 
+    this._parsedIgnoreChecksByLine = true;
     return this._ignoredChecksByLine;
   }
 
