@@ -9,9 +9,11 @@ const readFileAsync = promisify(fs.readFile);
 
 export class FileContext {
   private _parsedIgnoreChecks = false;
+  private _parsedIgnoreChecksByLine = false;
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
+  private _ignoredChecksByLine: Map<number, string[]> = new Map();
 
   constructor(
     public packageRoot: BollDirectory,
@@ -50,6 +52,30 @@ export class FileContext {
 
     this._parsedIgnoreChecks = true;
     return this._ignoredChecks;
+  }
+
+  get ignoredChecksByLine(): Map<number, string[]> {
+    if (this._parsedIgnoreChecksByLine) return this._ignoredChecksByLine;
+
+    this.source.forEachChild(n => {
+      const lineNumber = this.source.getLineAndCharacterOfPosition(n.pos).line;
+      const trimmedNodeText = n.getFullText().trim();
+      let ignoredChecks: string[] = [];
+
+      trimmedNodeText.match(/boll-disable-next-line.*/g)?.forEach(line => {
+        const capture = line.match(/boll-disable-next-line\s([\w,\s-]*)/);
+        if (capture && capture.length > 0 && capture[1]) {
+          capture[1]
+            .split(",")
+            .map(x => x.trim())
+            .forEach(rule => ignoredChecks.push(rule));
+        }
+      });
+      if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
+    });
+
+    this._parsedIgnoreChecksByLine = true;
+    return this._ignoredChecksByLine;
   }
 
   get relativeFilename(): string {
