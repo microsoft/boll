@@ -62,17 +62,20 @@ export class Suite {
   async filterIgnoredChecksByLine(results: Result[], sourceFile: FileContext) {
     const ignoredChecksByLine = sourceFile.ignoredChecksByLine;
     const filteredResults: Result[] = [];
-    results.forEach(
-      l => {
-        if (l.status === ResultStatus.failure) {
-          const failure = l as Failure;
-          const skipLineNumber = failure.line - 1;
-          if (!(ignoredChecksByLine.has(skipLineNumber) && ignoredChecksByLine.get(skipLineNumber)?.includes(failure.ruleName))) {
-            filteredResults.push(l);  
-          }
+    results.forEach(l => {
+      if (l.status === ResultStatus.failure) {
+        const failure = l as Failure;
+        const skipLineNumber = failure.line - 1;
+        if (
+          !(
+            ignoredChecksByLine.has(skipLineNumber) &&
+            ignoredChecksByLine.get(skipLineNumber)?.includes(failure.ruleName)
+          )
+        ) {
+          filteredResults.push(l);
         }
       }
-    );
+    });
     return filteredResults;
   }
 }

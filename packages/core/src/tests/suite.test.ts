@@ -13,7 +13,12 @@ test("should skip a single disabled next line rules in a FileContext", async () 
     const sut = await getSourceFile(cwd, "simple-disable-next-line.ts", new Package({}, {}));
     const suite = new Suite();
     const results: Result[] = [];
-    const failure1: Failure = new Failure('MadeUpCheckName', sut.filename, asBollLineNumber(4), 'Failed due to MadeUpCheckName rule');
+    const failure1: Failure = new Failure(
+      "MadeUpCheckName",
+      sut.filename,
+      asBollLineNumber(4),
+      "Failed due to MadeUpCheckName rule"
+    );
     results.push(failure1);
     const filteredResult = await suite.filterIgnoredChecksByLine(results, sut);
     assert.strictEqual(0, filteredResult.length);
@@ -25,11 +30,26 @@ test("should skip a multiple disabled next line rules in a FileContext", async (
     const sut = await getSourceFile(cwd, "multiple-disable-next-line.ts", new Package({}, {}));
     const suite = new Suite();
     const results: Result[] = [];
-    const failure: Failure = new Failure('MadeUpCheckName', sut.filename, asBollLineNumber(2), 'Failed due to MadeUpCheckName rule');
+    const failure: Failure = new Failure(
+      "MadeUpCheckName",
+      sut.filename,
+      asBollLineNumber(2),
+      "Failed due to MadeUpCheckName rule"
+    );
     results.push(failure);
-    const failure1: Failure = new Failure('AlsoMadeUpName', sut.filename, asBollLineNumber(2), 'Failed due to MadeUpCheckName rule');
+    const failure1: Failure = new Failure(
+      "AlsoMadeUpName",
+      sut.filename,
+      asBollLineNumber(2),
+      "Failed due to MadeUpCheckName rule"
+    );
     results.push(failure1);
-    const failure2: Failure = new Failure('MadeUpCheckName', sut.filename, asBollLineNumber(5), 'Failed due to MadeUpCheckName rule');
+    const failure2: Failure = new Failure(
+      "MadeUpCheckName",
+      sut.filename,
+      asBollLineNumber(5),
+      "Failed due to MadeUpCheckName rule"
+    );
     results.push(failure2);
     const filteredResult = await suite.filterIgnoredChecksByLine(results, sut);
     assert.strictEqual(0, filteredResult.length);

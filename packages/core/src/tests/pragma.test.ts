@@ -37,4 +37,3 @@ test("should keep track of a disabled next line rules in a FileContext", async (
     assert.deepStrictEqual(sut.ignoredChecksByLine, expectedResult);
   });
 });
-
