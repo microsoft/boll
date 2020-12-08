@@ -56,10 +56,9 @@ export class FileContext {
 
   get ignoredChecksByLine(): Map<number, string[]> {
     if (this._parsedIgnoreChecksByLine) return this._ignoredChecksByLine;
-
-    this.source.forEachChild(n => {
-      const lineNumber = this.source.getLineAndCharacterOfPosition(n.pos).line;
-      const trimmedNodeText = n.getFullText().trim();
+    let lineNumber = 0;
+    this.content.split(/\r?\n/).forEach(n => {
+      const trimmedNodeText = n.trim();
       let ignoredChecks: string[] = [];
 
       trimmedNodeText.match(/boll-disable-next-line.*/g)?.forEach(line => {
@@ -71,7 +70,9 @@ export class FileContext {
             .forEach(rule => ignoredChecks.push(rule));
         }
       });
-      if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber, ignoredChecks);
+
+      if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber + 1, ignoredChecks);
+      lineNumber = lineNumber + 1;
     });
 
     this._parsedIgnoreChecksByLine = true;
