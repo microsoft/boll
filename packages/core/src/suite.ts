@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { getSourceFile } from "./file-context";
+import { FileContext, getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
-import { ResultSet } from "./result-set";
+import { Failure, Result, ResultSet } from "./result-set";
 import { RuleSet } from "./rule-set";
+import { ResultStatus } from "./types";
 import { promisify } from "util";
 const readFileAsync = promisify(fs.readFile);
 
@@ -38,7 +39,8 @@ export class Suite {
       sourceFiles.forEach(async s => {
         if (s.shouldSkip(r)) return;
         const results = await r.check(s);
-        resultSet.add(results);
+        const filterResults = await this.filterIgnoredChecksByLine(results, s);
+        resultSet.add(filterResults);
       });
     });
     return true;
@@ -55,5 +57,25 @@ export class Suite {
       logger.error(`Error loading ${filename}`);
       throw e;
     }
+  }
+
+  async filterIgnoredChecksByLine(results: Result[], sourceFile: FileContext) {
+    const ignoredChecksByLine = sourceFile.ignoredChecksByLine;
+    const filteredResults: Result[] = [];
+    results.forEach(l => {
+      if (l.status === ResultStatus.failure) {
+        const failure = l as Failure;
+        const skipLineNumber = failure.line - 1;
+        if (
+          !(
+            ignoredChecksByLine.has(skipLineNumber) &&
+            ignoredChecksByLine.get(skipLineNumber)?.includes(failure.ruleName)
+          )
+        ) {
+          filteredResults.push(l);
+        }
+      }
+    });
+    return filteredResults;
   }
 }
