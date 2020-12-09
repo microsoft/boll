@@ -56,8 +56,7 @@ export class FileContext {
 
   get ignoredChecksByLine(): Map<number, string[]> {
     if (this._parsedIgnoreChecksByLine) return this._ignoredChecksByLine;
-    let lineNumber = 0;
-    this.content.split(/\r?\n/).forEach(n => {
+    this.content.split(/\r?\n/).forEach((n, lineNumber) => {
       const trimmedNodeText = n.trim();
       let ignoredChecks: string[] = [];
 
