@@ -44,17 +44,19 @@ export const RecommendedConfig: ConfigDefinition = {
   ruleSets: [
     {
       fileLocator: new TypescriptSourceGlob(),
-      checks: [
-        { rule: "SrcDetector" },
-        { rule: "CrossPackageDependencyDetector" },
-        { rule: "TransitiveDependencyDetector" },
-        { rule: "NodeModulesReferenceDetector" },
-        { rule: "RedundantImportsDetector" }
-      ]
+      checks: {
+        file: [
+          { rule: "SrcDetector" },
+          { rule: "CrossPackageDependencyDetector" },
+          { rule: "TransitiveDependencyDetector" },
+          { rule: "NodeModulesReferenceDetector" },
+          { rule: "RedundantImportsDetector" }
+        ]
+      }
     },
     {
       fileLocator: new PackageJsonGlob(),
-      checks: [{ rule: "NoRedundantDepsRule" }, { rule: "PackageConsistency" }]
+      checks: { file: [{ rule: "NoRedundantDepsRule" }, { rule: "PackageConsistency" }] }
     }
   ]
 };

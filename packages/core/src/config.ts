@@ -1,4 +1,4 @@
-import { ConfigDefinition, FileGlob, PackageRule } from "./types";
+import { ConfigDefinition, FileGlob, PackageMetaRule, PackageRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
@@ -35,13 +35,19 @@ export class Config {
       const glob = ruleSetConfig.fileLocator;
       glob.exclude = exclude;
       glob.include = ruleSetConfig.include || [];
-      const checks = (ruleSetConfig.checks || []).map(check => {
+      const fileChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.file) || []).map(check => {
         const optionsFromConfig =
           (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
         const options = { ...check.options, ...optionsFromConfig };
-        return this.ruleRegistry.get(check.rule)(this.logger, options);
+        return this.ruleRegistry.get<PackageRule>(check.rule)(this.logger, options);
       });
-      return new RuleSet(glob, checks);
+      const metaChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.meta) || []).map(check => {
+        const optionsFromConfig =
+          (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
+        const options = { ...check.options, ...optionsFromConfig };
+        return this.ruleRegistry.get<PackageMetaRule>(check.rule)(this.logger, options);
+      });
+      return new RuleSet(glob, fileChecks, metaChecks);
     });
   }
 
