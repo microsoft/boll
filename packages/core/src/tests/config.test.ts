@@ -93,7 +93,7 @@ test("downstream rules configuration applies to rules", async () => {
   };
   config.load(myConfig);
   const suite = await config.buildSuite();
-  const fakeRuleInstance = suite.ruleSets[0].checks[0] as FakeRule;
+  const fakeRuleInstance = suite.ruleSets[0].checks[0].rule as FakeRule;
   assert.deepStrictEqual(fakeRuleInstance.options, { bar: "baz", some: "rule" });
 });
 

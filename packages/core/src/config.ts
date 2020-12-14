@@ -2,7 +2,7 @@ import { ConfigDefinition, FileGlob, PackageRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
-import { RuleSet } from "./rule-set";
+import { InstantiatedPackageRule, RuleSet } from "./rule-set";
 import { Suite } from "./suite";
 import { IgnoredFiles } from "./ignore";
 import { getRepoRoot } from "./git-utils";
@@ -39,7 +39,8 @@ export class Config {
         const optionsFromConfig =
           (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
         const options = { ...check.options, ...optionsFromConfig };
-        return this.ruleRegistry.get(check.rule)(this.logger, options);
+        const rule = this.ruleRegistry.get(check.rule)(this.logger, options);
+        return new InstantiatedPackageRule(rule.name, check.severity || "error", rule);
       });
       return new RuleSet(glob, checks);
     });
