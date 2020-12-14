@@ -1,0 +1,8 @@
+{
+  "type": "minor",
+  "comment": "CLI supports warnings and VSO output",
+  "packageName": "@boll/cli",
+  "email": "jdh@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2020-12-14T20:59:47.543Z"
+}

@@ -39,8 +39,14 @@ export class Suite {
       sourceFiles.forEach(async s => {
         if (s.shouldSkip(r)) return;
         const results = await r.check(s);
-        const filterResults = await this.filterIgnoredChecksByLine(results, s);
-        resultSet.add(filterResults);
+        const filteredResults = await this.filterIgnoredChecksByLine(results, s);
+        if (r.severity === "error") {
+          resultSet.addErrors(filteredResults);
+        } else if (r.severity === "warn") {
+          resultSet.addWarnings(filteredResults);
+        } else {
+          throw new Error("Unknown severity! (This is likely a boll bug)");
+        }
       });
     });
     return true;
