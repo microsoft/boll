@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Tue, 15 Dec 2020 17:22:23 GMT",
+      "tag": "@boll/core_v1.6.0",
+      "version": "1.6.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Configurable warnings",
+            "author": "jdh@microsoft.com",
+            "commit": "8d628bb761b41874e8188e93b6163472231df3af",
+            "package": "@boll/core"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 01 Dec 2020 22:04:49 GMT",
       "tag": "@boll/core_v1.5.2",
       "version": "1.5.2",

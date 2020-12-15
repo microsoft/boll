@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Tue, 01 Dec 2020 22:04:49 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Dec 2020 17:22:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.0
+
+Tue, 15 Dec 2020 17:22:23 GMT
+
+### Minor changes
+
+- Configurable warnings (jdh@microsoft.com)
 
 ## 1.5.2
 
