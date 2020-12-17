@@ -58,12 +58,12 @@ export class NodeModulesReferenceDetector implements PackageRule {
         .split(MULTI_LINE_COMMENT_REGEXP)
         .map(n => n && n.trim())
         .filter(n => n)
-        .join('\r\n');
+        .join("\r\n");
       const singleLineCommentsRemovedText = multiLineCommentsRemovedText
         .split(SINGLE_LINE_COMMENT_REGEXP)
         .map(n => n && n.trim())
         .filter(n => n)
-        .join('\r\n');
+        .join("\r\n");
       parsedSourceLines.push({ line: singleLineCommentsRemovedText, lineNumber: lineNumber });
     });
     return parsedSourceLines;
