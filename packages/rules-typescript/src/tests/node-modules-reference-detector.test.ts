@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import { NodeModulesReferenceDetector } from "../node-modules-reference-detector";
-import { asBollDirectory, getSourceFile, Package, ResultStatus } from "@boll/core";
+import { asBollDirectory, getSourceFile, Package, ResultStatus, Failure } from "@boll/core";
 import { inFixtureDir } from "@boll/test-internal";
 
 export const test: any = baretest("Node modules reference detector");
@@ -23,8 +23,12 @@ test("Should fail if references to node_modules exist in source code", async () 
     const result = await sut.check(
       await getSourceFile(asBollDirectory("."), "node-modules-reference.ts", new Package({}, {}))
     );
+    const failure = result[0] as Failure;
+    const failure1 = result[1] as Failure;
     assert.strictEqual(2, result.length);
     assert.strictEqual(ResultStatus.failure, result[0].status);
     assert.strictEqual(ResultStatus.failure, result[1].status);
+    assert.strictEqual(1, failure.line);
+    assert.strictEqual(5, failure1.line);
   });
 });
