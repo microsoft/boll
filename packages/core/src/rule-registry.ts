@@ -1,5 +1,5 @@
 import { Logger } from "./logger";
-import { PackageRule, Rule } from "./types";
+import { Rule } from "./types";
 
 export type RuleDefinition<T extends Rule> = (logger: Logger, options?: {}) => T;
 
