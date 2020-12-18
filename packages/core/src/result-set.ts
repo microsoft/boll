@@ -33,15 +33,28 @@ export class Failure implements Result {
 
 export class ResultSet {
   errors: Result[] = [];
+  warnings: Result[] = [];
 
   get hasErrors(): boolean {
     return this.errors.length > 0;
   }
 
-  add(results: Result[]) {
+  get hasWarnings(): boolean {
+    return this.warnings.length > 0;
+  }
+
+  addErrors(results: Result[]) {
     results.forEach(result => {
       if (result.status === ResultStatus.failure) {
         this.errors.push(result);
+      }
+    });
+  }
+
+  addWarnings(results: Result[]) {
+    results.forEach(result => {
+      if (result.status === ResultStatus.failure) {
+        this.warnings.push(result);
       }
     });
   }

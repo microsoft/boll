@@ -18,3 +18,22 @@ test("should keep track of multiple disabled rules in a FileContext", async () =
     assert.deepStrictEqual(sut.ignoredChecks, ["MadeUpCheckName", "AlsoMadeUpName"]);
   });
 });
+
+test("should keep track of a disabled next line rule in a FileContext", async () => {
+  await inFixtureDir("standalone-source-files", __dirname, async cwd => {
+    const sut = await getSourceFile(cwd, "simple-disable-next-line.ts", new Package({}, {}));
+    const expectedResult = new Map();
+    expectedResult.set(3, ["MadeUpCheckName"]);
+    assert.deepStrictEqual(sut.ignoredChecksByLine, expectedResult);
+  });
+});
+
+test("should keep track of a disabled next line rules in a FileContext", async () => {
+  await inFixtureDir("standalone-source-files", __dirname, async cwd => {
+    const sut = await getSourceFile(cwd, "multiple-disable-next-line.ts", new Package({}, {}));
+    const expectedResult = new Map();
+    expectedResult.set(1, ["MadeUpCheckName", "AlsoMadeUpName"]);
+    expectedResult.set(4, ["MadeUpCheckName"]);
+    assert.deepStrictEqual(sut.ignoredChecksByLine, expectedResult);
+  });
+});

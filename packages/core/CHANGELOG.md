@@ -1,8 +1,32 @@
 # Change Log - @boll/core
 
-This log was last generated on Tue, 17 Nov 2020 19:29:14 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Dec 2020 17:22:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.6.0
+
+Tue, 15 Dec 2020 17:22:23 GMT
+
+### Minor changes
+
+- Configurable warnings (jdh@microsoft.com)
+
+## 1.5.2
+
+Tue, 01 Dec 2020 22:04:49 GMT
+
+### Patches
+
+- Adding boll disable next line rule (vipati@microsoft.com)
+
+## 1.5.1
+
+Fri, 20 Nov 2020 22:01:01 GMT
+
+### Patches
+
+- Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance (email not defined)
 
 ## 1.5.0
 

@@ -1,8 +1,24 @@
 # Change Log - @boll/cli
 
-This log was last generated on Fri, 13 Nov 2020 22:25:19 GMT and should not be manually modified.
+This log was last generated on Tue, 15 Dec 2020 17:22:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.2.0
+
+Tue, 15 Dec 2020 17:22:23 GMT
+
+### Minor changes
+
+- CLI supports warnings and VSO output (jdh@microsoft.com)
+
+## 1.1.1216
+
+Fri, 20 Nov 2020 22:01:01 GMT
+
+### Patches
+
+- Fixing broken UTs (git was ignoring directories) and refactor ignore.ts code and deps to speed up performance (email not defined)
 
 ## 1.1.1214
 

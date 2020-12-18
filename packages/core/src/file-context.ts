@@ -4,14 +4,16 @@ import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
 import { DependencyMap, Package } from "./package";
-import { PackageRule } from "./types";
+import { Rule } from "./types";
 const readFileAsync = promisify(fs.readFile);
 
 export class FileContext {
   private _parsedIgnoreChecks = false;
+  private _parsedIgnoreChecksByLine = false;
   private _ignoredChecks: string[] = [];
   private _sourceFileLoaded: boolean = false;
   private _sourceFile?: ts.SourceFile = undefined;
+  private _ignoredChecksByLine: Map<number, string[]> = new Map();
 
   constructor(
     public packageRoot: BollDirectory,
@@ -52,11 +54,35 @@ export class FileContext {
     return this._ignoredChecks;
   }
 
+  get ignoredChecksByLine(): Map<number, string[]> {
+    if (this._parsedIgnoreChecksByLine) return this._ignoredChecksByLine;
+    this.content.split(/\r?\n/).forEach((n, lineNumber) => {
+      const trimmedNodeText = n.trim();
+      let ignoredChecks: string[] = [];
+
+      trimmedNodeText.match(/boll-disable-next-line.*/g)?.forEach(line => {
+        const capture = line.match(/boll-disable-next-line\s([\w,\s-]*)/);
+        if (capture && capture.length > 0 && capture[1]) {
+          capture[1]
+            .split(",")
+            .map(x => x.trim())
+            .forEach(rule => ignoredChecks.push(rule));
+        }
+      });
+
+      if (ignoredChecks.length > 0) this._ignoredChecksByLine.set(lineNumber + 1, ignoredChecks);
+      lineNumber = lineNumber + 1;
+    });
+
+    this._parsedIgnoreChecksByLine = true;
+    return this._ignoredChecksByLine;
+  }
+
   get relativeFilename(): string {
     return this.filename.slice(process.cwd().length + 1);
   }
 
-  shouldSkip(r: PackageRule) {
+  shouldSkip(r: Rule) {
     return this.ignoredChecks.includes(r.name);
   }
 }

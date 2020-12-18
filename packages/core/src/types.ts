@@ -4,6 +4,7 @@ import { Result } from "./result-set";
 
 export interface CheckConfiguration {
   rule: string;
+  severity?: "warn" | "error";
   options?: {};
 }
 
@@ -64,3 +65,5 @@ export interface ImportPathAndLineNumber {
   path: string;
   lineNumber: number;
 }
+
+export type CheckSeverity = "warn" | "error";

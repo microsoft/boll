@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 import { asBollDirectory } from "./boll-directory";
-import { getSourceFile } from "./file-context";
+import { FileContext, getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
-import { ResultSet } from "./result-set";
-import { RuleSet } from "./rule-set";
+import { Failure, Result, ResultSet } from "./result-set";
+import { InstantiatedRule, RuleSet } from "./rule-set";
+import { ResultStatus } from "./types";
 import { promisify } from "util";
 const readFileAsync = promisify(fs.readFile);
 
@@ -34,12 +35,18 @@ export class Suite {
       sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext))
     );
 
-    ruleSet.checks.forEach(r => {
+    ruleSet.fileChecks.forEach(r => {
       sourceFiles.forEach(async s => {
         if (s.shouldSkip(r)) return;
         const results = await r.check(s);
-        resultSet.add(results);
+        const filteredResults = await this.filterIgnoredChecksByLine(results, s);
+        this.addFailuresWithSeverity(r, filteredResults, resultSet);
       });
+    });
+    ruleSet.metaChecks.forEach(async r => {
+      const unskippedSourceFiles = sourceFiles.filter(s => !s.shouldSkip(r));
+      const results = await r.check(unskippedSourceFiles);
+      this.addFailuresWithSeverity(r, results, resultSet);
     });
     return true;
   }
@@ -54,6 +61,36 @@ export class Suite {
     } catch (e) {
       logger.error(`Error loading ${filename}`);
       throw e;
+    }
+  }
+
+  async filterIgnoredChecksByLine(results: Result[], sourceFile: FileContext) {
+    const ignoredChecksByLine = sourceFile.ignoredChecksByLine;
+    const filteredResults: Result[] = [];
+    results.forEach(l => {
+      if (l.status === ResultStatus.failure) {
+        const failure = l as Failure;
+        const skipLineNumber = failure.line - 1;
+        if (
+          !(
+            ignoredChecksByLine.has(skipLineNumber) &&
+            ignoredChecksByLine.get(skipLineNumber)?.includes(failure.ruleName)
+          )
+        ) {
+          filteredResults.push(l);
+        }
+      }
+    });
+    return filteredResults;
+  }
+
+  private addFailuresWithSeverity(rule: InstantiatedRule, results: Result[], resultSet: ResultSet) {
+    if (rule.severity === "error") {
+      resultSet.addErrors(results);
+    } else if (rule.severity === "warn") {
+      resultSet.addWarnings(results);
+    } else {
+      throw new Error("Unknown severity! (This is likely a boll bug)");
     }
   }
 }

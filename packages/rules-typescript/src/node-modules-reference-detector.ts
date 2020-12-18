@@ -49,20 +49,22 @@ export class NodeModulesReferenceDetector implements PackageRule {
 
   getParsedSourceLines(sourceFile: SourceFile): SourceLineAndLineNumber[] {
     const parsedSourceLines: SourceLineAndLineNumber[] = [];
+    let lineNumber = 1;
     sourceFile.forEachChild(n => {
-      const lineNumber = sourceFile.getLineAndCharacterOfPosition(n.pos).line;
+      const totalLines = n.getFullText().split(/\r?\n/).length;
+      lineNumber = lineNumber + totalLines - 1;
       const trimmedNodeText = n.getFullText().trim();
       const multiLineCommentsRemovedText = trimmedNodeText
         .split(MULTI_LINE_COMMENT_REGEXP)
         .map(n => n && n.trim())
         .filter(n => n)
-        .join("");
+        .join("\r\n");
       const singleLineCommentsRemovedText = multiLineCommentsRemovedText
         .split(SINGLE_LINE_COMMENT_REGEXP)
         .map(n => n && n.trim())
         .filter(n => n)
-        .join("");
-      parsedSourceLines.push({ line: singleLineCommentsRemovedText, lineNumber });
+        .join("\r\n");
+      parsedSourceLines.push({ line: singleLineCommentsRemovedText, lineNumber: lineNumber });
     });
     return parsedSourceLines;
   }
