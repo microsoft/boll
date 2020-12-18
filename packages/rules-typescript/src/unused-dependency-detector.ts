@@ -15,6 +15,7 @@ const exclude = ["@types"];
 
 export interface UnusedDependencyDetectorOptions {
   exclude: string[];
+  ignoreDevDependencies: boolean;
   packageContextOverride: Package;
 }
 
@@ -27,8 +28,6 @@ interface DependencyCount {
  * or devDependencies that are not imported anywhere in code.
  */
 export class UnusedDependencyDetector implements PackageMetaRule {
-  private _dependencies: DependencyCount = {};
-  private _devDependencies: DependencyCount = {};
   private _exclude: Set<string>;
 
   constructor(private options?: Partial<UnusedDependencyDetectorOptions>) {
@@ -60,41 +59,44 @@ export class UnusedDependencyDetector implements PackageMetaRule {
   }
 
   checkPackageImports(packageImports: string[][], files: FileContext[]): Result[] {
-    this.initializeDependencyCounts(files);
+    const { dependencies, devDependencies } = this.initializeDependencyCounts(files);
     packageImports.forEach(fi => {
       fi.forEach(i => {
         const packageName = this.getPackageNameFromImportPath(i);
-        this._dependencies[packageName] !== undefined && this._dependencies[packageName]++;
-        this._devDependencies[packageName] !== undefined && this._devDependencies[packageName]++;
+        dependencies[packageName] !== undefined && dependencies[packageName]++;
+        devDependencies[packageName] !== undefined && devDependencies[packageName]++;
       });
     });
 
     const results: Result[] = [
-      ...Object.keys(this._dependencies)
-        .filter(d => this._dependencies[d] === 0 && !this.isExcluded(d))
+      ...Object.keys(dependencies)
+        .filter(d => dependencies[d] === 0 && !this.isExcluded(d))
         .map(
           d =>
             new Failure(
               ruleName,
-              asBollFile("No files"),
+              asBollFile("package.json"),
               asBollLineNumber(0),
               `${d} is declared as a dependency in package.json but is not imported in code.`
             )
         ),
-      ...Object.keys(this._devDependencies)
-        .filter(d => this._devDependencies[d] === 0 && !this.isExcluded(d))
+      ...Object.keys(devDependencies)
+        .filter(
+          d =>
+            devDependencies[d] === 0 &&
+            !this.isExcluded(d) &&
+            ((this.options && !this.options.ignoreDevDependencies) || (!this.options && true))
+        )
         .map(
           d =>
             new Failure(
               ruleName,
-              asBollFile("No files"),
+              asBollFile("package.json"),
               asBollLineNumber(0),
               `${d} is declared as a devDependency in package.json but is not imported in code.`
             )
         )
     ];
-    // console.log(Array.from(this._exclude));
-    // console.log(results.length ? results : [new Success(ruleName)]);
     return results.length ? results : [new Success(ruleName)];
   }
 
@@ -119,16 +121,18 @@ export class UnusedDependencyDetector implements PackageMetaRule {
       .join("/");
   }
 
-  private initializeDependencyCounts(files: FileContext[]): void {
-    (this._dependencies = {}), (this._devDependencies = {});
+  private initializeDependencyCounts(files: FileContext[]) {
+    const dependencies: DependencyCount = {},
+      devDependencies: DependencyCount = {};
     if (this.options && this.options.packageContextOverride) {
-      Object.keys(this.options.packageContextOverride.dependencies).forEach(d => (this._dependencies[d] = 0));
-      Object.keys(this.options.packageContextOverride.devDependencies).forEach(d => (this._devDependencies[d] = 0));
+      Object.keys(this.options.packageContextOverride.dependencies).forEach(d => (dependencies[d] = 0));
+      Object.keys(this.options.packageContextOverride.devDependencies).forEach(d => (devDependencies[d] = 0));
     } else {
       // Use use deps from first file since they all share the same package context
       const file = files[0];
-      Object.keys(file.packageDependencies).forEach(d => (this._dependencies[d] = 0));
-      Object.keys(file.packageDevDependencies).forEach(d => (this._devDependencies[d] = 0));
+      Object.keys(file.packageDependencies).forEach(d => (dependencies[d] = 0));
+      Object.keys(file.packageDevDependencies).forEach(d => (devDependencies[d] = 0));
     }
+    return { dependencies, devDependencies };
   }
 }

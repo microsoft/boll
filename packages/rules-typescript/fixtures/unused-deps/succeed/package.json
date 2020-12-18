@@ -1,0 +1,15 @@
+{
+    "dependencies": {
+        "foo": "0.0.1",
+        "bar": "0.0.2",
+        "baz": "0.0.3",
+        "test": "0.0.4",
+        "foo-baz": "0.0.7"
+    },
+    "devDependencies": {
+        "@types/foo": "0.0.1",
+        "@types/bar": "0.0.2",
+        "@test/test": "0.0.5",
+        "foo-bar": "0.0.6"
+    }
+}
