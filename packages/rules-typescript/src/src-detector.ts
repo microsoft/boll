@@ -55,9 +55,6 @@ export class SrcDetector implements PackageRule {
       const totalLines = n.getFullText().split(/\r?\n/).length;
       lineNumber = lineNumber + totalLines - 1;
       if (isImportDeclaration(n)) {
-        console.log("==================================>>>>>>>>>>>>");
-        console.log("path : " + n.moduleSpecifier.getText());
-        console.log("lineNumber : " + lineNumber);
         importPaths.push({
           path: n.moduleSpecifier.getText(),
           lineNumber: lineNumber
