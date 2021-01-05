@@ -76,6 +76,7 @@ export class UnusedDependencyDetector implements PackageMetaRule {
             new Failure(
               ruleName,
               asBollFile("package.json"),
+              // TODO: Determine how to properly parse line number for package.json
               asBollLineNumber(0),
               `${d} is declared as a dependency in package.json but is not imported in code.`
             )
@@ -92,6 +93,7 @@ export class UnusedDependencyDetector implements PackageMetaRule {
             new Failure(
               ruleName,
               asBollFile("package.json"),
+              // TODO: Determine how to properly parse line number for package.json
               asBollLineNumber(0),
               `${d} is declared as a devDependency in package.json but is not imported in code.`
             )
