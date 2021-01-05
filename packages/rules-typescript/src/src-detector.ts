@@ -50,11 +50,17 @@ export class SrcDetector implements PackageRule {
 
   getImportPaths(sourceFile: SourceFile): ImportPathAndLineNumber[] {
     const importPaths: ImportPathAndLineNumber[] = [];
+    let lineNumber = 1;
     sourceFile.forEachChild(n => {
+      const totalLines = n.getFullText().split(/\r?\n/).length;
+      lineNumber = lineNumber + totalLines - 1;
       if (isImportDeclaration(n)) {
+        console.log('==================================>>>>>>>>>>>>');
+        console.log('path : ' + n.moduleSpecifier.getText());
+        console.log('lineNumber : ' + lineNumber);
         importPaths.push({
           path: n.moduleSpecifier.getText(),
-          lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line
+          lineNumber: lineNumber
         });
       }
     });
