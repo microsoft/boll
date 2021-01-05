@@ -20,7 +20,7 @@ test("Should fail if `src` detected in imports", async () => {
     { path: "a/src/b", lineNumber: 0 },
     { path: "b/c/d/e/f", lineNumber: 1 }
   ];
-  const sut = new SrcDetector(); 
+  const sut = new SrcDetector();
   const result = sut.checkImportPaths(asBollFile("a"), importPaths);
   assert.strictEqual(ResultStatus.failure, result[0].status);
 });
@@ -28,9 +28,7 @@ test("Should fail if `src` detected in imports", async () => {
 test("Should fail if references to node_modules exist in source code", async () => {
   inFixtureDir("src-detector", __dirname, async () => {
     const sut = new SrcDetector();
-    const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "src-detector.ts", new Package({}, {}))
-    );
+    const result = await sut.check(await getSourceFile(asBollDirectory("."), "src-detector.ts", new Package({}, {})));
     const failure = result[0] as Failure;
     const failure1 = result[1] as Failure;
     assert.strictEqual(2, result.length);
