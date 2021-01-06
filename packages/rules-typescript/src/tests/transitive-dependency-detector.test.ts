@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import baretest from "baretest";
 import { TransitiveDependencyDetector } from "../transitive-dependency-detector";
-import { asBollDirectory, getSourceFile, Package, ResultStatus } from "@boll/core";
+import { asBollDirectory, getSourceFile, Failure, Package, ResultStatus } from "@boll/core";
 import { inFixtureDir } from "@boll/test-internal";
 
 export const test: any = baretest("Transitive dep detector");
@@ -51,5 +51,28 @@ test("Should fail if all imports are declared in devDependencies and devDeps mod
       await getSourceFile(asBollDirectory("."), "foo.ts", new Package({}, { "@some/other-package": "0" }))
     );
     assert.strictEqual(1, result.length);
+  });
+});
+
+test("Should fail if all imports are declared in devDependencies and devDeps mode is disabled", async () => {
+  await inFixtureDir("transitive-reference", __dirname, async () => {
+    const sut = new TransitiveDependencyDetector({ allowDevDependencies: true });
+    const result = await sut.check(
+      await getSourceFile(
+        asBollDirectory("."),
+        "transitive-reference.ts",
+        new Package({}, { "@some/other-package": "0" })
+      )
+    );
+    const failure = result[0] as Failure;
+    const failure1 = result[1] as Failure;
+    const failure2 = result[2] as Failure;
+    assert.strictEqual(3, result.length);
+    assert.strictEqual(ResultStatus.failure, failure.status);
+    assert.strictEqual(1, failure.line);
+    assert.strictEqual(ResultStatus.failure, failure1.status);
+    assert.strictEqual(8, failure1.line);
+    assert.strictEqual(ResultStatus.failure, failure2.status);
+    assert.strictEqual(9, failure2.line);
   });
 });
