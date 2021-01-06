@@ -54,7 +54,7 @@ test("Should fail if all imports are declared in devDependencies and devDeps mod
   });
 });
 
-test("Should fail if all imports are declared in devDependencies and devDeps mode is disabled", async () => {
+test("Should fail for missing imports if few imports are declared in devDependencies and devDeps mode is enabled", async () => {
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector({ allowDevDependencies: true });
     const result = await sut.check(
