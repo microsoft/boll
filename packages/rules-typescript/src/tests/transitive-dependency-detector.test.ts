@@ -51,6 +51,9 @@ test("Should fail if all imports are declared in devDependencies and devDeps mod
       await getSourceFile(asBollDirectory("."), "foo.ts", new Package({}, { "@some/other-package": "0" }))
     );
     assert.strictEqual(1, result.length);
+    const failure = result[0] as Failure;
+    assert.strictEqual(ResultStatus.failure, failure.status);
+    assert.strictEqual(1, failure.line);
   });
 });
 
