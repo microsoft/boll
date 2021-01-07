@@ -35,11 +35,14 @@ export class CrossPackageDependencyDetector implements PackageRule {
 
   getFileImports(sourceFile: SourceFile): ImportPathAndLineNumber[] {
     const importPaths: ImportPathAndLineNumber[] = [];
+    let lineNumber = 1;
     sourceFile.forEachChild(n => {
+      const totalLines = n.getFullText().split(/\r?\n/).length;
+      lineNumber = lineNumber + totalLines - 1;
       if (isImportDeclaration(n)) {
         const path = this.getPathFromNode(n);
         if (path.startsWith(".")) {
-          importPaths.push({ path, lineNumber: sourceFile.getLineAndCharacterOfPosition(n.pos).line });
+          importPaths.push({ path, lineNumber: lineNumber });
         }
       }
     });
