@@ -5,7 +5,7 @@ import { FileContext, getSourceFile } from "./file-context";
 import { Logger } from "./logger";
 import { Package } from "./package";
 import { Failure, Result, ResultSet } from "./result-set";
-import { RuleSet } from "./rule-set";
+import { InstantiatedRule, RuleSet } from "./rule-set";
 import { ResultStatus } from "./types";
 import { promisify } from "util";
 const readFileAsync = promisify(fs.readFile);
@@ -35,19 +35,18 @@ export class Suite {
       sourceFilePaths.map(filename => getSourceFile(projectRoot, filename, packageContext))
     );
 
-    ruleSet.checks.forEach(r => {
+    ruleSet.fileChecks.forEach(r => {
       sourceFiles.forEach(async s => {
         if (s.shouldSkip(r)) return;
         const results = await r.check(s);
         const filteredResults = await this.filterIgnoredChecksByLine(results, s);
-        if (r.severity === "error") {
-          resultSet.addErrors(filteredResults);
-        } else if (r.severity === "warn") {
-          resultSet.addWarnings(filteredResults);
-        } else {
-          throw new Error("Unknown severity! (This is likely a boll bug)");
-        }
+        this.addFailuresWithSeverity(r, filteredResults, resultSet);
       });
+    });
+    ruleSet.metaChecks.forEach(async r => {
+      const unskippedSourceFiles = sourceFiles.filter(s => !s.shouldSkip(r));
+      const results = await r.check(unskippedSourceFiles);
+      this.addFailuresWithSeverity(r, results, resultSet);
     });
     return true;
   }
@@ -83,5 +82,15 @@ export class Suite {
       }
     });
     return filteredResults;
+  }
+
+  private addFailuresWithSeverity(rule: InstantiatedRule, results: Result[], resultSet: ResultSet) {
+    if (rule.severity === "error") {
+      resultSet.addErrors(results);
+    } else if (rule.severity === "warn") {
+      resultSet.addWarnings(results);
+    } else {
+      throw new Error("Unknown severity! (This is likely a boll bug)");
+    }
   }
 }

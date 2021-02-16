@@ -8,9 +8,14 @@ export interface CheckConfiguration {
   options?: {};
 }
 
+export interface Checks {
+  file?: CheckConfiguration[];
+  meta?: CheckConfiguration[];
+}
+
 export interface RuleSetConfiguration {
   fileLocator: FileGlob;
-  checks?: CheckConfiguration[];
+  checks?: Checks;
   exclude?: string[];
   include?: string[];
   name?: string;
@@ -28,9 +33,16 @@ export interface ConfigDefinition {
   };
 }
 
-export interface PackageRule {
+export interface Rule {
   name: string;
+}
+
+export interface PackageRule extends Rule {
   check(file: FileContext): Promise<Result[]>;
+}
+
+export interface PackageMetaRule extends Rule {
+  check(files: FileContext[]): Promise<Result[]>;
 }
 
 export enum ResultStatus {

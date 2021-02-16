@@ -36,7 +36,10 @@ test("should allow multi-level inheritance of configs", () => {
     called = true;
     return new FakeRule();
   });
-  configRegistry.register({ name: "base", ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo" }] }] });
+  configRegistry.register({
+    name: "base",
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "foo" }] } }]
+  });
   configRegistry.register({ name: "level1", extends: "base" });
   configRegistry.register({ name: "level2", extends: "level1" });
   configRegistry.register({ name: "level3", extends: "level2" });
@@ -67,7 +70,9 @@ test("gives options to factory function", () => {
     return new FakeRule();
   });
   const config = new Config(configRegistry, ruleRegistry, NullLogger);
-  config.load({ ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }] });
+  config.load({
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "foo", options: { bar: "baz" } }] } }]
+  });
   config.buildSuite();
   assert.ok(calledWithCorrectArgs, "Rule factory should have been invoked with correct args when creating suite.");
 });
@@ -76,7 +81,7 @@ test("downstream rules configuration applies to rules", async () => {
   const configRegistry = new ConfigRegistry();
   configRegistry.register({
     name: "base",
-    ruleSets: [{ fileLocator: new FakeGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }]
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "foo", options: { bar: "baz" } }] } }]
   });
   const ruleRegistry = new RuleRegistry();
   ruleRegistry.register("foo", (l: any, options: any) => {
@@ -93,7 +98,7 @@ test("downstream rules configuration applies to rules", async () => {
   };
   config.load(myConfig);
   const suite = await config.buildSuite();
-  const fakeRuleInstance = suite.ruleSets[0].checks[0].rule as FakeRule;
+  const fakeRuleInstance = suite.ruleSets[0].fileChecks[0].rule as FakeRule;
   assert.deepStrictEqual(fakeRuleInstance.options, { bar: "baz", some: "rule" });
 });
 

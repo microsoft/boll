@@ -1,8 +1,8 @@
-import { ConfigDefinition, FileGlob, PackageRule } from "./types";
+import { ConfigDefinition, FileGlob, PackageMetaRule, PackageRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
-import { InstantiatedPackageRule, RuleSet } from "./rule-set";
+import { InstantiatedPackageMetaRule, InstantiatedPackageRule, RuleSet } from "./rule-set";
 import { Suite } from "./suite";
 import { IgnoredFiles } from "./ignore";
 import { getRepoRoot } from "./git-utils";
@@ -35,14 +35,21 @@ export class Config {
       const glob = ruleSetConfig.fileLocator;
       glob.exclude = exclude;
       glob.include = ruleSetConfig.include || [];
-      const checks = (ruleSetConfig.checks || []).map(check => {
+      const fileChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.file) || []).map(check => {
         const optionsFromConfig =
           (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
         const options = { ...check.options, ...optionsFromConfig };
-        const rule = this.ruleRegistry.get(check.rule)(this.logger, options);
+        const rule = this.ruleRegistry.get<PackageRule>(check.rule)(this.logger, options);
         return new InstantiatedPackageRule(rule.name, check.severity || "error", rule);
       });
-      return new RuleSet(glob, checks);
+      const metaChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.meta) || []).map(check => {
+        const optionsFromConfig =
+          (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
+        const options = { ...check.options, ...optionsFromConfig };
+        const rule = this.ruleRegistry.get<PackageMetaRule>(check.rule)(this.logger, options);
+        return new InstantiatedPackageMetaRule(rule.name, check.severity || "error", rule);
+      });
+      return new RuleSet(glob, fileChecks, metaChecks);
     });
   }
 

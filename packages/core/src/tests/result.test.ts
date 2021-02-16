@@ -34,7 +34,9 @@ test("should log a failure as an error by default", async () => {
     });
     const config = new Config(new ConfigRegistry(), ruleRegistry, NullLogger);
     const myConfig = {
-      ruleSets: [{ fileLocator: new TypescriptSourceGlob(), checks: [{ rule: "foo", options: { bar: "baz" } }] }],
+      ruleSets: [
+        { fileLocator: new TypescriptSourceGlob(), checks: { file: [{ rule: "foo", options: { bar: "baz" } }] } }
+      ],
       configuration: {
         rules: {
           foo: { some: "rule" }
@@ -60,7 +62,7 @@ test("should log a failure as a warning if configured in the rule", async () => 
       ruleSets: [
         {
           fileLocator: new TypescriptSourceGlob(),
-          checks: [{ severity: "warn", rule: "foo", options: { bar: "baz" } } as CheckConfiguration]
+          checks: { file: [{ severity: "warn", rule: "foo", options: { bar: "baz" } } as CheckConfiguration] }
         }
       ],
       configuration: {

@@ -5,11 +5,13 @@ import { test as NodeModulesReferenceDetectorTest } from "./node-modules-referen
 import { test as RedundantImportsDetectorTest } from "./redundant-imports-detector.test";
 import { test as SrcDetectorTest } from "./src-detector.test";
 import { test as TransitiveDependencyDetectorTest } from "./transitive-dependency-detector.test";
+import { test as UnusedDependencyDetectorTest } from "./unused-dependency-detector.test";
 
 suite(
   CrossPackageDepDetectorTest,
   NodeModulesReferenceDetectorTest,
   RedundantImportsDetectorTest,
   SrcDetectorTest,
-  TransitiveDependencyDetectorTest
+  TransitiveDependencyDetectorTest,
+  UnusedDependencyDetectorTest
 );
