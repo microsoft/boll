@@ -1,8 +1,0 @@
-{
-  "type": "major",
-  "comment": "Unused dep detector",
-  "packageName": "@boll/core",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-12-12T00:44:49.915Z"
-}

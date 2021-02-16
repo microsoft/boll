@@ -1,8 +1,16 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Thu, 12 Nov 2020 00:14:02 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Feb 2021 20:18:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.0
+
+Tue, 16 Feb 2021 20:18:03 GMT
+
+### Major changes
+
+- Unused dep detector (email not defined)
 
 ## 0.2.0
 

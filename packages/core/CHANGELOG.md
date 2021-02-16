@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Tue, 15 Dec 2020 17:22:23 GMT and should not be manually modified.
+This log was last generated on Tue, 16 Feb 2021 20:18:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Tue, 16 Feb 2021 20:18:03 GMT
+
+### Major changes
+
+- Unused dep detector (email not defined)
 
 ## 1.6.0
 

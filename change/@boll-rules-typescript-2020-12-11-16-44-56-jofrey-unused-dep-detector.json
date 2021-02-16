@@ -1,8 +1,0 @@
-{
-  "type": "major",
-  "comment": "Unused dep detector",
-  "packageName": "@boll/rules-typescript",
-  "email": "email not defined",
-  "dependentChangeType": "patch",
-  "date": "2020-12-12T00:44:56.835Z"
-}
