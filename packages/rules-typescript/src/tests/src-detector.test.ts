@@ -28,7 +28,7 @@ test("Should fail if `src` detected in imports", async () => {
 test("Should fail if references to `src` detected in imports", async () => {
   inFixtureDir("src-detector", __dirname, async () => {
     const sut = new SrcDetector();
-    const result = await sut.check(await getSourceFile(asBollDirectory("."), "src-detector.ts", new Package({}, {})));
+    const result = await sut.check(await getSourceFile(asBollDirectory("."), "src-detector.ts", {}));
     const failure = result[0] as Failure;
     const failure1 = result[1] as Failure;
     assert.strictEqual(2, result.length);

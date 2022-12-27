@@ -2,8 +2,12 @@ import * as assert from "assert";
 import baretest from "baretest";
 import { readFileSync } from "fs";
 import { UnusedDependencyDetector } from "../unused-dependency-detector";
-import { asBollDirectory, asBollFile, Failure, FileContext, Package, ResultStatus } from "@boll/core";
+import { asBollDirectory, asBollFile, Failure, FileContext, parse, ResultStatus } from "@boll/core";
 import { inFixtureDir } from "@boll/test-internal";
+import * as fs from "fs";
+import { promisify } from "util";
+
+const readFileAsync = promisify(fs.readFile);
 
 export const test: any = baretest("Unused dep detector");
 
@@ -152,16 +156,12 @@ test("Should fail because multiple deps are not used", async () => {
 
 test("Fixture test should succeed because all declared dependencies are imported in code", async () => {
   await inFixtureDir("unused-deps/succeed", __dirname, async () => {
+    const pkgJson = (await readFileAsync(asBollFile("package.json"))).toString();
     const sut = new UnusedDependencyDetector();
     const results = await sut.check(
       ["a.ts", "b.ts", "c.ts"].map(
         f =>
-          new FileContext(
-            asBollDirectory("."),
-            Package.parse(asBollFile("package.json")),
-            asBollFile(f),
-            readFileSync(asBollFile(f)).toString()
-          )
+          new FileContext(asBollDirectory("."), parse(pkgJson), asBollFile(f), readFileSync(asBollFile(f)).toString())
       )
     );
     assert.deepStrictEqual(results.length, 1);
@@ -172,15 +172,11 @@ test("Fixture test should succeed because all declared dependencies are imported
 test("Fixture test should succeed because unused dependencies are excluded", async () => {
   await inFixtureDir("unused-deps/succeed-exclude", __dirname, async () => {
     const sut = new UnusedDependencyDetector({ exclude: ["baz"] });
+    const pkgJson = (await readFileAsync(asBollFile("package.json"))).toString();
     const results = await sut.check(
       ["a.ts", "b.ts", "c.ts"].map(
         f =>
-          new FileContext(
-            asBollDirectory("."),
-            Package.parse(asBollFile("package.json")),
-            asBollFile(f),
-            readFileSync(asBollFile(f)).toString()
-          )
+          new FileContext(asBollDirectory("."), parse(pkgJson), asBollFile(f), readFileSync(asBollFile(f)).toString())
       )
     );
     assert.deepStrictEqual(results.length, 1);
@@ -196,7 +192,7 @@ test("Fixture test should succeed because devDependencies are ignored", async ()
         f =>
           new FileContext(
             asBollDirectory("."),
-            Package.parse(asBollFile("package.json")),
+            parse(asBollFile("package.json")),
             asBollFile(f),
             readFileSync(asBollFile(f)).toString()
           )
@@ -209,16 +205,12 @@ test("Fixture test should succeed because devDependencies are ignored", async ()
 
 test("Fixture test should fail because a dependency is not imported in code", async () => {
   await inFixtureDir("unused-deps/fail-unused-dep", __dirname, async () => {
+    const pkgJson = (await readFileAsync(asBollFile("package.json"))).toString();
     const sut = new UnusedDependencyDetector();
     const results = await sut.check(
       ["a.ts", "b.ts", "c.ts"].map(
         f =>
-          new FileContext(
-            asBollDirectory("."),
-            Package.parse(asBollFile("package.json")),
-            asBollFile(f),
-            readFileSync(asBollFile(f)).toString()
-          )
+          new FileContext(asBollDirectory("."), parse(pkgJson), asBollFile(f), readFileSync(asBollFile(f)).toString())
       )
     );
     assert.deepStrictEqual(results.length, 1);
@@ -233,15 +225,11 @@ test("Fixture test should fail because a dependency is not imported in code", as
 test("Fixture test should fail because several dependencies are not imported in code", async () => {
   await inFixtureDir("unused-deps/fail-unused-deps", __dirname, async () => {
     const sut = new UnusedDependencyDetector();
+    const pkgJson = (await readFileAsync(asBollFile("package.json"))).toString();
     const results = await sut.check(
       ["a.ts", "b.ts", "c.ts"].map(
         f =>
-          new FileContext(
-            asBollDirectory("."),
-            Package.parse(asBollFile("package.json")),
-            asBollFile(f),
-            readFileSync(asBollFile(f)).toString()
-          )
+          new FileContext(asBollDirectory("."), parse(pkgJson), asBollFile(f), readFileSync(asBollFile(f)).toString())
       )
     );
     assert.deepStrictEqual(results.length, 4);

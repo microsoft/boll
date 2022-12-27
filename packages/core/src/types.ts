@@ -1,6 +1,7 @@
 import { BollFile } from "./boll-file";
 import { FileContext } from "./file-context";
 import { Result } from "./result-set";
+import { Logger } from "./logger";
 
 export interface CheckConfiguration {
   rule: string;
@@ -37,11 +38,18 @@ export interface Rule {
   name: string;
 }
 
+export interface CheckFunctionOptions {
+  logger: Logger;
+  [key: string]: string | Logger;
+}
+
 export interface PackageRule extends Rule {
+  check(file: FileContext, options?: CheckFunctionOptions): Promise<Result[]>;
   check(file: FileContext): Promise<Result[]>;
 }
 
 export interface PackageMetaRule extends Rule {
+  check(files: FileContext[], options?: CheckFunctionOptions): Promise<Result[]>;
   check(files: FileContext[]): Promise<Result[]>;
 }
 

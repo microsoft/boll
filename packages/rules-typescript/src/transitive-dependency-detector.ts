@@ -1,6 +1,6 @@
 import {
   asBollLineNumber,
-  DependencyMap,
+  Package,
   Failure,
   FileContext,
   ImportPathAndLineNumber,
@@ -51,7 +51,8 @@ export class TransitiveDependencyDetector implements PackageRule {
 
   async check(file: FileContext): Promise<Result[]> {
     const imports = this.getModuleImports(file.source);
-    return imports
+
+    const errors = imports
       .filter(i => !this.isValidImport(file.packageDependencies, file.packageDevDependencies, i.path))
       .map(
         i =>
@@ -62,12 +63,19 @@ export class TransitiveDependencyDetector implements PackageRule {
             `"${i.path}" is used as a module import, but not listed as a dependency. (Either add as a direct dependency or remove usage.)`
           )
       );
+
+    return errors;
   }
 
-  isValidImport(packageDependencies: DependencyMap, packageDevDependencies: DependencyMap, importPath: string): any {
-    let validImports = Object.keys(packageDependencies).concat(this.options.ignorePackages);
+  isValidImport(
+    packageDependencies: Package["dependencies"],
+    packageDevDependencies: Package["devDependencies"],
+    importPath: string
+  ): any {
+    let validImports = Object.keys(packageDependencies || {}).concat(this.options.ignorePackages);
+
     if (this.options.allowDevDependencies) {
-      validImports = validImports.concat(Object.keys(packageDevDependencies));
+      validImports = validImports.concat(Object.keys(packageDevDependencies || {}));
     }
     return validImports.some(moduleName => importPath === moduleName || importPath.startsWith(`${moduleName}/`));
   }

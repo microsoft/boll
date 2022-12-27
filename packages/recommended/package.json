@@ -7,11 +7,12 @@
     "@boll/core": "2.0.0",
     "@boll/rules-external-tools": "0.1.7",
     "@boll/rules-core": "0.1.7",
+    "@boll/rules-monorepo": "0.1.0",
     "@boll/rules-typescript": "1.0.0"
   },
   "description": "Recommended configuration for TypeScript monorepos ",
   "devDependencies": {
-    "prettier": "^2.0.5",
+    "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",

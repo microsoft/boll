@@ -10,7 +10,7 @@ const sut = new PackageConsistency();
 function buildFileContext(packageContents: {}) {
   return new FileContext(
     asBollDirectory("foo/bar/baz"),
-    new Package({}, {}),
+    {},
     asBollFile("package.json"),
     JSON.stringify(packageContents)
   );
