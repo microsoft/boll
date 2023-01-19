@@ -1,0 +1,8 @@
+{
+  "type": "major",
+  "comment": "boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin",
+  "packageName": "@boll/rules-external-tools",
+  "email": "jcreamer@microsoft.com",
+  "dependentChangeType": "patch",
+  "date": "2023-01-19T15:37:33.800Z"
+}
