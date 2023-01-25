@@ -2,6 +2,21 @@
   "name": "@boll/rules-external-tools",
   "entries": [
     {
+      "date": "Wed, 25 Jan 2023 20:39:53 GMT",
+      "tag": "@boll/rules-external-tools_v1.0.0",
+      "version": "1.0.0",
+      "comments": {
+        "major": [
+          {
+            "comment": "boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin",
+            "author": "jcreamer@microsoft.com",
+            "commit": "b668b6cd367222e4eb8d1586d109208cdfdd64cf",
+            "package": "@boll/rules-external-tools"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 17 Nov 2020 20:16:43 GMT",
       "tag": "@boll/rules-external-tools_v0.1.3",
       "version": "0.1.3",

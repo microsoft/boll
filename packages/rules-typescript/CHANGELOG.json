@@ -2,6 +2,21 @@
   "name": "@boll/rules-typescript",
   "entries": [
     {
+      "date": "Wed, 25 Jan 2023 20:39:53 GMT",
+      "tag": "@boll/rules-typescript_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "comment": "boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin",
+            "author": "jcreamer@microsoft.com",
+            "commit": "b668b6cd367222e4eb8d1586d109208cdfdd64cf",
+            "package": "@boll/rules-typescript"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 16 Feb 2021 20:18:03 GMT",
       "tag": "@boll/rules-typescript_v1.0.0",
       "version": "1.0.0",

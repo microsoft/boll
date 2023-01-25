@@ -1,8 +1,16 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Tue, 16 Feb 2021 20:18:03 GMT and should not be manually modified.
+This log was last generated on Wed, 25 Jan 2023 20:39:53 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.0
+
+Wed, 25 Jan 2023 20:39:53 GMT
+
+### Major changes
+
+- boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin (jcreamer@microsoft.com)
 
 ## 1.0.0
 

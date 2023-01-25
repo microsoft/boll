@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Wed, 25 Jan 2023 20:39:53 GMT",
+      "tag": "@boll/cli_v2.0.0",
+      "version": "2.0.0",
+      "comments": {
+        "major": [
+          {
+            "comment": "boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin",
+            "author": "jcreamer@microsoft.com",
+            "commit": "b668b6cd367222e4eb8d1586d109208cdfdd64cf",
+            "package": "@boll/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 15 Dec 2020 17:22:23 GMT",
       "tag": "@boll/cli_v1.2.0",
       "version": "1.2.0",
