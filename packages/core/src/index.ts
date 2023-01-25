@@ -9,6 +9,7 @@ export * from "./glob";
 export * from "./logger";
 export * from "./package";
 export * from "./result-set";
+export * from "./rule-set";
 export * from "./rule-registry";
 export * from "./suite";
 export * from "./types";

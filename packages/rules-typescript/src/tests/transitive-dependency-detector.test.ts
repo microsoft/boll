@@ -9,7 +9,7 @@ export const test: any = baretest("Transitive dep detector");
 test("(dependencies only mode) Should fail if any references to packages not referenced in package", async () => {
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector();
-    const result = await sut.check(await getSourceFile(asBollDirectory("."), "foo.ts", new Package({}, {})));
+    const result = await sut.check(await getSourceFile(asBollDirectory("."), "foo.ts", {}));
     assert.strictEqual(1, result.length);
     assert.strictEqual(ResultStatus.failure, result[0].status);
     const expected = "@some/other-package";
@@ -28,7 +28,7 @@ test("Should succeed if all imports are declared in dependencies", async () => {
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector();
     const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "foo.ts", new Package({ "@some/other-package": "0" }, {}))
+      await getSourceFile(asBollDirectory("."), "foo.ts", { dependencies: { "@some/other-package": "0" } })
     );
     assert.strictEqual(0, result.length);
   });
@@ -38,7 +38,7 @@ test("Should succeed if all imports are declared in devDependencies and devDeps 
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector({ allowDevDependencies: true });
     const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "foo.ts", new Package({}, { "@some/other-package": "0" }))
+      await getSourceFile(asBollDirectory("."), "foo.ts", { devDependencies: { "@some/other-package": "0" } })
     );
     assert.strictEqual(0, result.length);
   });
@@ -48,7 +48,7 @@ test("Should fail if all imports are declared in devDependencies and devDeps mod
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector({ allowDevDependencies: false });
     const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "foo.ts", new Package({}, { "@some/other-package": "0" }))
+      await getSourceFile(asBollDirectory("."), "foo.ts", { devDependencies: { "@some/other-package": "0" } })
     );
     assert.strictEqual(1, result.length);
     const failure = result[0] as Failure;
@@ -61,11 +61,9 @@ test("Should fail for missing imports if few imports are declared in devDependen
   await inFixtureDir("transitive-reference", __dirname, async () => {
     const sut = new TransitiveDependencyDetector({ allowDevDependencies: true });
     const result = await sut.check(
-      await getSourceFile(
-        asBollDirectory("."),
-        "transitive-reference.ts",
-        new Package({}, { "@some/other-package": "0" })
-      )
+      await getSourceFile(asBollDirectory("."), "transitive-reference.ts", {
+        devDependencies: { "@some/other-package": "0" }
+      })
     );
     const failure = result[0] as Failure;
     const failure1 = result[1] as Failure;

@@ -3,7 +3,7 @@ import baretest from "baretest";
 import { inFixtureDir } from "@boll/test-internal";
 import { asBollFile } from "../boll-file";
 import { FileGlob } from "../types";
-import { TypescriptSourceGlob } from "../glob";
+import { TypescriptSourceGlob, WorkspacesGlob } from "../glob";
 
 export const test: any = baretest("Glob");
 
@@ -55,6 +55,23 @@ test("should return files explicitly included", async () => {
     assert.deepStrictEqual(
       results.sort(),
       [asBollFile("a/a.ts"), asBollFile("b/b.ts"), asBollFile("c/c.someextension")].sort()
+    );
+  });
+});
+
+test("should find packages in a monorepo", async () => {
+  await inFixtureDir("monorepo", __dirname, async fixtureDir => {
+    const glob: FileGlob = new WorkspacesGlob(fixtureDir);
+    const results = await glob.findFiles();
+    assert.deepStrictEqual(
+      results.sort(),
+      [
+        asBollFile("packages/hip-glasses-smoke/package.json"),
+        asBollFile("packages/large-worms-pull/package.json"),
+        asBollFile("packages/lemon-foxes-exist/package.json"),
+        asBollFile("packages/many-taxes-wash/package.json"),
+        asBollFile("packages/yellow-hairs-film/package.json")
+      ].sort()
     );
   });
 });

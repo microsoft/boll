@@ -10,7 +10,7 @@
     "@boll/core": "2.0.0",
     "argparse": "^1.0.10",
     "fast-glob": "^3.2.4",
-    "typescript": "^3.9.7",
+    "typescript": "^4.9.4",
     "yaml": "^1.10.0"
   },
   "description": "> TODO: description",
@@ -20,7 +20,7 @@
     "@types/baretest": "^2.0.0",
     "@types/glob": "^7.1.3",
     "baretest": "^2.0.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",

@@ -16,7 +16,7 @@ const exclude = ["@types"];
 export interface UnusedDependencyDetectorOptions {
   exclude: string[];
   ignoreDevDependencies: boolean;
-  packageContextOverride: Package;
+  packageContextOverride: Partial<Package>;
 }
 
 interface DependencyCount {
@@ -127,13 +127,13 @@ export class UnusedDependencyDetector implements PackageMetaRule {
     const dependencies: DependencyCount = {},
       devDependencies: DependencyCount = {};
     if (this.options && this.options.packageContextOverride) {
-      Object.keys(this.options.packageContextOverride.dependencies).forEach(d => (dependencies[d] = 0));
-      Object.keys(this.options.packageContextOverride.devDependencies).forEach(d => (devDependencies[d] = 0));
+      Object.keys(this.options.packageContextOverride.dependencies || {}).forEach(d => (dependencies[d] = 0));
+      Object.keys(this.options.packageContextOverride.devDependencies || {}).forEach(d => (devDependencies[d] = 0));
     } else {
       // Use use deps from first file since they all share the same package context
       const file = files[0];
-      Object.keys(file.packageDependencies).forEach(d => (dependencies[d] = 0));
-      Object.keys(file.packageDevDependencies).forEach(d => (devDependencies[d] = 0));
+      Object.keys(file.packageDependencies || {}).forEach(d => (dependencies[d] = 0));
+      Object.keys(file.packageDevDependencies || {}).forEach(d => (devDependencies[d] = 0));
     }
     return { dependencies, devDependencies };
   }

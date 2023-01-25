@@ -3,7 +3,7 @@ import ts from "typescript";
 import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
-import { DependencyMap, Package } from "./package";
+import { Package } from "./package";
 import { Rule } from "./types";
 const readFileAsync = promisify(fs.readFile);
 
@@ -17,7 +17,7 @@ export class FileContext {
 
   constructor(
     public packageRoot: BollDirectory,
-    public packageContext: Package,
+    public packageContext: Partial<Package>,
     public filename: BollFile,
     public content: string
   ) {}
@@ -29,11 +29,11 @@ export class FileContext {
     return this._sourceFile;
   }
 
-  get packageDependencies(): DependencyMap {
+  get packageDependencies(): Package["dependencies"] | undefined {
     return this.packageContext.dependencies;
   }
 
-  get packageDevDependencies(): DependencyMap {
+  get packageDevDependencies(): Package["devDependencies"] | undefined {
     return this.packageContext.devDependencies;
   }
 
@@ -90,7 +90,7 @@ export class FileContext {
 export async function getSourceFile(
   projectRoot: BollDirectory,
   filename: string,
-  packageContext: Package
+  packageContext: Partial<Package>
 ): Promise<FileContext> {
   const bollFile = asBollFile(filename);
   const content = await readFileAsync(bollFile);

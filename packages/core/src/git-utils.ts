@@ -12,11 +12,7 @@ export function getRepoRoot(): string {
     return repoRoot;
   }
   try {
-    repoRoot = resolve(
-      execSync("git rev-parse --show-toplevel")
-        .toString()
-        .trim()
-    );
+    repoRoot = resolve(execSync("git rev-parse --show-toplevel").toString().trim());
     return repoRoot;
   } catch (e) {
     console.warn(e);

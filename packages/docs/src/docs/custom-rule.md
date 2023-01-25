@@ -72,6 +72,17 @@ const { RuleRegistryInstance } = require("@boll/core");
 RuleRegistryInstance.register("PrettierRcSingleQuoteChecker", () => prettierRcSingleQuoteChecker);
 ```
 
+There is also an API for `addRule` which simply takes an object instead of a factory function.
+The `logger` and the `options` will be passed into the `check` function along with the `file`.
+
+```js
+const { addRule } = require("@boll/core");
+addRule({
+  name: "PrettierRcSingleQuoteChecker",
+  check: (file, options) => {...}
+})
+```
+
 ### Putting it altogether
 
 With the locator and check in place, we just need to mention the rule inside the `checks` block of the exported config. The entire `.boll.config.js` looks this way after adding this last bit of config.

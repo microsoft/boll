@@ -1,17 +1,17 @@
-import { readFileSync } from "fs";
-import { BollFile } from "./boll-file";
+import type { PackageInfo } from "workspace-tools";
+export type { PackageInfo as Package };
 
-export type DependencyMap = { [depdencyName: string]: string };
-export class Package {
-  constructor(public dependencies: DependencyMap, public devDependencies: DependencyMap) {}
+export const parse = (fileContents: string): PackageInfo => {
+  try {
+    const json = JSON.parse(fileContents);
 
-  public static parse(file: BollFile): Package {
-    try {
-      const fileContents = readFileSync(file).toString();
-      const json = JSON.parse(fileContents);
-      return new Package(json["dependencies"] || {}, json["devDependencies"] || {});
-    } catch (e) {
-      return new Package({}, {});
-    }
+    return {
+      ...json,
+      dependencies: json.dependencies || {},
+      devDependencies: json.devDependencies || {}
+    };
+  } catch (e) {
+    console.log({ e });
+    return {} as PackageInfo;
   }
-}
+};

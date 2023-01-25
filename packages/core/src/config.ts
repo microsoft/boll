@@ -16,6 +16,7 @@ export class Config {
   async buildSuite(): Promise<Suite> {
     const suite = new Suite();
     suite.ruleSets = await this.loadRuleSets();
+
     return suite;
   }
 
@@ -39,16 +40,29 @@ export class Config {
         const optionsFromConfig =
           (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
         const options = { ...check.options, ...optionsFromConfig };
-        const rule = this.ruleRegistry.get<PackageRule>(check.rule)(this.logger, options);
-        return new InstantiatedPackageRule(rule.name, check.severity || "error", rule);
+        const fn = this.ruleRegistry.get<PackageRule>(check.rule);
+
+        if (typeof fn === "function") {
+          const rule = fn(this.logger, options);
+          return new InstantiatedPackageRule(rule.name, check.severity || "error", rule);
+        }
+
+        return new InstantiatedPackageRule(fn.name, check.severity || "error", fn, options);
       });
       const metaChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.meta) || []).map(check => {
         const optionsFromConfig =
           (config.configuration && config.configuration.rules && (config.configuration.rules as any)[check.rule]) || {};
         const options = { ...check.options, ...optionsFromConfig };
-        const rule = this.ruleRegistry.get<PackageMetaRule>(check.rule)(this.logger, options);
-        return new InstantiatedPackageMetaRule(rule.name, check.severity || "error", rule);
+        const fn = this.ruleRegistry.get<PackageMetaRule>(check.rule);
+
+        if (typeof fn === "function") {
+          const rule = fn(this.logger, options);
+          return new InstantiatedPackageMetaRule(rule.name, check.severity || "error", rule);
+        }
+
+        return new InstantiatedPackageMetaRule(fn.name, check.severity || "error", fn, options);
       });
+
       return new RuleSet(glob, fileChecks, metaChecks);
     });
   }
@@ -58,15 +72,56 @@ export class Config {
   }
 
   resolvedConfiguration(): ConfigDefinition {
+    this.bootstrapPackages();
+
     const parentConfiguration = this.resolveParentConfiguration(this.configuration.extends);
     const finalResult = this.mergeConfigurations(this.configuration, parentConfiguration);
     return finalResult;
+  }
+
+  loadExternalPlugin(fullPkgName: string) {
+    return this.requirePlugin(fullPkgName);
+  }
+
+  loadBollPlugin(plugin: string) {
+    const [base, ...rest] = plugin?.split("/");
+    let fullPkgName = `@boll/${plugin}`;
+    if (rest && rest.length >= 1) {
+      fullPkgName = `@boll/${base}/dist/${[...rest].join("/")}`;
+    }
+
+    return this.requirePlugin(fullPkgName);
+  }
+
+  requirePlugin(fullPkgName: string) {
+    try {
+      const pkg = require(fullPkgName);
+      return pkg;
+    } catch (e) {
+      throw new Error(`Could not load plugin ${fullPkgName}.`);
+    }
+  }
+
+  bootstrapPackages() {
+    if (this.configuration.extends) {
+      const [prefix, pkg] = this.configuration.extends.split(":");
+
+      let plugin;
+      if (prefix === "boll") {
+        plugin = this.loadBollPlugin(pkg);
+      } else if (prefix === "plugin") {
+        plugin = this.loadExternalPlugin(pkg);
+      }
+
+      plugin?.bootstrap();
+    }
   }
 
   resolveParentConfiguration(baseConfigName: string | null | undefined): ConfigDefinition {
     if (!baseConfigName) {
       return {};
     }
+
     const baseConfig = this.configRegistry.get(baseConfigName);
     const parentConfig = this.resolveParentConfiguration(baseConfig.extends);
     return this.mergeConfigurations(parentConfig, baseConfig);

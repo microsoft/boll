@@ -1,0 +1,8 @@
+{
+  "name": "@foo/large-worms-pull",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lint": "boll"
+  }
+}

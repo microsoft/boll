@@ -3,10 +3,10 @@ import baretest from "baretest";
 import { BollFile } from "../boll-file";
 import { Config } from "../config";
 import { ConfigRegistry } from "../config-registry";
-import { FileGlob, PackageRule, RuleSetConfiguration } from "../types";
+import { FileGlob, PackageRule, RuleSetConfiguration, CheckFunctionOptions } from "../types";
 import { NullLogger } from "../logger";
 import { Result } from "../result-set";
-import { RuleRegistry } from "../rule-registry";
+import { RuleRegistry, addRule } from "../rule-registry";
 
 export const test: any = baretest("Config");
 
@@ -75,6 +75,34 @@ test("gives options to factory function", () => {
   });
   config.buildSuite();
   assert.ok(calledWithCorrectArgs, "Rule factory should have been invoked with correct args when creating suite.");
+});
+
+test("addRule function can register and pass options", async () => {
+  const configRegistry = new ConfigRegistry();
+  const ruleRegistry = new RuleRegistry();
+
+  addRule<PackageRule>(
+    {
+      name: "foo",
+      check: async (filename: any) => {
+        const results: Result[] = [];
+
+        return results;
+      }
+    },
+    ruleRegistry
+  );
+
+  const config = new Config(configRegistry, ruleRegistry, NullLogger);
+  config.load({
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "foo", options: { bar: "baz" } }] } }]
+  });
+  const { ruleSets } = await config.buildSuite();
+
+  assert.ok(
+    ruleSets[0].fileChecks[0].options?.bar,
+    "addRule should have been invoked with correct args when creating suite."
+  );
 });
 
 test("downstream rules configuration applies to rules", async () => {

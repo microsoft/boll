@@ -5,14 +5,14 @@
   },
   "dependencies": {
     "@boll/core": "2.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.9.4"
   },
   "description": "@boll rules for typescript source files",
   "devDependencies": {
     "@boll/test-internal": "0.0.1",
     "@types/baretest": "^2.0.0",
     "baretest": "^2.0.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
     "ts-node-dev": "^1.0.0-pre.58",
     "typedoc": "^0.19.1",

@@ -15,9 +15,9 @@
     "@types/baretest": "^2.0.0",
     "@types/glob": "^7.1.3",
     "baretest": "^2.0.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.8.1",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.7"
+    "typescript": "^4.9.4"
   },
   "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
   "homepage": "https://github.com/microsoft/boll#readme",

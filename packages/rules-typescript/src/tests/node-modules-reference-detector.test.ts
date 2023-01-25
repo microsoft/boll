@@ -9,9 +9,7 @@ export const test: any = baretest("Node modules reference detector");
 test("Should pass if no references to node_modules exist in source code", async () => {
   inFixtureDir("node-modules-references", __dirname, async () => {
     const sut = new NodeModulesReferenceDetector();
-    const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "node-modules-reference-none.ts", new Package({}, {}))
-    );
+    const result = await sut.check(await getSourceFile(asBollDirectory("."), "node-modules-reference-none.ts", {}));
     assert.strictEqual(1, result.length);
     assert.strictEqual(ResultStatus.success, result[0].status);
   });
@@ -20,9 +18,7 @@ test("Should pass if no references to node_modules exist in source code", async 
 test("Should fail if references to node_modules exist in source code", async () => {
   inFixtureDir("node-modules-references", __dirname, async () => {
     const sut = new NodeModulesReferenceDetector();
-    const result = await sut.check(
-      await getSourceFile(asBollDirectory("."), "node-modules-reference.ts", new Package({}, {}))
-    );
+    const result = await sut.check(await getSourceFile(asBollDirectory("."), "node-modules-reference.ts", {}));
     const failure = result[0] as Failure;
     const failure1 = result[1] as Failure;
     assert.strictEqual(2, result.length);

@@ -1,10 +1,12 @@
 import {
+  addRule,
   ConfigDefinition,
   ConfigRegistryInstance,
   Logger,
   PackageJsonGlob,
   RuleRegistryInstance,
-  TypescriptSourceGlob
+  TypescriptSourceGlob,
+  WorkspacesGlob
 } from "@boll/core";
 import {
   CrossPackageDependencyDetector,
@@ -14,9 +16,13 @@ import {
   TransitiveDependencyDetector
 } from "@boll/rules-typescript";
 import { ESLintPreferConstRule } from "@boll/rules-external-tools";
-import { EnforceRationale, NoRedundantDepsRule, PackageConsistency } from "@boll/rules-core";
+import { EnforceRationale, NoRedundantDepsRule } from "@boll/rules-core";
 
 let bootstrapRun = false;
+
+/**
+ * @deprecated
+ */
 export const bootstrapRecommendedConfiguration = () => {
   if (bootstrapRun) return;
 
@@ -36,8 +42,10 @@ export const bootstrapRecommendedConfiguration = () => {
   RuleRegistryInstance.register("PackageConsistency", (l: Logger, options: any) => new EnforceRationale(options));
 
   ConfigRegistryInstance.register(RecommendedConfig);
+
   bootstrapRun = true;
 };
+export const bootstrap = bootstrapRecommendedConfiguration;
 
 export const RecommendedConfig: ConfigDefinition = {
   name: "boll:recommended",

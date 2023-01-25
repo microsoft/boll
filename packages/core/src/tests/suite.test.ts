@@ -10,7 +10,7 @@ export const test: any = baretest("Source detector");
 
 test("should skip a single disabled next line rules in a FileContext", async () => {
   await inFixtureDir("standalone-source-files", __dirname, async cwd => {
-    const sut = await getSourceFile(cwd, "simple-disable-next-line.ts", new Package({}, {}));
+    const sut = await getSourceFile(cwd, "simple-disable-next-line.ts", {});
     const suite = new Suite();
     const results: Result[] = [];
     const failure1: Failure = new Failure(
@@ -27,7 +27,7 @@ test("should skip a single disabled next line rules in a FileContext", async () 
 
 test("should skip a multiple disabled next line rules in a FileContext", async () => {
   await inFixtureDir("standalone-source-files", __dirname, async cwd => {
-    const sut = await getSourceFile(cwd, "multiple-disable-next-line.ts", new Package({}, {}));
+    const sut = await getSourceFile(cwd, "multiple-disable-next-line.ts", {});
     const suite = new Suite();
     const results: Result[] = [];
     const failure: Failure = new Failure(
