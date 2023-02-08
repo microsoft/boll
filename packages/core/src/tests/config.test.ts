@@ -53,13 +53,18 @@ test("should allow multi-level inheritance of configs with multiple extends", ()
   const configRegistry = new ConfigRegistry();
   const ruleRegistry = new RuleRegistry();
   let fooCalled = false;
-  let barCalled = true;
+  let barCalled = false;
+  let bazCalled = false;
   ruleRegistry.register("foo", () => {
     fooCalled = true;
     return new FakeRule();
   });
   ruleRegistry.register("bar", () => {
     barCalled = true;
+    return new FakeRule();
+  });
+  ruleRegistry.register("baz", () => {
+    bazCalled = true;
     return new FakeRule();
   });
   configRegistry.register({
@@ -70,13 +75,17 @@ test("should allow multi-level inheritance of configs with multiple extends", ()
     name: "base2",
     ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "bar" }] } }]
   });
+  configRegistry.register({
+    name: "base3",
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "baz" }] } }]
+  });
   configRegistry.register({ name: "level1", extends: "base" });
-  configRegistry.register({ name: "level2", extends: "base2" });
+  configRegistry.register({ name: "level2", extends: ["base2", "base3"] });
   configRegistry.register({ name: "level3", extends: ["level2", "level1"] });
   const config = new Config(configRegistry, ruleRegistry, NullLogger);
   config.load({ extends: "level3" });
   config.buildSuite();
-  assert.ok(barCalled && fooCalled, "Rule factory should have been invoked when creating suite.");
+  assert.ok(barCalled && fooCalled && bazCalled, "Rule factory should have been invoked when creating suite.");
 });
 
 test("should apply exclude/include across extended config", async () => {
