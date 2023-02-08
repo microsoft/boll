@@ -49,6 +49,36 @@ test("should allow multi-level inheritance of configs", () => {
   assert.ok(called, "Rule factory should have been invoked when creating suite.");
 });
 
+test("should allow multi-level inheritance of configs with multiple extends", () => {
+  const configRegistry = new ConfigRegistry();
+  const ruleRegistry = new RuleRegistry();
+  let fooCalled = false;
+  let barCalled = true;
+  ruleRegistry.register("foo", () => {
+    fooCalled = true;
+    return new FakeRule();
+  });
+  ruleRegistry.register("bar", () => {
+    barCalled = true;
+    return new FakeRule();
+  });
+  configRegistry.register({
+    name: "base",
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "foo" }] } }]
+  });
+  configRegistry.register({
+    name: "base2",
+    ruleSets: [{ fileLocator: new FakeGlob(), checks: { file: [{ rule: "bar" }] } }]
+  });
+  configRegistry.register({ name: "level1", extends: "base" });
+  configRegistry.register({ name: "level2", extends: "base2" });
+  configRegistry.register({ name: "level3", extends: ["level2", "level1"] });
+  const config = new Config(configRegistry, ruleRegistry, NullLogger);
+  config.load({ extends: "level3" });
+  config.buildSuite();
+  assert.ok(barCalled && fooCalled, "Rule factory should have been invoked when creating suite.");
+});
+
 test("should apply exclude/include across extended config", async () => {
   const configRegistry = new ConfigRegistry();
   const ruleSets: RuleSetConfiguration[] = [{ exclude: ["testme"], fileLocator: new FakeGlob() }];
@@ -57,6 +87,19 @@ test("should apply exclude/include across extended config", async () => {
   config.load({ extends: "base" });
   const suite = await config.buildSuite();
   assert.deepStrictEqual(suite.ruleSets[0].fileGlob.exclude, ["testme"]);
+});
+
+test("should apply exclude/include across extended config with multiple extends", async () => {
+  const configRegistry = new ConfigRegistry();
+  const ruleSets: RuleSetConfiguration[] = [{ exclude: ["testme"], fileLocator: new FakeGlob() }];
+  const confRuleSets: RuleSetConfiguration[] = [{ exclude: ["testmetoo"], fileLocator: new FakeGlob() }];
+  configRegistry.register({ name: "base", ruleSets });
+  configRegistry.register({ name: "base2", ruleSets: confRuleSets });
+  const config = new Config(configRegistry, new RuleRegistry(), NullLogger);
+  config.load({ extends: ["base", "base2"] });
+  const suite = await config.buildSuite();
+  assert.deepStrictEqual(suite.ruleSets[0].fileGlob.exclude, ["testme"]);
+  assert.deepStrictEqual(suite.ruleSets[1].fileGlob.exclude, ["testmetoo"]);
 });
 
 test("gives options to factory function", () => {

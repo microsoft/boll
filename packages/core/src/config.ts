@@ -1,4 +1,4 @@
-import { ConfigDefinition, FileGlob, PackageMetaRule, PackageRule } from "./types";
+import { LoadedConfigDefinition, ConfigDefinition, FileGlob, PackageMetaRule, PackageRule } from "./types";
 import { ConfigRegistry } from "./config-registry";
 import { Logger } from "./logger";
 import { RuleRegistry } from "./rule-registry";
@@ -8,7 +8,7 @@ import { IgnoredFiles } from "./ignore";
 import { getRepoRoot } from "./git-utils";
 
 export class Config {
-  private configuration: ConfigDefinition = {};
+  private configuration: LoadedConfigDefinition = {};
   private ignoredFiles: IgnoredFiles = new IgnoredFiles({ root: getRepoRoot() });
 
   constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry, private logger: Logger) {}
@@ -68,15 +68,17 @@ export class Config {
   }
 
   load(def: ConfigDefinition) {
-    this.configuration = def;
+    if(this.configuration.extends && !Array.isArray(this.configuration.extends)) {
+      this.configuration.extends = [this.configuration.extends];
+    }
+    this.configuration = def as LoadedConfigDefinition;
   }
 
-  resolvedConfiguration(): ConfigDefinition {
+  resolvedConfiguration(): LoadedConfigDefinition {
     this.bootstrapPackages();
-
-    const parentConfiguration = this.resolveParentConfiguration(this.configuration.extends);
-    const finalResult = this.mergeConfigurations(this.configuration, parentConfiguration);
-    return finalResult;
+    const resolvedExtendsConfig = this.resolveParentConfiguration(this.configuration.extends)
+    const config = this.mergeConfigurations( this.configuration, resolvedExtendsConfig)
+    return config;
   }
 
   loadExternalPlugin(fullPkgName: string) {
@@ -104,34 +106,53 @@ export class Config {
 
   bootstrapPackages() {
     if (this.configuration.extends) {
-      const [prefix, pkg] = this.configuration.extends.split(":");
-
-      let plugin;
-      if (prefix === "boll") {
-        plugin = this.loadBollPlugin(pkg);
-      } else if (prefix === "plugin") {
-        plugin = this.loadExternalPlugin(pkg);
+      if(!Array.isArray(this.configuration.extends)) {
+        this.configuration.extends = [this.configuration.extends]
       }
-
-      plugin?.bootstrap();
+      this.configuration.extends.forEach(extensionName => {
+        let plugin;
+        const [prefix, pkg] = extensionName.split(":");
+        if (prefix === "boll") {
+          plugin = this.loadBollPlugin(pkg);
+        } else if (prefix === "plugin") {
+          plugin = this.loadExternalPlugin(pkg);
+        }
+        plugin?.bootstrap();
+      })
     }
   }
 
-  resolveParentConfiguration(baseConfigName: string | null | undefined): ConfigDefinition {
-    if (!baseConfigName) {
-      return {};
+  resolveExtendsConfiguration(allExtends: LoadedConfigDefinition[]): LoadedConfigDefinition {
+    let parentConfiguration: LoadedConfigDefinition = {};
+    for (let i = allExtends.length - 1; i >= 0; i--) {
+      parentConfiguration = this.mergeConfigurations(parentConfiguration, allExtends[i])
+    }
+    return parentConfiguration;
+  }
+
+  resolveParentConfiguration(baseConfigName: string | string[] | undefined): LoadedConfigDefinition {
+    if(!baseConfigName) {
+      return {}
     }
 
-    const baseConfig = this.configRegistry.get(baseConfigName);
-    const parentConfig = this.resolveParentConfiguration(baseConfig.extends);
-    return this.mergeConfigurations(parentConfig, baseConfig);
+    if(!Array.isArray(baseConfigName)) {
+      baseConfigName = [baseConfigName]
+    }
+
+    let allExtendsConfigs:LoadedConfigDefinition[] = [];
+    for (let i = baseConfigName.length - 1; i >= 0; i--) {
+      const baseConfig = this.configRegistry.get(baseConfigName[i]);  
+      allExtendsConfigs.push(this.mergeConfigurations(this.resolveParentConfiguration(baseConfig.extends), baseConfig));
+    }
+
+    return this.resolveExtendsConfiguration(allExtendsConfigs);
   }
 
   private mergeConfigurations(
     parentConfiguration: ConfigDefinition,
     childConfiguration: ConfigDefinition
-  ): ConfigDefinition {
-    const obj: ConfigDefinition = {
+  ): LoadedConfigDefinition {
+    const obj: LoadedConfigDefinition = {
       configuration: {
         rules: {},
         ruleSets: {}

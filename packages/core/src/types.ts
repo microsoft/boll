@@ -24,7 +24,7 @@ export interface RuleSetConfiguration {
 
 export interface ConfigDefinition {
   name?: string;
-  extends?: string;
+  extends?: string | string[];
   exclude?: string[];
   ruleSets?: RuleSetConfiguration[];
   excludeGitControlledFiles?: boolean;
@@ -32,6 +32,10 @@ export interface ConfigDefinition {
     rules?: {};
     ruleSets?: {};
   };
+}
+
+export interface LoadedConfigDefinition extends ConfigDefinition {
+  extends?: string[];
 }
 
 export interface Rule {
