@@ -68,7 +68,7 @@ export class Config {
   }
 
   load(def: ConfigDefinition) {
-    if(this.configuration.extends && !Array.isArray(this.configuration.extends)) {
+    if (this.configuration.extends && !Array.isArray(this.configuration.extends)) {
       this.configuration.extends = [this.configuration.extends];
     }
     this.configuration = def as LoadedConfigDefinition;
@@ -76,8 +76,8 @@ export class Config {
 
   resolvedConfiguration(): LoadedConfigDefinition {
     this.bootstrapPackages();
-    const resolvedExtendsConfig = this.resolveParentConfiguration(this.configuration.extends)
-    const config = this.mergeConfigurations( this.configuration, resolvedExtendsConfig)
+    const resolvedExtendsConfig = this.resolveParentConfiguration(this.configuration.extends);
+    const config = this.mergeConfigurations(this.configuration, resolvedExtendsConfig);
     return config;
   }
 
@@ -106,8 +106,8 @@ export class Config {
 
   bootstrapPackages() {
     if (this.configuration.extends) {
-      if(!Array.isArray(this.configuration.extends)) {
-        this.configuration.extends = [this.configuration.extends]
+      if (!Array.isArray(this.configuration.extends)) {
+        this.configuration.extends = [this.configuration.extends];
       }
       this.configuration.extends.forEach(extensionName => {
         let plugin;
@@ -118,30 +118,30 @@ export class Config {
           plugin = this.loadExternalPlugin(pkg);
         }
         plugin?.bootstrap();
-      })
+      });
     }
   }
 
   resolveExtendsConfiguration(allExtends: LoadedConfigDefinition[]): LoadedConfigDefinition {
     let parentConfiguration: LoadedConfigDefinition = {};
     for (let i = allExtends.length - 1; i >= 0; i--) {
-      parentConfiguration = this.mergeConfigurations(parentConfiguration, allExtends[i])
+      parentConfiguration = this.mergeConfigurations(parentConfiguration, allExtends[i]);
     }
     return parentConfiguration;
   }
 
   resolveParentConfiguration(baseConfigName: string | string[] | undefined): LoadedConfigDefinition {
-    if(!baseConfigName) {
-      return {}
+    if (!baseConfigName) {
+      return {};
     }
 
-    if(!Array.isArray(baseConfigName)) {
-      baseConfigName = [baseConfigName]
+    if (!Array.isArray(baseConfigName)) {
+      baseConfigName = [baseConfigName];
     }
 
-    let allExtendsConfigs:LoadedConfigDefinition[] = [];
+    let allExtendsConfigs: LoadedConfigDefinition[] = [];
     for (let i = baseConfigName.length - 1; i >= 0; i--) {
-      const baseConfig = this.configRegistry.get(baseConfigName[i]);  
+      const baseConfig = this.configRegistry.get(baseConfigName[i]);
       allExtendsConfigs.push(this.mergeConfigurations(this.resolveParentConfiguration(baseConfig.extends), baseConfig));
     }
 
