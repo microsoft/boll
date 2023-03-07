@@ -75,51 +75,10 @@ export class Config {
   }
 
   resolvedConfiguration(): LoadedConfigDefinition {
-    this.bootstrapPackages();
+    ConfigRegistry.bootstrapPlugins(this.configuration)
     const resolvedExtendsConfig = this.resolveParentConfiguration(this.configuration.extends);
     const config = this.mergeConfigurations(this.configuration, resolvedExtendsConfig);
     return config;
-  }
-
-  loadExternalPlugin(fullPkgName: string) {
-    return this.requirePlugin(fullPkgName);
-  }
-
-  loadBollPlugin(plugin: string) {
-    const [base, ...rest] = plugin?.split("/");
-    let fullPkgName = `@boll/${plugin}`;
-    if (rest && rest.length >= 1) {
-      fullPkgName = `@boll/${base}/dist/${[...rest].join("/")}`;
-    }
-
-    return this.requirePlugin(fullPkgName);
-  }
-
-  requirePlugin(fullPkgName: string) {
-    try {
-      const pkg = require(fullPkgName);
-      return pkg;
-    } catch (e) {
-      throw new Error(`Could not load plugin ${fullPkgName}.`);
-    }
-  }
-
-  bootstrapPackages() {
-    if (this.configuration.extends) {
-      if (!Array.isArray(this.configuration.extends)) {
-        this.configuration.extends = [this.configuration.extends];
-      }
-      this.configuration.extends.forEach(extensionName => {
-        let plugin;
-        const [prefix, pkg] = extensionName.split(":");
-        if (prefix === "boll") {
-          plugin = this.loadBollPlugin(pkg);
-        } else if (prefix === "plugin") {
-          plugin = this.loadExternalPlugin(pkg);
-        }
-        plugin?.bootstrap();
-      });
-    }
   }
 
   resolveExtendsConfiguration(allExtends: LoadedConfigDefinition[]): LoadedConfigDefinition {
