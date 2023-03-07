@@ -75,7 +75,7 @@ export class Config {
   }
 
   resolvedConfiguration(): LoadedConfigDefinition {
-    ConfigRegistry.bootstrapPlugins(this.configuration)
+    ConfigRegistry.bootstrapPlugins(this.configuration);
     const resolvedExtendsConfig = this.resolveParentConfiguration(this.configuration.extends);
     const config = this.mergeConfigurations(this.configuration, resolvedExtendsConfig);
     return config;

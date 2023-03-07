@@ -13,7 +13,7 @@ export class ConfigRegistry {
     }
     this.registrations[name] = config;
     // bootstrap all plugins when they are registered
-    ConfigRegistry.bootstrapPlugins(config)
+    ConfigRegistry.bootstrapPlugins(config);
   }
 
   get(name: string): ConfigDefinition {
@@ -24,7 +24,7 @@ export class ConfigRegistry {
   }
 
   static bootstrapPlugins(config: ConfigDefinition) {
-    if(config.extends) {
+    if (config.extends) {
       if (!Array.isArray(config.extends)) {
         config.extends = [config.extends];
       }
@@ -39,29 +39,29 @@ export class ConfigRegistry {
         plugin?.bootstrap();
       });
     }
+  }
+
+  static loadExternalPlugin(fullPkgName: string) {
+    return this.requirePlugin(fullPkgName);
+  }
+
+  static loadBollPlugin(plugin: string) {
+    const [base, ...rest] = plugin?.split("/");
+    let fullPkgName = `@boll/${plugin}`;
+    if (rest && rest.length >= 1) {
+      fullPkgName = `@boll/${base}/dist/${[...rest].join("/")}`;
     }
-  
-    static loadExternalPlugin(fullPkgName: string) {
-      return this.requirePlugin(fullPkgName);
+    return this.requirePlugin(fullPkgName);
+  }
+
+  static requirePlugin(fullPkgName: string) {
+    try {
+      const pkg = require(fullPkgName);
+      return pkg;
+    } catch (e) {
+      throw new Error(`Could not load plugin ${fullPkgName}.`);
     }
-  
-    static loadBollPlugin(plugin: string) {
-      const [base, ...rest] = plugin?.split("/");
-      let fullPkgName = `@boll/${plugin}`;
-      if (rest && rest.length >= 1) {
-        fullPkgName = `@boll/${base}/dist/${[...rest].join("/")}`;
-      }
-      return this.requirePlugin(fullPkgName);
-    }
-  
-    static requirePlugin(fullPkgName: string) {
-      try {
-        const pkg = require(fullPkgName);
-        return pkg;
-      } catch (e) {
-        throw new Error(`Could not load plugin ${fullPkgName}.`);
-      }
-    }
+  }
 }
 
 export const ConfigRegistryInstance = new ConfigRegistry();
