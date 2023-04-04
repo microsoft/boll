@@ -1,10 +1,16 @@
 import { BollFile } from "./boll-file";
 import { BollLineNumber } from "./boll-line-number";
+import { InstantiatedRule } from "./rule-set";
 import { ResultStatus } from "./types";
 
 export interface Result {
   formattedMessage: string;
   status: ResultStatus;
+}
+
+export interface RuleResult extends Result{
+  registryName: string;
+  ruleName: string;
 }
 
 export class Success implements Result {
@@ -32,8 +38,9 @@ export class Failure implements Result {
 }
 
 export class ResultSet {
-  errors: Result[] = [];
-  warnings: Result[] = [];
+  errors: RuleResult[] = [];
+  warnings: RuleResult[] = [];
+  
 
   get hasErrors(): boolean {
     return this.errors.length > 0;
@@ -43,18 +50,57 @@ export class ResultSet {
     return this.warnings.length > 0;
   }
 
-  addErrors(results: Result[]) {
-    results.forEach(result => {
+  getResultsByRegister(): { [registerName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
+    const resultsByRegister: any = {};
+    return this.groupResults(resultsByRegister, 'registryName');
+  }
+
+  getResultsByRule(): { [ruleName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
+    const resultsByRule: any = {};
+    return this.groupResults(resultsByRule, 'ruleName');
+  }
+
+  private groupResults(groupedResult: {[key: string]: {errors: RuleResult[]; warnings: RuleResult[]}}, getBy: keyof RuleResult) {
+    this.errors.forEach(result => {
+    if(!groupedResult[result[getBy]]) {
+      groupedResult[result[getBy]] = {
+        errors: [],
+        warnings: []
+      };
+    }
+    groupedResult[result[getBy]].errors.push(result);
+  });
+
+  this.warnings.forEach(result => {
+    if(!groupedResult[result[getBy]]) {
+      groupedResult[result[getBy]] = {
+        errors: [],
+        warnings: []
+      };
+    }
+    groupedResult[result[getBy]].warnings.push(result);
+  });
+  return groupedResult;
+}
+
+  addErrors(results: Result[], rule: InstantiatedRule) {
+    results.forEach((result) => {
+      (<RuleResult>result).registryName = rule.registryName;
+      (<RuleResult>result).ruleName = rule.name;
+
       if (result.status === ResultStatus.failure) {
-        this.errors.push(result);
+        this.errors.push(<RuleResult>result);
       }
     });
   }
 
-  addWarnings(results: Result[]) {
+  addWarnings(results: Result[], rule: InstantiatedRule) {
     results.forEach(result => {
+      (<RuleResult>result).registryName = rule.registryName;
+      (<RuleResult>result).ruleName = rule.name;
+
       if (result.status === ResultStatus.failure) {
-        this.warnings.push(result);
+        this.warnings.push(<RuleResult>result);
       }
     });
   }

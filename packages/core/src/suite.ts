@@ -94,9 +94,9 @@ export class Suite {
 
   private addFailuresWithSeverity(rule: InstantiatedRule, results: Result[], resultSet: ResultSet) {
     if (rule.severity === "error") {
-      resultSet.addErrors(results);
+      resultSet.addErrors(results, rule);
     } else if (rule.severity === "warn") {
-      resultSet.addWarnings(results);
+      resultSet.addWarnings(results, rule);
     } else {
       throw new Error("Unknown severity! (This is likely a boll bug)");
     }

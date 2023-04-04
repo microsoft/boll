@@ -15,12 +15,14 @@ const subParser = parser.addSubparsers({
   description: "commands",
   dest: "command"
 });
-subParser.addParser("run");
+const runParser = subParser.addParser("run");
+runParser.addArgument("--sortBy", { help: "Sort by rule name or registry name", choices: ["rule", "registry", "none"], defaultValue: "none" });
 subParser.addParser("init");
 
 type ParsedCommand = {
   azure_devops: boolean;
   command: "run" | "init";
+  sortBy: "rule" | "registry" | "none";
 };
 
 export enum Status {
@@ -38,12 +40,28 @@ export class Cli {
     if (parsedCommand.command === "run") {
       const suite = await this.buildSuite();
       const result = await suite.run(this.logger);
+      if(parsedCommand.sortBy === "none") {
       result.errors.forEach(e => {
         this.logger.error(formatter.error(e.formattedMessage));
       });
       result.warnings.forEach(e => {
         this.logger.warn(formatter.warn(e.formattedMessage));
       });
+      } else {
+        const groupedResult = parsedCommand.sortBy === "rule" ? result.getResultsByRule() : result.getResultsByRegister();
+      
+        const registeredRules = Object.keys(groupedResult);
+        registeredRules.forEach(criteriaEntry => {
+          this.logger.log("◀️◀️  " + criteriaEntry + " ▶️▶️\n\n"); 
+          groupedResult[criteriaEntry].errors.forEach(e => {
+            this.logger.error(formatter.error(e.formattedMessage));
+          });
+          groupedResult[criteriaEntry].warnings.forEach(e => { 
+            this.logger.warn(formatter.warn(e.formattedMessage));
+          });
+          this.logger.log("\n\n");
+        });
+      }
       if (result.hasErrors) {
         this.logger.error(formatter.finishWithErrors());
         return Status.Error;
