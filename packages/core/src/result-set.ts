@@ -13,6 +13,13 @@ export interface RuleResult extends Result{
   ruleName: string;
 }
 
+export interface GroupedResult {
+  [group: string]: {
+    errors: RuleResult[];
+    warnings: RuleResult[];
+  }
+}
+
 export class Success implements Result {
   constructor(public ruleName: string) {}
 
@@ -50,37 +57,29 @@ export class ResultSet {
     return this.warnings.length > 0;
   }
 
-  getResultsByRegister(): { [registerName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
-    const resultsByRegister: any = {};
-    return this.groupResults(resultsByRegister, 'registryName');
+  getResultsByRegistry(): { [registerName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
+    return this.groupResults('registryName');
   }
 
   getResultsByRule(): { [ruleName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
-    const resultsByRule: any = {};
-    return this.groupResults(resultsByRule, 'ruleName');
+    return this.groupResults('ruleName');
   }
 
-  private groupResults(groupedResult: {[key: string]: {errors: RuleResult[]; warnings: RuleResult[]}}, getBy: keyof RuleResult) {
-    this.errors.forEach(result => {
-    if(!groupedResult[result[getBy]]) {
-      groupedResult[result[getBy]] = {
-        errors: [],
-        warnings: []
-      };
-    }
-    groupedResult[result[getBy]].errors.push(result);
-  });
+  private groupResults(getBy: keyof RuleResult): GroupedResult {
+    const groupedResult: GroupedResult = {};
+    (<('errors' | 'warnings')[]>['errors', 'warnings']).forEach((resultType) => {
+      this[resultType].forEach(result => {
+        if(!groupedResult[result[getBy]]) {
+          groupedResult[result[getBy]] = {
+            errors: [],
+            warnings: []
+          };
+        }
+        groupedResult[result[getBy]][resultType].push(result);
+      });
+    })
 
-  this.warnings.forEach(result => {
-    if(!groupedResult[result[getBy]]) {
-      groupedResult[result[getBy]] = {
-        errors: [],
-        warnings: []
-      };
-    }
-    groupedResult[result[getBy]].warnings.push(result);
-  });
-  return groupedResult;
+    return groupedResult;
 }
 
   addErrors(results: Result[], rule: InstantiatedRule) {
