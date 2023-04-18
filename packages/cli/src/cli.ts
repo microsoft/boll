@@ -1,14 +1,23 @@
 import * as fs from "fs";
 import { ConfigGenerator } from "./config-generator";
-import { Config, configFileName, ConfigRegistryInstance, Logger, ResultSet, RuleRegistryInstance, RuleResult, GroupedResult, Suite } from "@boll/core";
+import {
+  Config,
+  configFileName,
+  ConfigRegistryInstance,
+  Logger,
+  ResultSet,
+  RuleRegistryInstance,
+  RuleResult,
+  GroupedResult,
+  Suite
+} from "@boll/core";
 import { promisify } from "util";
 import { resolve } from "path";
 import { Formatter } from "./lib/formatter";
 import { DefaultFormatter } from "./lib/default-formatter";
 import { VsoFormatter } from "./lib/vso-formatter";
-import { ParsedCommand, parser } from './parser';
+import { ParsedCommand, parser } from "./parser";
 const fileExistsAsync = promisify(fs.exists);
-
 
 export enum Status {
   Ok,
@@ -26,10 +35,11 @@ export class Cli {
       const suite = await this.buildSuite();
       const result = await suite.run(this.logger);
 
-      if(parsedCommand.groupBy === "none") {
+      if (parsedCommand.groupBy === "none") {
         this.logResults(result, formatter);
       } else {
-        const groupedResult = parsedCommand.groupBy === "rule" ? result.getResultsByRule() : result.getResultsByRegistry();
+        const groupedResult =
+          parsedCommand.groupBy === "rule" ? result.getResultsByRule() : result.getResultsByRegistry();
         this.logGroupedResults(groupedResult, formatter);
       }
 

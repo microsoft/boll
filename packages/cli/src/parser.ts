@@ -11,7 +11,11 @@ const subParser = parser.addSubparsers({
 subParser.addParser("init");
 
 const runParser = subParser.addParser("run");
-runParser.addArgument("--groupBy", { help: "Group results by rule name or registry name", choices: ["rule", "registry", "none"], defaultValue: "none" });
+runParser.addArgument("--groupBy", {
+  help: "Group results by rule name or registry name",
+  choices: ["rule", "registry", "none"],
+  defaultValue: "none"
+});
 
 export type ParsedCommand = {
   azure_devops: boolean;

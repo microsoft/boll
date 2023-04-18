@@ -8,7 +8,7 @@ export interface Result {
   status: ResultStatus;
 }
 
-export interface RuleResult extends Result{
+export interface RuleResult extends Result {
   registryName: string;
   ruleName: string;
 }
@@ -17,7 +17,7 @@ export interface GroupedResult {
   [group: string]: {
     errors: RuleResult[];
     warnings: RuleResult[];
-  }
+  };
 }
 
 export class Success implements Result {
@@ -47,7 +47,6 @@ export class Failure implements Result {
 export class ResultSet {
   errors: RuleResult[] = [];
   warnings: RuleResult[] = [];
-  
 
   get hasErrors(): boolean {
     return this.errors.length > 0;
@@ -58,18 +57,18 @@ export class ResultSet {
   }
 
   getResultsByRegistry(): { [registerName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
-    return this.groupResults('registryName');
+    return this.groupResults("registryName");
   }
 
   getResultsByRule(): { [ruleName: string]: { errors: RuleResult[]; warnings: RuleResult[] } } {
-    return this.groupResults('ruleName');
+    return this.groupResults("ruleName");
   }
 
   private groupResults(groupBy: keyof RuleResult): GroupedResult {
     const groupedResult: GroupedResult = {};
-    (<('errors' | 'warnings')[]>['errors', 'warnings']).forEach((resultType) => {
+    (<("errors" | "warnings")[]>["errors", "warnings"]).forEach(resultType => {
       this[resultType].forEach(result => {
-        if(!groupedResult[result[groupBy]]) {
+        if (!groupedResult[result[groupBy]]) {
           groupedResult[result[groupBy]] = {
             errors: [],
             warnings: []
@@ -77,13 +76,13 @@ export class ResultSet {
         }
         groupedResult[result[groupBy]][resultType].push(result);
       });
-    })
+    });
 
     return groupedResult;
-}
+  }
 
   addErrors(results: Result[], rule: InstantiatedRule) {
-    results.forEach((result) => {
+    results.forEach(result => {
       (<RuleResult>result).registryName = rule.registryName;
       (<RuleResult>result).ruleName = rule.name;
 
