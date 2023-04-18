@@ -31,7 +31,7 @@ export const bootstrapRecommendedConfiguration = () => {
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
   RuleRegistryInstance.register("RedundantImportsDetectors", () => new RedundantImportsDetector());
   RuleRegistryInstance.register("SrcDetector", () => new SrcDetector());
-  RuleRegistryInstance.register("TransitiveDependencyDetectors", () => new TransitiveDependencyDetector());
+  RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
 
   // External tools rules
   RuleRegistryInstance.register("ESLintPreferConstRule", (l: Logger) => new ESLintPreferConstRule(l));
@@ -56,7 +56,7 @@ export const RecommendedConfig: ConfigDefinition = {
         file: [
           { rule: "SrcDetector" },
           { rule: "CrossPackageDependencyDetector" },
-          { rule: "TransitiveDependencyDetectors" },
+          { rule: "TransitiveDependencyDetector" },
           { rule: "NodeModulesReferenceDetector" },
           { rule: "RedundantImportsDetectors" }
         ]
