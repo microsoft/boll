@@ -65,17 +65,17 @@ export class ResultSet {
     return this.groupResults('ruleName');
   }
 
-  private groupResults(getBy: keyof RuleResult): GroupedResult {
+  private groupResults(groupBy: keyof RuleResult): GroupedResult {
     const groupedResult: GroupedResult = {};
     (<('errors' | 'warnings')[]>['errors', 'warnings']).forEach((resultType) => {
       this[resultType].forEach(result => {
-        if(!groupedResult[result[getBy]]) {
-          groupedResult[result[getBy]] = {
+        if(!groupedResult[result[groupBy]]) {
+          groupedResult[result[groupBy]] = {
             errors: [],
             warnings: []
           };
         }
-        groupedResult[result[getBy]][resultType].push(result);
+        groupedResult[result[groupBy]][resultType].push(result);
       });
     })
 

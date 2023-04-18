@@ -47,7 +47,7 @@ export class Config {
           return new InstantiatedPackageRule(rule.name, check.severity || "error", rule, check.rule);
         }
 
-        return new InstantiatedPackageRule(fn.name, check.severity || "error", fn, options);
+        return new InstantiatedPackageRule(fn.name, check.severity || "error", fn, check.rule, options);
       });
       const metaChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.meta) || []).map(check => {
         const optionsFromConfig =
