@@ -29,7 +29,7 @@ export const bootstrapRecommendedConfiguration = () => {
   // TypeScript rules
   RuleRegistryInstance.register("CrossPackageDependencyDetector", () => new CrossPackageDependencyDetector());
   RuleRegistryInstance.register("NodeModulesReferenceDetector", () => new NodeModulesReferenceDetector());
-  RuleRegistryInstance.register("RedundantImportsDetectors", () => new RedundantImportsDetector());
+  RuleRegistryInstance.register("RedundantImportsDetector", () => new RedundantImportsDetector());
   RuleRegistryInstance.register("SrcDetector", () => new SrcDetector());
   RuleRegistryInstance.register("TransitiveDependencyDetector", () => new TransitiveDependencyDetector());
 
@@ -58,7 +58,7 @@ export const RecommendedConfig: ConfigDefinition = {
           { rule: "CrossPackageDependencyDetector" },
           { rule: "TransitiveDependencyDetector" },
           { rule: "NodeModulesReferenceDetector" },
-          { rule: "RedundantImportsDetectors" }
+          { rule: "RedundantImportsDetector" }
         ]
       }
     },
