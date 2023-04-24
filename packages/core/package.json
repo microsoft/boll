@@ -9,7 +9,7 @@
     "parse-gitignore": "^1.0.1",
     "typescript": "^4.9.4",
     "workspace-tools": "^0.29.1",
-    "yaml": "^1.10.0"
+    "yaml": "^2.2.2"
   },
   "description": "> TODO: description",
   "devDependencies": {
