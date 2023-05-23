@@ -4,6 +4,7 @@ import { CheckSeverity, FileGlob, PackageMetaRule, PackageRule } from "./types";
 import { Logger } from "./logger";
 
 export interface InstantiatedRule {
+  registryName: string;
   name: string;
   severity: CheckSeverity;
 }
@@ -14,7 +15,13 @@ export interface RuleOptions {
 }
 
 export class BasePackageRule<T> {
-  constructor(public name: string, public severity: CheckSeverity, public rule: T, public options?: RuleOptions) {}
+  constructor(
+    public name: string,
+    public severity: CheckSeverity,
+    public rule: T,
+    public registryName: string,
+    public options?: RuleOptions
+  ) {}
 }
 
 export class InstantiatedPackageRule extends BasePackageRule<PackageRule> implements InstantiatedRule {

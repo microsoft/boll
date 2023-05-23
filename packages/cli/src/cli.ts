@@ -1,27 +1,23 @@
 import * as fs from "fs";
 import { ConfigGenerator } from "./config-generator";
-import { ArgumentDefaultsHelpFormatter, ArgumentParser } from "argparse";
-import { Config, configFileName, ConfigRegistryInstance, Logger, RuleRegistryInstance, Suite } from "@boll/core";
+import {
+  Config,
+  configFileName,
+  ConfigRegistryInstance,
+  Logger,
+  ResultSet,
+  RuleRegistryInstance,
+  RuleResult,
+  GroupedResult,
+  Suite
+} from "@boll/core";
 import { promisify } from "util";
 import { resolve } from "path";
 import { Formatter } from "./lib/formatter";
 import { DefaultFormatter } from "./lib/default-formatter";
 import { VsoFormatter } from "./lib/vso-formatter";
+import { ParsedCommand, parser } from "./parser";
 const fileExistsAsync = promisify(fs.exists);
-
-const parser = new ArgumentParser({ description: "@boll/cli" });
-parser.addArgument("--azure-devops", { help: "Enable Azure DevOps pipeline output formatter.", action: "storeTrue" });
-const subParser = parser.addSubparsers({
-  description: "commands",
-  dest: "command"
-});
-subParser.addParser("run");
-subParser.addParser("init");
-
-type ParsedCommand = {
-  azure_devops: boolean;
-  command: "run" | "init";
-};
 
 export enum Status {
   Ok,
@@ -38,12 +34,15 @@ export class Cli {
     if (parsedCommand.command === "run") {
       const suite = await this.buildSuite();
       const result = await suite.run(this.logger);
-      result.errors.forEach(e => {
-        this.logger.error(formatter.error(e.formattedMessage));
-      });
-      result.warnings.forEach(e => {
-        this.logger.warn(formatter.warn(e.formattedMessage));
-      });
+
+      if (parsedCommand.groupBy === "none") {
+        this.logResults(result, formatter);
+      } else {
+        const groupedResult =
+          parsedCommand.groupBy === "rule" ? result.getResultsByRule() : result.getResultsByRegistry();
+        this.logGroupedResults(groupedResult, formatter);
+      }
+
       if (result.hasErrors) {
         this.logger.error(formatter.finishWithErrors());
         return Status.Error;
@@ -52,6 +51,7 @@ export class Cli {
         this.logger.warn(formatter.finishWithWarnings());
         return Status.Warn;
       }
+
       return Status.Ok;
     }
     if (parsedCommand.command === "init") {
@@ -59,6 +59,23 @@ export class Cli {
       return Status.Ok;
     }
     return Status.Error;
+  }
+
+  private logResults(result: Record<"errors" | "warnings", RuleResult[]>, formatter: Formatter) {
+    result.errors.forEach(e => {
+      this.logger.error(formatter.error(e.formattedMessage));
+    });
+    result.warnings.forEach(e => {
+      this.logger.warn(formatter.warn(e.formattedMessage));
+    });
+  }
+
+  private logGroupedResults(result: GroupedResult, formatter: Formatter) {
+    const groups = Object.keys(result);
+    groups.forEach(entry => {
+      this.logger.log("\n" + "🔽 " + entry);
+      this.logResults(result[entry], formatter);
+    });
   }
 
   private async buildSuite(): Promise<Suite> {

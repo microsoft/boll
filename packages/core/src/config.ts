@@ -44,10 +44,10 @@ export class Config {
 
         if (typeof fn === "function") {
           const rule = fn(this.logger, options);
-          return new InstantiatedPackageRule(rule.name, check.severity || "error", rule);
+          return new InstantiatedPackageRule(rule.name, check.severity || "error", rule, check.rule);
         }
 
-        return new InstantiatedPackageRule(fn.name, check.severity || "error", fn, options);
+        return new InstantiatedPackageRule(fn.name, check.severity || "error", fn, check.rule, options);
       });
       const metaChecks = ((ruleSetConfig.checks && ruleSetConfig.checks.meta) || []).map(check => {
         const optionsFromConfig =
@@ -57,10 +57,10 @@ export class Config {
 
         if (typeof fn === "function") {
           const rule = fn(this.logger, options);
-          return new InstantiatedPackageMetaRule(rule.name, check.severity || "error", rule);
+          return new InstantiatedPackageMetaRule(rule.name, check.severity || "error", rule, check.rule);
         }
 
-        return new InstantiatedPackageMetaRule(fn.name, check.severity || "error", fn, options);
+        return new InstantiatedPackageMetaRule(fn.name, check.severity || "error", fn, check.rule, options);
       });
 
       return new RuleSet(glob, fileChecks, metaChecks);
