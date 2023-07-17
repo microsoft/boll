@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Wed, 25 Jan 2023 20:39:53 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 3.2.0
+
+Mon, 17 Jul 2023 21:31:15 GMT
+
+### Minor changes
+
+- Group results (#119) (bmuthengi@microsoft.com)
 
 ## 3.0.0
 

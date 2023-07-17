@@ -1,8 +1,20 @@
 # Change Log - @boll/recommended
 
-This log was last generated on Wed, 25 Jan 2023 20:39:53 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.2
+
+Mon, 17 Jul 2023 21:31:15 GMT
+
+### Patches
+
+- Bump @boll/core to v3.2.0
+- Bump @boll/rules-external-tools to v1.0.2
+- Bump @boll/rules-core to v1.0.2
+- Bump @boll/rules-monorepo to v1.0.2
+- Bump @boll/rules-typescript to v2.0.2
 
 ## 2.0.0
 

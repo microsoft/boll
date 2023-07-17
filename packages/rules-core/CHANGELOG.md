@@ -1,8 +1,16 @@
 # Change Log - @boll/rules-core
 
-This log was last generated on Wed, 25 Jan 2023 20:39:53 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.2
+
+Mon, 17 Jul 2023 21:31:15 GMT
+
+### Patches
+
+- Bump @boll/core to v3.2.0
 
 ## 1.0.0
 
