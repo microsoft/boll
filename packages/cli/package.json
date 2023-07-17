@@ -11,7 +11,7 @@
     "argparse": "^1.0.10",
     "fast-glob": "^3.2.4",
     "typescript": "^4.9.4",
-    "yaml": "^1.10.0"
+    "yaml": "^2.2.2"
   },
   "description": "> TODO: description",
   "devDependencies": {
