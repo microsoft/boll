@@ -1,7 +1,7 @@
 {
   "author": "JD Huntington <jdh@microsoft.com>",
   "devDependencies": {
-    "beachball": "^1.36.2",
+    "beachball": "^2.34.0",
     "lerna": "^3.22.1",
     "lage": "^1.9.5",
     "prettier": "^2.8.1"
