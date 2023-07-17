@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Group results (#119)",
-  "packageName": "@boll/core",
-  "email": "bmuthengi@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2023-07-06T09:35:26.359Z"
-}

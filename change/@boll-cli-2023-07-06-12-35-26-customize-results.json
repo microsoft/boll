@@ -1,8 +1,0 @@
-{
-  "type": "minor",
-  "comment": "Add grouping option",
-  "packageName": "@boll/cli",
-  "email": "bmuthengi@microsoft.com",
-  "dependentChangeType": "patch",
-  "date": "2023-07-06T09:35:01.159Z"
-}
