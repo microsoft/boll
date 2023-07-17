@@ -2,6 +2,22 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Mon, 17 Jul 2023 21:31:15 GMT",
+      "tag": "@boll/core_v3.2.0",
+      "version": "3.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "bmuthengi@microsoft.com",
+            "package": "@boll/core",
+            "commit": "d31d2ce0a5022db88e364ce3afee5c934c75a99d",
+            "comment": "Group results (#119)",
+            "date": "2023-07-06T09:35:26.359Z"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Jan 2023 20:39:53 GMT",
       "tag": "@boll/core_v3.0.0",
       "version": "3.0.0",

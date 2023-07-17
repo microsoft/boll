@@ -23,7 +23,7 @@ jobs:
           persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -49,4 +49,5 @@ jobs:
 
           yarn release -y -n "$NPM_AUTHTOKEN"
         env:
-          NPM_AUTHTOKEN: ${{ secrets.npm_authtoken }}
+          NPM_AUTHTOKEN: ${{ secrets.NPM_AUTHTOKEN }}
+          REPO_PAT: ${{ secrets.REPO_PAT }}

@@ -2,6 +2,28 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Mon, 17 Jul 2023 21:31:15 GMT",
+      "tag": "@boll/cli_v2.2.0",
+      "version": "2.2.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "bmuthengi@microsoft.com",
+            "package": "@boll/cli",
+            "commit": "d31d2ce0a5022db88e364ce3afee5c934c75a99d",
+            "comment": "Add grouping option",
+            "date": "2023-07-06T09:35:01.159Z"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/cli",
+            "comment": "Bump @boll/core to v3.2.0",
+            "commit": "586cac01d0111efdb7dc57319f3308eed173dc35"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 25 Jan 2023 20:39:53 GMT",
       "tag": "@boll/cli_v2.0.0",
       "version": "2.0.0",

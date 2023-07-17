@@ -1,8 +1,17 @@
 # Change Log - @boll/cli
 
-This log was last generated on Wed, 25 Jan 2023 20:39:53 GMT and should not be manually modified.
+This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.2.0
+
+Mon, 17 Jul 2023 21:31:15 GMT
+
+### Minor changes
+
+- Add grouping option (bmuthengi@microsoft.com)
+- Bump @boll/core to v3.2.0
 
 ## 2.0.0
 

@@ -7,10 +7,9 @@
     "prettier": "^2.8.1"
   },
   "license": "MIT",
-  "main": "index.js",
-  "name": "boll",
+  "name": "@boll/boll-repo",
   "private": true,
-  "repository": "https://github.com/jdhuntington/boll.git",
+  "repository": "https://github.com/microsoft/boll.git",
   "scripts": {
     "build": "lage build",
     "change": "beachball change -b origin/main",
