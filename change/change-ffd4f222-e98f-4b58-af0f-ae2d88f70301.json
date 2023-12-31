@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "type": "patch",
+      "comment": "Indicate better that it is not the cause of failure when git cannot be found on the path, and allow host to set repo root path",
+      "packageName": "@boll/core",
+      "email": "dannyvv@microsoft.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}
