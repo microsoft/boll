@@ -7,7 +7,7 @@ const defaultIgnoreFileName = ".gitignore";
 let repoRoot: string | undefined = undefined;
 let ignoreFiles: { [cwd: string]: { [ignoreFileName: string]: string[] } } = {};
 
-/** 
+/**
  * Some build environments don't have git on the path during build phase.
  * Yet we want to lint during the build to not lave any pref on the table.
  * This allows these repo'sto short-circuit the call to git and determine
