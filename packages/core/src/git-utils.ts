@@ -26,7 +26,7 @@ export function getRepoRoot(): string {
     return repoRoot;
   } catch (e) {
     repoRoot = process.cwd();
-    console.warn(`Warning: Failed to execute git command to determ ine repo root. Using ${repoRoot}: ${e}`);
+    console.warn(`Warning: Failed to execute git command to determine the repositories root. Using ${repoRoot}: ${e}`);
     return repoRoot;
   }
 }
