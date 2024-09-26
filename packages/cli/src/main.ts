@@ -31,7 +31,7 @@ export async function runBoll(logger: Logger = DefaultLogger): Promise<boolean> 
   const suite = await buildSuite(logger);
   const result = await suite.run(logger);
   result.errors.forEach(e => {
-    logger.error(e.formattedMessage);
+    logger.error(`Rule ${e.ruleName} failed with the error message: ${e.formattedMessage}`);
   });
   if (result.hasErrors) {
     return false;
