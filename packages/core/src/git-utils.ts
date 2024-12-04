@@ -7,6 +7,16 @@ const defaultIgnoreFileName = ".gitignore";
 let repoRoot: string | undefined = undefined;
 let ignoreFiles: { [cwd: string]: { [ignoreFileName: string]: string[] } } = {};
 
+/**
+ * Some build environments don't have git on the path during build phase.
+ * Yet we want to lint during the build to not lave any pref on the table.
+ * This allows these repo'sto short-circuit the call to git and determine
+ * the repo root to avoid the message.
+ */
+export function setRepoRoot(root: string): void {
+  repoRoot = root;
+}
+
 export function getRepoRoot(): string {
   if (repoRoot) {
     return repoRoot;
@@ -15,8 +25,9 @@ export function getRepoRoot(): string {
     repoRoot = resolve(execSync("git rev-parse --show-toplevel").toString().trim());
     return repoRoot;
   } catch (e) {
-    console.warn(e);
-    return process.cwd();
+    repoRoot = process.cwd();
+    console.warn(`Warning: Failed to execute git command to determine the repositories root. Using ${repoRoot}: ${e}`);
+    return repoRoot;
   }
 }
 
