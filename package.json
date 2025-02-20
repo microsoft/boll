@@ -2,12 +2,12 @@
   "name": "@boll/boll-repo",
   "version": "1.0.0",
   "private": true,
+  "repository": "https://github.com/microsoft/boll",
   "license": "MIT",
-  "repository": "https://github.com/microsoft/boll.git",
-  "devDependencies": {
-    "beachball": "^2.51.0",
-    "lage": "^2.0.0",
-    "prettier": "^2.8.1"
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "scripts": {
     "build": "lage build",
@@ -20,9 +20,16 @@
     "release": "beachball publish",
     "test": "lage run test"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+  "devDependencies": {
+    "@types/baretest": "^2.0.0",
+    "baretest": "^2.0.0",
+    "beachball": "^2.51.0",
+    "lage": "^2.0.0",
+    "prettier": "^2.8.1",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^1.0.0-pre.58",
+    "typedoc": "^0.19.1",
+    "typedoc-plugin-markdown": "^2.4.2",
+    "typescript": "^4.9.4"
   }
 }

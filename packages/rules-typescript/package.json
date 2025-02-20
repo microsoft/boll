@@ -1,43 +1,32 @@
 {
-  "author": "JD Huntington <jdh@microsoft.com>",
+  "name": "@boll/rules-typescript",
+  "version": "2.0.2",
+  "description": "@boll rules for typescript source files",
+  "homepage": "https://github.com/microsoft/boll#readme",
   "bugs": {
     "url": "https://github.com/microsoft/boll/issues"
   },
-  "dependencies": {
-    "@boll/core": "3.2.0",
-    "typescript": "^4.9.4"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/microsoft/boll"
   },
-  "description": "@boll rules for typescript source files",
-  "devDependencies": {
-    "@boll/test-internal": "0.0.1",
-    "@types/baretest": "^2.0.0",
-    "baretest": "^2.0.0",
-    "prettier": "^2.8.1",
-    "rimraf": "^3.0.2",
-    "ts-node-dev": "^1.0.0-pre.58",
-    "typedoc": "^0.19.1",
-    "typedoc-plugin-markdown": "^2.4.2"
-  },
+  "license": "MIT",
+  "author": "JD Huntington <jdh@microsoft.com>",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "gitHead": "684bc8b2aa4b06d5e24fe0badd6b9b0f7bd751f0",
-  "homepage": "https://github.com/microsoft/boll#readme",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "name": "@boll/rules-typescript",
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/microsoft/boll.git"
-  },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
     "docs": "typedoc --mode file --out ./apidocs --theme markdown ./src",
     "test": "node dist/tests/all.test.js"
   },
-  "version": "2.0.2"
+  "dependencies": {
+    "@boll/core": "3.2.0",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@boll/test-internal": "0.0.1"
+  }
 }
