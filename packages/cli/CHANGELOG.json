@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 21:37:59 GMT",
+      "version": "2.3.2",
+      "tag": "@boll/cli_v2.3.2",
+      "comments": {
+        "none": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/cli",
+            "commit": "0b5cf2cf5d8945582824364690889c9d0946130c",
+            "comment": "Sort package.json"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Feb 2025 21:14:26 GMT",
       "version": "2.3.2",
       "tag": "@boll/cli_v2.3.2",

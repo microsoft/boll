@@ -2,6 +2,21 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 21:37:59 GMT",
+      "version": "2.0.2",
+      "tag": "@boll/recommended_v2.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/recommended",
+            "commit": "0b5cf2cf5d8945582824364690889c9d0946130c",
+            "comment": "Sort package.json"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 21:46:54 GMT",
       "tag": "@boll/recommended_v2.0.2",
       "version": "2.0.2",

@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 21:37:59 GMT",
+      "version": "3.2.0",
+      "tag": "@boll/core_v3.2.0",
+      "comments": {
+        "none": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/core",
+            "commit": "0b5cf2cf5d8945582824364690889c9d0946130c",
+            "comment": "Sort package.json"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 21:46:54 GMT",
       "tag": "@boll/core_v3.2.0",
       "version": "3.2.0",

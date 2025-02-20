@@ -2,6 +2,21 @@
   "name": "@boll/rules-core",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 21:37:59 GMT",
+      "version": "1.0.2",
+      "tag": "@boll/rules-core_v1.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/rules-core",
+            "commit": "0b5cf2cf5d8945582824364690889c9d0946130c",
+            "comment": "Sort package.json"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 21:46:54 GMT",
       "tag": "@boll/rules-core_v1.0.2",
       "version": "1.0.2",
