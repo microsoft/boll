@@ -4,7 +4,7 @@
     "url": "https://github.com/microsoft/boll/issues"
   },
   "dependencies": {
-    "@boll/cli": "2.3.1",
+    "@boll/cli": "2.3.2",
     "@boll/core": "3.2.0",
     "@boll/recommended": "2.0.2",
     "@boll/rules-typescript": "2.0.2"

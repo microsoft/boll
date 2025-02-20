@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Thu, 20 Feb 2025 20:55:32 GMT and should not be manually modified.
+<!-- This log was last generated on Thu, 20 Feb 2025 21:14:26 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.3.2
+
+Thu, 20 Feb 2025 21:14:26 GMT
+
+### Patches
+
+- Use the same config loading logic when running boll via API and CLI (elcraig@microsoft.com)
 
 ## 2.3.1
 
