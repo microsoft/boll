@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "type": "minor",
+      "comment": "change require of config to fs read",
+      "packageName": "@boll/cli",
+      "email": "jcreamer@microsoft.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}

@@ -85,7 +85,12 @@ export class Cli {
       this.logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
     }
     const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, this.logger);
-    config.load(require(fullConfigPath));
+    config.load(this.getConfig(fullConfigPath));
     return await config.buildSuite();
+  }
+
+  private getConfig(filename: string): Record<string, any> {
+    const contents = fs.readFileSync(resolve(filename), "utf-8");
+    return JSON.parse(contents);
   }
 }
