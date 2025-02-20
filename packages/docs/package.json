@@ -24,7 +24,7 @@
     "url": "git+https://github.com/microsoft/boll.git"
   },
   "scripts": {
-    "build": "echo 'vuepress build src --dest dist'",
+    "build": "vuepress build src --dest dist",
     "dev": "vuepress dev src",
     "docs": "./bin/copy-docs && vuepress build src --dest dist",
     "release": "yarn build && yarn upload",
