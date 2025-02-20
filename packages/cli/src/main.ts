@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as path from "path";
 import {
   Config,
   configFileName,
@@ -8,14 +9,10 @@ import {
   RuleRegistryInstance,
   Suite
 } from "@boll/core";
-import { promisify } from "util";
-import { resolve } from "path";
-const fileExistsAsync = promisify(fs.exists);
 
 export async function buildSuite(logger: Logger): Promise<Suite> {
-  const fullConfigPath = resolve(configFileName);
-  const exists = await fileExistsAsync(fullConfigPath);
-  if (!exists) {
+  const fullConfigPath = path.resolve(configFileName);
+  if (!fs.existsSync(fullConfigPath)) {
     logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
   }
   const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, logger);
@@ -25,7 +22,7 @@ export async function buildSuite(logger: Logger): Promise<Suite> {
 
 /**
  * Entry point for external libraries running boll.
- * @returns {boolean} true if success, false if any warnings or errors.
+ * @returns true if success, false if any warnings or errors.
  */
 export async function runBoll(logger: Logger = DefaultLogger): Promise<boolean> {
   const suite = await buildSuite(logger);
