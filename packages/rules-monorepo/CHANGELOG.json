@@ -2,6 +2,21 @@
   "name": "@boll/rules-monorepo",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 21:02:25 GMT",
+      "version": "1.0.2",
+      "tag": "@boll/rules-monorepo_v1.0.2",
+      "comments": {
+        "none": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/rules-monorepo",
+            "commit": "a032d690a32a1c036b792cd388b392be133e9f44",
+            "comment": "Add gitignore"
+          }
+        ]
+      }
+    },
+    {
       "date": "Mon, 17 Jul 2023 21:46:54 GMT",
       "tag": "@boll/rules-monorepo_v1.0.2",
       "version": "1.0.2",
