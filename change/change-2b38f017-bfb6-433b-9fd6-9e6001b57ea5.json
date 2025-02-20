@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "type": "patch",
+      "comment": "Revert \"use fs.readfileSync instead of require  (#133)\"",
+      "packageName": "@boll/cli",
+      "email": "jcreamer@microsoft.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}
