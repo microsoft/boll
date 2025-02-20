@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Feb 2025 20:04:54 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.3.0
+
+Thu, 20 Feb 2025 20:04:54 GMT
+
+### Minor changes
+
+- change require of config to fs read (jcreamer@microsoft.com)
 
 ## 2.2.0
 

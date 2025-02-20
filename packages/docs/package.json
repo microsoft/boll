@@ -5,7 +5,7 @@
   },
   "description": "> TODO: description",
   "devDependencies": {
-    "@boll/cli": "2.2.0",
+    "@boll/cli": "2.3.0",
     "@boll/core": "3.2.0",
     "@boll/rules-core": "1.0.2",
     "@boll/rules-external-tools": "1.0.2",
