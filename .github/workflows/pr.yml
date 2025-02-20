@@ -21,3 +21,4 @@ jobs:
       - run: yarn checkchange
       - run: yarn build
       - run: yarn test
+      - run: yarn docs

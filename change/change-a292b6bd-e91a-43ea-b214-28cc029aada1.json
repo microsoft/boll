@@ -1,0 +1,53 @@
+{
+  "changes": [
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/cli",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/core",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/recommended",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/rules-core",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/rules-external-tools",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/rules-monorepo",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    },
+    {
+      "type": "none",
+      "comment": "Sort package.json",
+      "packageName": "@boll/rules-typescript",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "none"
+    }
+  ]
+}
