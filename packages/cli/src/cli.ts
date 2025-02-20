@@ -89,7 +89,7 @@ export class Cli {
     return await config.buildSuite();
   }
 
-  private getConfig(filename: string): Config {
+  private getConfig(filename: string): Record<string, any> {
     const contents = fs.readFileSync(resolve(filename), "utf-8");
     return JSON.parse(contents);
   }
