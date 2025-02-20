@@ -1,23 +1,10 @@
-import * as fs from "fs";
 import { ConfigGenerator } from "./config-generator";
-import {
-  Config,
-  configFileName,
-  ConfigRegistryInstance,
-  Logger,
-  ResultSet,
-  RuleRegistryInstance,
-  RuleResult,
-  GroupedResult,
-  Suite
-} from "@boll/core";
-import { promisify } from "util";
-import { resolve } from "path";
+import { Logger, RuleResult, GroupedResult } from "@boll/core";
 import { Formatter } from "./lib/formatter";
 import { DefaultFormatter } from "./lib/default-formatter";
 import { VsoFormatter } from "./lib/vso-formatter";
 import { ParsedCommand, parser } from "./parser";
-const fileExistsAsync = promisify(fs.exists);
+import { buildSuite } from "./main";
 
 export enum Status {
   Ok,
@@ -32,7 +19,7 @@ export class Cli {
     const parsedCommand: ParsedCommand = parser.parseArgs(args);
     const formatter: Formatter = parsedCommand.azure_devops ? new VsoFormatter() : new DefaultFormatter();
     if (parsedCommand.command === "run") {
-      const suite = await this.buildSuite();
+      const suite = await buildSuite(this.logger);
       const result = await suite.run(this.logger);
 
       if (parsedCommand.groupBy === "none") {
@@ -76,16 +63,5 @@ export class Cli {
       this.logger.log("\n" + "🔽 " + entry);
       this.logResults(result[entry], formatter);
     });
-  }
-
-  private async buildSuite(): Promise<Suite> {
-    const fullConfigPath = resolve(configFileName);
-    const exists = await fileExistsAsync(fullConfigPath);
-    if (!exists) {
-      this.logger.error(`Unable to find ${fullConfigPath}; consider running "init" to create example config.`);
-    }
-    const config = new Config(ConfigRegistryInstance, RuleRegistryInstance, this.logger);
-    config.load(require(fullConfigPath));
-    return await config.buildSuite();
   }
 }
