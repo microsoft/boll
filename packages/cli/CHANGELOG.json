@@ -2,6 +2,21 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 20 Feb 2025 20:55:32 GMT",
+      "version": "2.3.1",
+      "tag": "@boll/cli_v2.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "jcreamer@microsoft.com",
+            "package": "@boll/cli",
+            "commit": "a05ce659a23beb4a920bf432032188293e45108f",
+            "comment": "Revert \"use fs.readfileSync instead of require  (#133)\""
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Feb 2025 20:04:54 GMT",
       "version": "2.3.0",
       "tag": "@boll/cli_v2.3.0",

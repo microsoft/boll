@@ -1,8 +1,16 @@
 # Change Log - @boll/cli
 
-This log was last generated on Thu, 20 Feb 2025 20:04:54 GMT and should not be manually modified.
+This log was last generated on Thu, 20 Feb 2025 20:55:32 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.3.1
+
+Thu, 20 Feb 2025 20:55:32 GMT
+
+### Patches
+
+- Revert "use fs.readfileSync instead of require  (#133)" (jcreamer@microsoft.com)
 
 ## 2.3.0
 
