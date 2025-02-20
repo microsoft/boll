@@ -3,7 +3,6 @@ import baretest from "baretest";
 import { inFixtureDir } from "@boll/test-internal";
 import { buildSuite } from "@boll/cli/dist/main";
 import { NullLogger } from "@boll/core";
-import { bootstrapRecommendedConfiguration } from "@boll/recommended";
 export const test: any = baretest("e2e");
 
 test("should catch an error in project-a", async () => {
