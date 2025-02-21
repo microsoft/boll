@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "type": "patch",
+      "comment": "include name of failing rule in logs",
+      "packageName": "@boll/cli",
+      "email": "aschjoth@gmail.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}
