@@ -814,9 +814,9 @@
     esutils "^2.0.2"
 
 "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
-  version "7.26.9"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.9.tgz#aa4c6facc65b9cb3f87d75125ffd47781b475433"
-  integrity sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==
+  version "7.27.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.27.0.tgz#fbee7cf97c709518ecc1f590984481d5460d4762"
+  integrity sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -849,6 +849,17 @@
   dependencies:
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
+
+"@boll/cli@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@boll/cli/-/cli-2.3.1.tgz#4878ef4f6a56d018da72133ab243ee23527a9910"
+  integrity sha512-lSmvk8F1BFdTRPK3Bj6oL7H/dtcZurOhebhlFkk/BzZKO+HdlShxLDxvPteuX/U4R57swoRR6gaDJOS9z8cvFw==
+  dependencies:
+    "@boll/core" "3.2.0"
+    argparse "^1.0.10"
+    fast-glob "^3.2.4"
+    typescript "^4.9.4"
+    yaml "^1.10.0"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
