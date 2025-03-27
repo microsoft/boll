@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-This log was last generated on Mon, 17 Jul 2023 21:31:15 GMT and should not be manually modified.
+<!-- This log was last generated on Thu, 27 Mar 2025 21:33:31 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.2.1
+
+Thu, 27 Mar 2025 21:33:31 GMT
+
+### Patches
+
+- Unescape all characters, not only the first one (elcraig@microsoft.com)
 
 ## 3.2.0
 

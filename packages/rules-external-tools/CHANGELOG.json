@@ -2,6 +2,21 @@
   "name": "@boll/rules-external-tools",
   "entries": [
     {
+      "date": "Thu, 27 Mar 2025 21:33:31 GMT",
+      "version": "1.0.3",
+      "tag": "@boll/rules-external-tools_v1.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@boll/rules-external-tools",
+            "comment": "Bump @boll/core to v3.2.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Feb 2025 21:37:59 GMT",
       "version": "1.0.2",
       "tag": "@boll/rules-external-tools_v1.0.2",

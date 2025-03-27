@@ -10,10 +10,10 @@
     "test": "node dist/all.test.js"
   },
   "dependencies": {
-    "@boll/cli": "2.3.2",
-    "@boll/core": "3.2.0",
-    "@boll/recommended": "2.0.2",
-    "@boll/rules-typescript": "2.0.2"
+    "@boll/cli": "2.3.3",
+    "@boll/core": "3.2.1",
+    "@boll/recommended": "2.0.3",
+    "@boll/rules-typescript": "2.0.3"
   },
   "devDependencies": {
     "@boll/test-internal": "0.0.1",

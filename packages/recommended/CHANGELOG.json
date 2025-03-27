@@ -2,6 +2,45 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Thu, 27 Mar 2025 21:33:31 GMT",
+      "version": "2.0.3",
+      "tag": "@boll/recommended_v2.0.3",
+      "comments": {
+        "patch": [
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/core to v3.2.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-core to v1.0.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-external-tools to v1.0.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-monorepo to v1.0.3",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-typescript to v2.0.3",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Feb 2025 21:37:59 GMT",
       "version": "2.0.2",
       "tag": "@boll/recommended_v2.0.2",

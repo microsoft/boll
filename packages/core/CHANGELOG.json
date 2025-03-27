@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Thu, 27 Mar 2025 21:33:31 GMT",
+      "version": "3.2.1",
+      "tag": "@boll/core_v3.2.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/core",
+            "commit": "5156df4269d4ee0d87ab0a15804ce8549d64b8c9",
+            "comment": "Unescape all characters, not only the first one"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 20 Feb 2025 21:37:59 GMT",
       "version": "3.2.0",
       "tag": "@boll/core_v3.2.0",
