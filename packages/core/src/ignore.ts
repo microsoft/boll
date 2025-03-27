@@ -101,14 +101,12 @@ export class IgnorePattern {
   public isDir: boolean;
   public endsWithAsterisk: boolean;
 
-  constructor(private initialPattern: string, public ignoreFile: string) {
-    this.isNegated = this.initialPattern.startsWith("!");
-    this.isRelative = this.initialPattern.substring(0, this.initialPattern.length - 1).includes("/");
-    this.isDir = this.initialPattern.endsWith("/");
-    this.endsWithAsterisk = this.initialPattern.endsWith("*");
-    this.pattern = this.isNegated
-      ? this.initialPattern.substring(1).replace("\\", "")
-      : this.initialPattern.replace("\\", "");
+  constructor(initialPattern: string, public ignoreFile: string) {
+    this.isNegated = initialPattern.startsWith("!");
+    this.isRelative = initialPattern.slice(0, -1).includes("/");
+    this.isDir = initialPattern.endsWith("/");
+    this.endsWithAsterisk = initialPattern.endsWith("*");
+    this.pattern = initialPattern.substring(this.isNegated ? 1 : 0).replace(/\\/g, "");
   }
 }
 
