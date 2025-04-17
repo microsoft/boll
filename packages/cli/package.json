@@ -1,6 +1,6 @@
 {
   "name": "@boll/cli",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/microsoft/boll#readme",
   "bugs": {
@@ -27,7 +27,7 @@
     "test": "node dist/tests/all.test.js"
   },
   "dependencies": {
-    "@boll/core": "3.2.1",
+    "@boll/core": "3.3.0",
     "argparse": "^1.0.10",
     "fast-glob": "^3.2.4",
     "typescript": "^4.9.4",

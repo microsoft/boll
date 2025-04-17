@@ -2,6 +2,27 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Thu, 17 Apr 2025 00:27:24 GMT",
+      "version": "2.4.0",
+      "tag": "@boll/cli_v2.4.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/cli",
+            "commit": "c90adb3b997cbe78ad1887d8c603ea0e8909cc2f",
+            "comment": "Transpile to es2017"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/cli",
+            "comment": "Bump @boll/core to v3.3.0",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Mar 2025 21:33:31 GMT",
       "version": "2.3.3",
       "tag": "@boll/cli_v2.3.3",

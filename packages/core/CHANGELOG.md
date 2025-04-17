@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-<!-- This log was last generated on Thu, 27 Mar 2025 21:33:31 GMT and should not be manually modified. -->
+<!-- This log was last generated on Thu, 17 Apr 2025 00:27:24 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.3.0
+
+Thu, 17 Apr 2025 00:27:24 GMT
+
+### Minor changes
+
+- Transpile to es2017, and update workspace-tools to ^0.38.0 (elcraig@microsoft.com)
 
 ## 3.2.1
 

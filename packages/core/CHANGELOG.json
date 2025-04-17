@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Thu, 17 Apr 2025 00:27:24 GMT",
+      "version": "3.3.0",
+      "tag": "@boll/core_v3.3.0",
+      "comments": {
+        "minor": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/core",
+            "commit": "c90adb3b997cbe78ad1887d8c603ea0e8909cc2f",
+            "comment": "Transpile to es2017, and update workspace-tools to ^0.38.0"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 27 Mar 2025 21:33:31 GMT",
       "version": "3.2.1",
       "tag": "@boll/core_v3.2.1",
