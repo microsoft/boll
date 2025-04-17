@@ -850,17 +850,6 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
-"@boll/cli@2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@boll/cli/-/cli-2.3.1.tgz#4878ef4f6a56d018da72133ab243ee23527a9910"
-  integrity sha512-lSmvk8F1BFdTRPK3Bj6oL7H/dtcZurOhebhlFkk/BzZKO+HdlShxLDxvPteuX/U4R57swoRR6gaDJOS9z8cvFw==
-  dependencies:
-    "@boll/core" "3.2.0"
-    argparse "^1.0.10"
-    fast-glob "^3.2.4"
-    typescript "^4.9.4"
-    yaml "^1.10.0"
-
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.4.3.tgz#9e42981ef035beb3dd49add17acb96e8ff6f394c"
@@ -7352,9 +7341,9 @@ pretty-time@^1.1.0:
   integrity sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==
 
 prismjs@^1.13.0:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
-  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.30.0.tgz#d9709969d9d4e16403f6f348c63553b19f0975a9"
+  integrity sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
