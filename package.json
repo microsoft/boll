@@ -16,12 +16,12 @@
     "clean": "lage clean",
     "docs": "lage docs",
     "format": "./node_modules/.bin/prettier --write './**/src/**/*'",
-    "lint": "./node_modules/.bin/prettier --check './**/src/**/*'",
     "release": "beachball publish",
     "test": "lage run test"
   },
   "devDependencies": {
     "@types/baretest": "^2.0.0",
+    "@types/node": "^16.0.0",
     "baretest": "^2.0.0",
     "beachball": "^2.51.0",
     "lage": "^2.0.0",

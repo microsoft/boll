@@ -27,7 +27,7 @@
     "graceful-fs": "4.2.4",
     "parse-gitignore": "^1.0.1",
     "typescript": "^4.9.4",
-    "workspace-tools": "^0.29.1",
+    "workspace-tools": "^0.38.0",
     "yaml": "^1.10.0"
   },
   "devDependencies": {

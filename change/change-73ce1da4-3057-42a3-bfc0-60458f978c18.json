@@ -1,0 +1,53 @@
+{
+  "changes": [
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/cli",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017, and update workspace-tools to ^0.38.0",
+      "packageName": "@boll/core",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/recommended",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/rules-core",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/rules-external-tools",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/rules-monorepo",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    },
+    {
+      "type": "minor",
+      "comment": "Transpile to es2017",
+      "packageName": "@boll/rules-typescript",
+      "email": "elcraig@microsoft.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}
