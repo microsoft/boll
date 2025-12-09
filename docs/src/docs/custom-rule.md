@@ -17,18 +17,20 @@ there's no need to search for any files. We can simply return a resolved promise
 "use strict";
 
 const prettierRcLocator = {
-    findFiles: () => {
-        return new Promise((resolve) => {
-            resolve(['.prettierrc']);
-        });
-    }
-}
+  findFiles: () => {
+    return new Promise(resolve => {
+      resolve([".prettierrc"]);
+    });
+  }
+};
 
 module.exports = {
-    ruleSets: [{
-        fileLocator: prettierRcLocator,
-        checks: []
-    }]
+  ruleSets: [
+    {
+      fileLocator: prettierRcLocator,
+      checks: []
+    }
+  ]
 };
 ```
 
@@ -45,22 +47,23 @@ The name is used when printing errors, so should be a unique and descriptive lab
 The check method will be passed 1 [`FileContext`](../api/core/classes/filecontext) object at a time, and must return a promise that resolves to a list of `Result` objects ([`Success`](../api/core/classes/success) and [`Failure`](../api/core/classes/failure) being the most common).
 
 ```js
-const { Success, Failure } = require('@boll/core');
+const { Success, Failure } = require("@boll/core");
 
 const prettierRcSingleQuoteChecker = {
-    name: "PrettierRcSingleQuoteChecker",
-    check: (file) => {
-        return new Promise((resolve) => {
-            const contents = JSON.parse(file.content);
-            if(contents.singleQuote) {
-                resolve([new Success()]);
-            }
-            else {
-                resolve([new Failure("PrettierRcSingleQuoteChecker", file.filename, 0, "Expected singleQuote to be true, but wasn't!")]);
-            }
-        });
-    }
-}
+  name: "PrettierRcSingleQuoteChecker",
+  check: file => {
+    return new Promise(resolve => {
+      const contents = JSON.parse(file.content);
+      if (contents.singleQuote) {
+        resolve([new Success()]);
+      } else {
+        resolve([
+          new Failure("PrettierRcSingleQuoteChecker", file.filename, 0, "Expected singleQuote to be true, but wasn't!")
+        ]);
+      }
+    });
+  }
+};
 ```
 
 ### Register the rule
@@ -90,38 +93,41 @@ With the locator and check in place, we just need to mention the rule inside the
 ```js
 "use strict";
 
-const { RuleRegistryInstance, Success, Failure } = require('@boll/core');
+const { RuleRegistryInstance, Success, Failure } = require("@boll/core");
 
 const prettierRcSingleQuoteChecker = {
-    name: "PrettierRcSingleQuoteChecker",
-    check: (file) => {
-        return new Promise((resolve) => {
-            const contents = JSON.parse(file.content);
-            if(contents.singleQuote) {
-                resolve([new Success()]);
-            }
-            else {
-                resolve([new Failure("PrettierRcSingleQuoteChecker", file.filename, 0, "Expected singleQuote to be true, but wasn't!")]);
-            }
-        });
-    }
+  name: "PrettierRcSingleQuoteChecker",
+  check: file => {
+    return new Promise(resolve => {
+      const contents = JSON.parse(file.content);
+      if (contents.singleQuote) {
+        resolve([new Success()]);
+      } else {
+        resolve([
+          new Failure("PrettierRcSingleQuoteChecker", file.filename, 0, "Expected singleQuote to be true, but wasn't!")
+        ]);
+      }
+    });
+  }
 };
 
 const prettierRcLocator = {
-    findFiles: () => {
-        return new Promise((resolve) => {
-            resolve(['.prettierrc']);
-        });
-    }
-}
+  findFiles: () => {
+    return new Promise(resolve => {
+      resolve([".prettierrc"]);
+    });
+  }
+};
 
 RuleRegistryInstance.register("PrettierRcSingleQuoteChecker", () => prettierRcSingleQuoteChecker);
 
 module.exports = {
-    ruleSets: [{
-        fileLocator: prettierRcLocator,
-        checks: [{rule: "PrettierRcSingleQuoteChecker"}]
-    }]
+  ruleSets: [
+    {
+      fileLocator: prettierRcLocator,
+      checks: [{ rule: "PrettierRcSingleQuoteChecker" }]
+    }
+  ]
 };
 ```
 
@@ -140,6 +146,7 @@ Now, running with an incorrect `.prettierrc`:
 ```
 
 However, after fixing:
+
 ```json
 {
   "singleQuote": true

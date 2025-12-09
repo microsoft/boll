@@ -34,7 +34,7 @@ Wed, 25 Jan 2023 20:39:53 GMT
 
 ### Major changes
 
-- boll v3 updates * new addRule api * refactor to include workspace tools * add a way to autoload rules * upgrade typescript * support external plugin (jcreamer@microsoft.com)
+- boll v3 updates _ new addRule api _ refactor to include workspace tools _ add a way to autoload rules _ upgrade typescript \* support external plugin (jcreamer@microsoft.com)
 
 ## 2.0.0
 

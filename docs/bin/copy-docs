@@ -3,7 +3,7 @@ set -ue
 
 rm -rf src/api
 mkdir -p src/api
-for x in $(find .. -type d -name apidocs); do
+for x in $(find ../packages -type d -name apidocs); do
     cp -rv ${x} src/api/$(basename $(dirname ${x}))
 done
 

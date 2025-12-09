@@ -101,7 +101,10 @@ export class IgnorePattern {
   public isDir: boolean;
   public endsWithAsterisk: boolean;
 
-  constructor(initialPattern: string, public ignoreFile: string) {
+  constructor(
+    initialPattern: string,
+    public ignoreFile: string
+  ) {
     this.isNegated = initialPattern.startsWith("!");
     this.isRelative = initialPattern.slice(0, -1).includes("/");
     this.isDir = initialPattern.endsWith("/");
@@ -131,21 +134,21 @@ export class GlobsForIgnorePattern {
       return ignorePattern.pattern.startsWith("/")
         ? [`.${ignorePattern.pattern}**/*`]
         : ignorePattern.pattern.startsWith("./")
-        ? [`${ignorePattern.pattern}**/*`]
-        : [`./${ignorePattern.pattern}**/*`];
+          ? [`${ignorePattern.pattern}**/*`]
+          : [`./${ignorePattern.pattern}**/*`];
     } else if (ignorePattern.isRelative && !ignorePattern.isDir) {
       if (ignorePattern.endsWithAsterisk) {
         return ignorePattern.pattern.startsWith("/")
           ? [`.${ignorePattern.pattern}`]
           : ignorePattern.pattern.startsWith("./")
-          ? [`${ignorePattern.pattern}`]
-          : [`./${ignorePattern.pattern}`];
+            ? [`${ignorePattern.pattern}`]
+            : [`./${ignorePattern.pattern}`];
       } else {
         return ignorePattern.pattern.startsWith("/")
           ? [`.${ignorePattern.pattern}/**/*`, `.${ignorePattern.pattern}`]
           : ignorePattern.pattern.startsWith("./")
-          ? [`${ignorePattern.pattern}/**/*`, `${ignorePattern.pattern}`]
-          : [`./${ignorePattern.pattern}/**/*`, `./${ignorePattern.pattern}`];
+            ? [`${ignorePattern.pattern}/**/*`, `${ignorePattern.pattern}`]
+            : [`./${ignorePattern.pattern}/**/*`, `./${ignorePattern.pattern}`];
       }
     } else if (!ignorePattern.isRelative && ignorePattern.isDir) {
       return [`./**/${ignorePattern.pattern}**/*`];

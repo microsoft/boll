@@ -3,6 +3,7 @@
   "search.exclude": {
     "**/dist": true,
     "**/.node_modules": true,
-    "**/fixtures": true
+    "**/fixtures": true,
+    "**/.yarn": true
   }
 }

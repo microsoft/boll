@@ -1,2 +1,5 @@
-packages/docs/src
+docs/api
 fixtures
+SECURITY.md
+CHANGELOG.*
+.yarn
