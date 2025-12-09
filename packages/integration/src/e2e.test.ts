@@ -50,8 +50,14 @@ test("should catch an error in monorepo", async () => {
     const suite = await buildSuite(NullLogger);
     const result = await suite.run(NullLogger);
 
-    assert.ok(result.errors[0].formattedMessage.includes("No boll config"));
-    assert.ok(result.errors[1].formattedMessage.includes('No "lint" script found'));
+    assert.ok(
+      result.errors[0].formattedMessage.includes("No boll config"),
+      `actual: ${result.errors[0].formattedMessage}`
+    );
+    assert.ok(
+      result.errors[1].formattedMessage.includes('No "lint" script found'),
+      `actual: ${result.errors[1].formattedMessage}`
+    );
 
     assert.strictEqual(2, result.errors.length);
   });
