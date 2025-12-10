@@ -1,8 +1,16 @@
 # Change Log - @boll/core
 
-<!-- This log was last generated on Thu, 17 Apr 2025 00:27:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 10 Dec 2025 01:12:14 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 3.3.1
+
+Wed, 10 Dec 2025 01:12:14 GMT
+
+### Patches
+
+- Correct homepage link (elcraig@microsoft.com)
 
 ## 3.3.0
 

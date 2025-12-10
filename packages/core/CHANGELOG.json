@@ -2,6 +2,21 @@
   "name": "@boll/core",
   "entries": [
     {
+      "date": "Wed, 10 Dec 2025 01:12:14 GMT",
+      "version": "3.3.1",
+      "tag": "@boll/core_v3.3.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/core",
+            "commit": "22addbd3dce0f2faf6d37f1daebbd8a280989877",
+            "comment": "Correct homepage link"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Apr 2025 00:27:24 GMT",
       "version": "3.3.0",
       "tag": "@boll/core_v3.3.0",

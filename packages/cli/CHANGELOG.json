@@ -2,6 +2,27 @@
   "name": "@boll/cli",
   "entries": [
     {
+      "date": "Wed, 10 Dec 2025 01:12:14 GMT",
+      "version": "2.4.1",
+      "tag": "@boll/cli_v2.4.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/cli",
+            "commit": "22addbd3dce0f2faf6d37f1daebbd8a280989877",
+            "comment": "Correct homepage link"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/cli",
+            "comment": "Bump @boll/core to v3.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Apr 2025 00:27:24 GMT",
       "version": "2.4.0",
       "tag": "@boll/cli_v2.4.0",

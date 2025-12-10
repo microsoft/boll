@@ -1,6 +1,6 @@
 {
   "name": "@boll/rules-monorepo",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "@boll rules for a large monorepo",
   "homepage": "https://microsoft.github.com/boll",
   "bugs": {
@@ -23,7 +23,7 @@
     "test": ""
   },
   "dependencies": {
-    "@boll/core": "3.3.0"
+    "@boll/core": "3.3.1"
   },
   "devDependencies": {
     "@boll/test-internal": "0.0.1"

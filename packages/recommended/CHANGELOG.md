@@ -1,8 +1,21 @@
 # Change Log - @boll/recommended
 
-<!-- This log was last generated on Thu, 17 Apr 2025 00:27:24 GMT and should not be manually modified. -->
+<!-- This log was last generated on Wed, 10 Dec 2025 01:12:14 GMT and should not be manually modified. -->
 
 <!-- Start content -->
+
+## 2.1.1
+
+Wed, 10 Dec 2025 01:12:14 GMT
+
+### Patches
+
+- Correct homepage link (elcraig@microsoft.com)
+- Bump @boll/core to v3.3.1
+- Bump @boll/rules-core to v1.1.1
+- Bump @boll/rules-external-tools to v1.1.1
+- Bump @boll/rules-monorepo to v1.1.1
+- Bump @boll/rules-typescript to v2.1.1
 
 ## 2.1.0
 

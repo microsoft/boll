@@ -2,6 +2,51 @@
   "name": "@boll/recommended",
   "entries": [
     {
+      "date": "Wed, 10 Dec 2025 01:12:14 GMT",
+      "version": "2.1.1",
+      "tag": "@boll/recommended_v2.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/recommended",
+            "commit": "22addbd3dce0f2faf6d37f1daebbd8a280989877",
+            "comment": "Correct homepage link"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/core to v3.3.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-core to v1.1.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-external-tools to v1.1.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-monorepo to v1.1.1",
+            "commit": "not available"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/recommended",
+            "comment": "Bump @boll/rules-typescript to v2.1.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Apr 2025 00:27:24 GMT",
       "version": "2.1.0",
       "tag": "@boll/recommended_v2.1.0",

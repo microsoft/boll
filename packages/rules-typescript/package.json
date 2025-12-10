@@ -1,6 +1,6 @@
 {
   "name": "@boll/rules-typescript",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "@boll rules for typescript source files",
   "homepage": "https://microsoft.github.com/boll",
   "bugs": {
@@ -23,7 +23,7 @@
     "test": "node dist/tests/all.test.js"
   },
   "dependencies": {
-    "@boll/core": "3.3.0",
+    "@boll/core": "3.3.1",
     "typescript": "^4.9.4"
   },
   "devDependencies": {

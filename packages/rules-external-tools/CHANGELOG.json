@@ -2,6 +2,27 @@
   "name": "@boll/rules-external-tools",
   "entries": [
     {
+      "date": "Wed, 10 Dec 2025 01:12:14 GMT",
+      "version": "1.1.1",
+      "tag": "@boll/rules-external-tools_v1.1.1",
+      "comments": {
+        "patch": [
+          {
+            "author": "elcraig@microsoft.com",
+            "package": "@boll/rules-external-tools",
+            "commit": "22addbd3dce0f2faf6d37f1daebbd8a280989877",
+            "comment": "Correct homepage link"
+          },
+          {
+            "author": "beachball",
+            "package": "@boll/rules-external-tools",
+            "comment": "Bump @boll/core to v3.3.1",
+            "commit": "not available"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 17 Apr 2025 00:27:24 GMT",
       "version": "1.1.0",
       "tag": "@boll/rules-external-tools_v1.1.0",
