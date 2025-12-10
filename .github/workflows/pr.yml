@@ -17,15 +17,47 @@ jobs:
 
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4
+
       - name: Set up Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4
         with:
           node-version-file: .nvmrc
+
       - run: yarn --frozen-lockfile
+
       - run: yarn checkchange
+
       - run: yarn format --check
         if: ${{ matrix.os == 'ubuntu-latest' }}
+
       - run: yarn build
+
       - run: yarn test
-      - run: yarn docs
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+
+  # The docs have a separate installation using Node 22 due to needing newer dependencies
+  docs:
+    name: build docs
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4
+        with:
+          node-version-file: docs/.nvmrc
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: yarn --immutable
+
+      # The root should be buildable with Node 22 (just not the other way around)
+      - name: Install root dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Generate API docs
+        run: yarn docs
+
+      - name: Build doc site
+        working-directory: docs
+        run: yarn docs
