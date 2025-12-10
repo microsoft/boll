@@ -16,6 +16,7 @@
     "clean": "lage clean",
     "docs": "lage docs",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "release": "beachball publish",
     "test": "lage run test"
   },
@@ -36,7 +37,8 @@
   },
   "resolutions": {
     "**/@types/glob/@types/minimatch": "^3.0.0",
-    "**/@types/minimatch/minimatch": "^3.0.0"
+    "**/@types/minimatch/minimatch": "^3.0.0",
+    "@types/node": "^16.0.0"
   },
   "rationale": {
     "resolutions": {

@@ -10,7 +10,7 @@ The locator must implement the [`FileGlob`](../api/core/interfaces/fileglob) int
 expose properties `include` and `exclude` (both string arrays) that can be set at runtime based on user configuration.
 It must also expose `findFiles()`, which returns a promise that resolves to a list of filenames.
 
-Since we know the name of the file we want to find and the expected location (`.prettierrc` in the root of the pacakge),
+Since we know the name of the file we want to find and the expected location (`.prettierrc` in the root of the package),
 there's no need to search for any files. We can simply return a resolved promise.
 
 ```js

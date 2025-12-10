@@ -3,3 +3,5 @@ fixtures
 SECURITY.md
 CHANGELOG.*
 .yarn
+.nojekyll
+change

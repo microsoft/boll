@@ -5,20 +5,22 @@
   "description": "boll documentation site",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "build": "vuepress build src --dest dist && nodetouch dist/.nojekyll",
+    "build": "yarn copy-docs && yarn build:docs",
+    "build:docs": "vuepress build src --dest dist",
     "dev": "vuepress dev src",
-    "copy-docs": "./bin/copy-docs",
-    "docs": "yarn copy-docs && yarn build"
+    "copy-docs": "./bin/copy-docs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@types/touch": "^3",
     "@vuepress/bundler-vite": "^2.0.0-rc.26",
+    "@vuepress/plugin-search": "^2.0.0-rc.120",
     "@vuepress/theme-default": "^2.0.0-rc.120",
     "fast-glob": "^3.2.4",
     "sass-embedded": "^1.95.1",
-    "touch": "^3.1.1",
     "vuepress": "^2.0.0-rc.26"
   },
   "packageManager": "yarn@4.12.0"

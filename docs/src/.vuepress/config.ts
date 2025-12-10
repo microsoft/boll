@@ -4,6 +4,7 @@ import glob from "fast-glob";
 import { defineUserConfig } from "vuepress";
 import { viteBundler } from "@vuepress/bundler-vite";
 import { defaultTheme } from "@vuepress/theme-default";
+import { searchPlugin } from "@vuepress/plugin-search";
 
 const { description } = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, "../../package.json"), "utf8"));
 
@@ -23,14 +24,15 @@ export default defineUserConfig({
   base: "/boll/",
   // Extra tags to be injected to the page HTML `<head>`
   head: [
-    ["meta", { name: "theme-color", content: "#3eaf7c" }],
+    ["meta", { name: "theme-color", content: "#e63946" }],
     ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
     ["meta", { name: "apple-mobile-web-app-status-bar-style", content: "black" }]
   ],
 
+  plugins: [searchPlugin()],
+
   theme: defaultTheme({
     repo: "microsoft/boll",
-    docsDir: "",
     editLink: false,
     contributors: false,
     sidebarDepth: 3,
