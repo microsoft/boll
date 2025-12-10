@@ -37,7 +37,6 @@ export default defineUserConfig({
     sidebar: {
       "/docs/": ["", "configuration", "runner", "disabling", "rules", "custom-rule"],
       "/api/": apiFiles
-      // "/": "auto"
     },
     navbar: [
       {
@@ -48,10 +47,6 @@ export default defineUserConfig({
         text: "Documentation",
         link: "/docs/"
       }
-      // {
-      //   text: "boll on GitHub",
-      //   link: "https://github.com/microsoft/boll"
-      // }
     ]
   })
 });
