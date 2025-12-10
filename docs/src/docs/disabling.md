@@ -1,7 +1,7 @@
 # Disabling rules
 
 Any rule can be disabled by adding a comment to a source file. Rule
-names default to those specified in source, but can be overriden by a
+names default to those specified in source, but can be overridden by a
 project's own configuration. Be sure to use the name of the rule in
 the boll output to ensure it is disabled correctly.
 

@@ -1,0 +1,18 @@
+// https://ecosystem.vuejs.press/themes/default/styles.html#style-file
+:root {
+  --vp-c-accent: #e63946;
+  --vp-c-accent-bg: #e63946;
+  --vp-c-accent-hover: #c40000;
+  --vp-c-accent-soft: rgba(230, 57, 70, 0.14);
+  --vp-c-text: #18181a;
+}
+
+[data-theme="dark"] {
+  --vp-c-accent: #ff808a;
+  --vp-c-accent-bg: #ff7272;
+  --vp-c-accent-hover: #e72424;
+}
+
+a.vp-sidebar-item:hover {
+  text-decoration: underline;
+}

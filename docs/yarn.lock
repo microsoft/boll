@@ -45,12 +45,11 @@ __metadata:
   resolution: "@boll/docs@workspace:."
   dependencies:
     "@types/node": "npm:^22.0.0"
-    "@types/touch": "npm:^3"
     "@vuepress/bundler-vite": "npm:^2.0.0-rc.26"
+    "@vuepress/plugin-search": "npm:^2.0.0-rc.120"
     "@vuepress/theme-default": "npm:^2.0.0-rc.120"
     fast-glob: "npm:^3.2.4"
     sass-embedded: "npm:^1.95.1"
-    touch: "npm:^3.1.1"
     vuepress: "npm:^2.0.0-rc.26"
   languageName: unknown
   linkType: soft
@@ -908,15 +907,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/touch@npm:^3":
-  version: 3.1.5
-  resolution: "@types/touch@npm:3.1.5"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/e27a0c97c57a70e27d7517c474d55f9e14a5e682cdf36c352fb14968415e617be38d34a3edde166fd5ecb22dc9ef149fbff25eafab6f941db05203856d042581
-  languageName: node
-  linkType: hard
-
 "@types/unist@npm:*, @types/unist@npm:^3.0.0":
   version: 3.0.3
   resolution: "@types/unist@npm:3.0.3"
@@ -1365,6 +1355,19 @@ __metadata:
   peerDependencies:
     vuepress: 2.0.0-rc.26
   checksum: 10c0/054f59e44b31965f744dec5fbfa4e81505dd44941adbb76d8e888a8cbbcf2b7ae64a807c3a57753bb30a8efb69bc548ddf18d2d5864aa497d869bef2229c503b
+  languageName: node
+  linkType: hard
+
+"@vuepress/plugin-search@npm:^2.0.0-rc.120":
+  version: 2.0.0-rc.120
+  resolution: "@vuepress/plugin-search@npm:2.0.0-rc.120"
+  dependencies:
+    "@vuepress/helper": "npm:2.0.0-rc.120"
+    chokidar: "npm:^4.0.3"
+    vue: "npm:^3.5.25"
+  peerDependencies:
+    vuepress: 2.0.0-rc.26
+  checksum: 10c0/c72da28857e212fe235e15a080b33950142bb5ffcfeed7a1e58059e72259cefa014df3a06e33e318d11ff2a0b8f5e2a6ea2b463bdcda069601890d408c9bdebd
   languageName: node
   linkType: hard
 
@@ -3674,15 +3677,6 @@ __metadata:
   dependencies:
     is-number: "npm:^7.0.0"
   checksum: 10c0/487988b0a19c654ff3e1961b87f471702e708fa8a8dd02a298ef16da7206692e8552a0250e8b3e8759270f62e9d8314616f6da274734d3b558b1fc7b7724e892
-  languageName: node
-  linkType: hard
-
-"touch@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "touch@npm:3.1.1"
-  bin:
-    nodetouch: bin/nodetouch.js
-  checksum: 10c0/d2e4d269a42c846a22a29065b9af0b263de58effc85a1764bb7a2e8fc4b47700e9e2fcbd7eb1f5bffbb7c73d860f93600cef282b93ddac8f0b62321cb498b36e
   languageName: node
   linkType: hard
 
