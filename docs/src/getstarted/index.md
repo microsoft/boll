@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # Getting started with boll
 
 ## Install
@@ -23,7 +19,7 @@ npx boll init
 ```
 
 This command will create a configuration file called `.boll.config.js`
-in your current directory, implementing the recoommended configuration
+in your current directory, implementing the recommended configuration
 by default. It should look like the following.
 
 ```js

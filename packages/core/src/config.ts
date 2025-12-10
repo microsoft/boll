@@ -11,7 +11,11 @@ export class Config {
   private configuration: LoadedConfigDefinition = {};
   private ignoredFiles: IgnoredFiles = new IgnoredFiles({ root: getRepoRoot() });
 
-  constructor(private configRegistry: ConfigRegistry, private ruleRegistry: RuleRegistry, private logger: Logger) {}
+  constructor(
+    private configRegistry: ConfigRegistry,
+    private ruleRegistry: RuleRegistry,
+    private logger: Logger
+  ) {}
 
   async buildSuite(): Promise<Suite> {
     const suite = new Suite();

@@ -21,15 +21,16 @@ const { SrcDetector } = require("@boll/rules-typescript");
 RuleRegistryInstance.register("SrcDetector", () => new SrcDetector());
 
 module.exports = {
-    ruleSets: [{
-        fileLocator: new TypescriptSourceGlob(),
-        checks: [{rule: "SrcDetector"}]
-    }]
+  ruleSets: [
+    {
+      fileLocator: new TypescriptSourceGlob(),
+      checks: [{ rule: "SrcDetector" }]
+    }
+  ]
 };
 ```
 
 `@boll/core` provides several `fileLocator` implementations (see [FileGlob](../api/core/interfaces/fileglob)) out of the box.
-
 
 [Learn how to create rules](custom-rule)
 
@@ -42,20 +43,22 @@ an `extends` key.
 "use strict";
 
 module.exports = {
-    extends: "boll:recommended"
+  extends: "boll:recommended"
 };
 ```
 
 You may also extend from multiple plugins.
+
 ```js
 "use strict";
 
 module.exports = {
-    extends: ["boll:recommended","plugin:check-readme"]
+  extends: ["boll:recommended", "plugin:check-readme"]
 };
 ```
 
 ## Creating a plugin
+
 A plugin is a configuration that can be extended from to provide additional rules. To create a plugin,
 create a module which exports a `bootstrap` function. The plugin's configuration name also has to begin with the prefix `plugin:`.
 
@@ -78,11 +81,11 @@ const readMeConfig = {
 };
 
 function bootstrap() {
-    addRule(ensureReadme);
-    ConfigRegistryInstance.register(readMeConfig);
+  addRule(ensureReadme);
+  ConfigRegistryInstance.register(readMeConfig);
 }
 
 module.exports = {
-    bootstrap
+  bootstrap
 };
 ```

@@ -33,6 +33,8 @@ jobs:
 
       - run: yarn test
 
+      - run: yarn docs
+
       - name: Set git user
         run: |
           git config user.email "kchau@microsoft.com"
@@ -51,3 +53,53 @@ jobs:
         env:
           NPM_AUTHTOKEN: ${{ secrets.NPM_AUTHTOKEN }}
           REPO_PAT: ${{ secrets.REPO_PAT }}
+
+  # The docs have a separate installation using Node 22 due to needing newer dependencies
+  docs:
+    name: build docs
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v4
+        with:
+          node-version-file: docs/.nvmrc
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: yarn --immutable
+
+      # The root should be buildable with Node 22 (just not the other way around)
+      - name: Install root dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Generate API docs
+        run: yarn docs
+
+      - name: Build doc site
+        working-directory: docs
+        run: yarn docs
+
+      - name: Upload site as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: docs/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: docs
+    permissions:
+      # to deploy to Pages
+      pages: write
+      # to verify the deployment originates from an appropriate source
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

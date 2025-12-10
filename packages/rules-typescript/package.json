@@ -2,7 +2,7 @@
   "name": "@boll/rules-typescript",
   "version": "2.1.0",
   "description": "@boll rules for typescript source files",
-  "homepage": "https://github.com/microsoft/boll#readme",
+  "homepage": "https://microsoft.github.com/boll",
   "bugs": {
     "url": "https://github.com/microsoft/boll/issues"
   },

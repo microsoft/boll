@@ -33,7 +33,12 @@ export class Success implements Result {
 }
 
 export class Failure implements Result {
-  constructor(public ruleName: string, public filename: BollFile, public line: BollLineNumber, public text: string) {}
+  constructor(
+    public ruleName: string,
+    public filename: BollFile,
+    public line: BollLineNumber,
+    public text: string
+  ) {}
 
   get status(): ResultStatus {
     return ResultStatus.failure;
