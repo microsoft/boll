@@ -3,24 +3,21 @@
   "version": "0.0.16",
   "private": true,
   "description": "boll documentation site",
+  "type": "module",
   "license": "MIT",
-  "author": "JD Huntington <jdh@microsoft.com>",
   "scripts": {
-    "build": "vuepress build src --dest dist",
+    "build": "vuepress build src --dest dist && nodetouch dist/.nojekyll",
     "dev": "vuepress dev src",
-    "docs": "./bin/copy-docs && vuepress build src --dest dist",
-    "release": "yarn build && yarn upload",
-    "upload": "gh-pages --dist dist --dotfiles"
+    "copy-docs": "./bin/copy-docs",
+    "docs": "yarn copy-docs && yarn build"
   },
   "devDependencies": {
-    "@boll/cli": "*",
-    "@boll/core": "*",
-    "@boll/rules-core": "*",
-    "@boll/rules-external-tools": "*",
-    "@boll/rules-typescript": "*",
+    "@types/node": "^22.0.0",
+    "@vuepress/bundler-vite": "^2.0.0-rc.26",
+    "@vuepress/theme-default": "^2.0.0-rc.120",
     "fast-glob": "^3.2.4",
-    "gh-pages": "^5.0.0",
-    "vuepress": "^1.0.0"
+    "sass-embedded": "^1.95.1",
+    "vuepress": "^2.0.0-rc.26"
   },
   "packageManager": "yarn@4.12.0"
 }

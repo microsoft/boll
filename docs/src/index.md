@@ -1,8 +1,10 @@
 ---
 home: true
 tagline: quickly lint your javascript and typescript packages, ship faster.
-actionText: Get started →
-actionLink: /getstarted/
+actions:
+  - text: Get started →
+    link: /getstarted/
+    type: primary
 features:
   - title: Sensible defaults
     details: Want to make sure your projects aren't taking unexpected dependencies? Standardize on proper `import` behaviors? It's all good to go out of the box.
