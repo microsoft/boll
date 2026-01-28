@@ -37,22 +37,27 @@ jobs:
 
       - name: Set git user
         run: |
-          git config user.email "kchau@microsoft.com"
-          git config user.name "Ken Chau"
+          git config user.email "jcreamer@microsoft.com"
+          git config user.name "Jonathan Creamer"
 
+      # To re-enable releases, create the secrets below in the "release" environment and uncomment
+      # (REPO_PAT must be from a user with "maintainer w/ bypass" perms)
       - name: Release
         run: |
-          # Get the existing remote URL without creds, and use a trap (like try/finally)
-          # to restore it after this step finishes
-          trap "git remote set-url origin '$(git remote get-url origin)'" EXIT
+          echo "Releasing is currently disabled for this repository."
+          exit 1
+        # run: |
+        #   # Get the existing remote URL without creds, and use a trap (like try/finally)
+        #   # to restore it after this step finishes
+        #   trap "git remote set-url origin '$(git remote get-url origin)'" EXIT
 
-          # Add a token to the remote URL for auth during release
-          git remote set-url origin "https://$REPO_PAT@github.com/$GITHUB_REPOSITORY"
+        #   # Add a token to the remote URL for auth during release
+        #   git remote set-url origin "https://$REPO_PAT@github.com/$GITHUB_REPOSITORY"
 
-          yarn release -y -n "$NPM_AUTHTOKEN"
-        env:
-          NPM_AUTHTOKEN: ${{ secrets.NPM_AUTHTOKEN }}
-          REPO_PAT: ${{ secrets.REPO_PAT }}
+        #   yarn release -y -n "$NPM_AUTHTOKEN"
+        # env:
+        #   NPM_AUTHTOKEN: ${{ secrets.NPM_AUTHTOKEN }}
+        #   REPO_PAT: ${{ secrets.REPO_PAT }}
 
   # The docs have a separate installation using Node 22 due to needing newer dependencies
   docs:
