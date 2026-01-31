@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@boll/core": "3.3.1",
-    "eslint": "^7.8.1"
+    "eslint": "^9.26.0"
   },
   "devDependencies": {
     "@boll/test-internal": "0.0.1",
