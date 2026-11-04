@@ -1,5 +1,5 @@
 import fs from "graceful-fs";
-import ts from "typescript";
+import type ts from "typescript";
 import { promisify } from "util";
 import { BollDirectory } from "./boll-directory";
 import { BollFile, asBollFile } from "./boll-file";
@@ -24,7 +24,8 @@ export class FileContext {
 
   get source(): ts.SourceFile {
     if (this._sourceFileLoaded) return this._sourceFile!;
-    this._sourceFile = ts.createSourceFile(this.filename, this.content, ts.ScriptTarget.ES5, true);
+    const compiler: typeof import("typescript") = require("typescript");
+    this._sourceFile = compiler.createSourceFile(this.filename, this.content, compiler.ScriptTarget.ES5, true);
     this._sourceFileLoaded = true;
     return this._sourceFile;
   }

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "type": "patch",
+      "comment": "Defer loading TypeScript until a FileContext source is accessed.",
+      "packageName": "@boll/core",
+      "email": "stuartwilcox@microsoft.com",
+      "dependentChangeType": "patch"
+    }
+  ]
+}
