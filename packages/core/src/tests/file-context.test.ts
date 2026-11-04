@@ -44,7 +44,7 @@ test("should load TypeScript on AST access and cache each context's source", () 
     const source = context.source;
     assert.ok(require.cache[compilerPath]);
     const compiler = require(compilerPath);
-    assert.strictEqual(source.fileName, filename);
+    assert.strictEqual(require("path").normalize(source.fileName), filename);
     assert.strictEqual(source.getFullText(), content);
     assert.strictEqual(source.languageVersion, compiler.ScriptTarget.ES5);
     assert.deepStrictEqual(source.parseDiagnostics, []);
